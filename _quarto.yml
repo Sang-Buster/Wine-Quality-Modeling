@@ -1,0 +1,117 @@
+project:
+  type: website
+
+website:
+  page-navigation: true
+  title: "Wine Quality Modeling"
+  favicon: "asset/img/favico.png"
+  description: "STAT 387 Final Project - Introduction to Statistical Learning, Winter 2023."
+  site-url: "https://sta210-s22.github.io/website/"
+  repo-url: https://github.com/Sang-Buster/Wine-Quality-Modeling
+  open-graph: true
+  page-footer:
+    right: "Powered by [Quarto](https://quarto.org/)."
+    left: "&copy; Copyright 2023, Sing Song"
+  sidebar:
+    logo: "asset/img/logo.svg"
+    pinned: true
+    align: center
+    tools:
+      - icon: github
+        href: https://github.com/Sang-Buster/Wine-Quality-Modeling
+        text: "Repository"
+      - icon: code-square
+        href: https://github.com/Sang-Buster/Wine-Quality-Modeling/blob/main/src/
+        text: "Source Code"
+      - icon: person-fill
+        text: "Author"
+        menu:
+          - text: Alana
+            url: mailto:atauala@pdx.edu
+          - text: Leif
+            url: mailto:leif8@pdx.edu
+          - text: Sang
+            url: mailto:sxing@pdx.edu
+
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: "Preamble"
+      - href: src/analysis.qmd
+        text: "Exploratory Analysis"
+      - section: "Dta Modeling"
+        contents:
+          - href: src/knn.qmd
+            text: "K-Nearest Neighbor"
+          - href: src/logit.qmd
+            text: "Logistic Regression"
+          - href: src/lda.qmd
+            text: "Linear Discriminant Analysis"
+          - href: src/qda.qmd
+            text: "Quadratic Discriminant Analysis"
+      - section: "Futhuer Exploration"
+        contents:
+          - href: src/mr.qmd
+            text: "Multi Regression"
+          - href: src/naiveBayes.qmd
+            text: "Naive Bayes"
+          - section: "Decision Tree"
+            contents:
+              - href: src/classTree.qmd
+                text: "Classification Tree"
+              - href: src/regTree.qmd
+                text: "Regression Tree"
+              - href: src/decisionTree.qmd
+                text: "Decision Tree"
+              - href: src/cart.qmd
+                text: "Classification and Regression Trees (CART)"
+          - href: src/randomForest-class.qmd
+            text: "Random Forest - Classification"
+          - href: src/randomForest-reg.qmd
+            text: "Random Forest - Regression"
+          - href: src/bagging.qmd
+            text: "Bagging"
+          - href: src/boosting.qmd
+            text: "Boosting"
+          - href: src/svm.qmd
+            text: "Support Vector Machine"
+
+format:
+  html:
+    grid:
+      sidebar-width: 300px
+      body-width: 900px
+      margin-width: 300px
+      gutter-width: 1.5rem
+    theme:
+      light: [materia, asset/css/theme.scss]
+      dark: [slate, asset/css/theme-dark.scss]
+    mainfont: "Times New Roman"
+    code-copy: true
+    code-fold: true
+    code-line-numbers: true
+    code-overflow: scroll
+    code-tools:
+      source: true
+      toggle: true
+      caption: none
+    code-summary: "Show/Hide Code"
+    highlight-style: atom-one
+    toc: true
+    toc-depth: 4
+    number-sections: false
+    number-depth: 3
+    anchor-sections: true
+    smooth-scroll: true
+    toc-title: Table of Contents
+    link-external-filter: '^(?:http:|https:)\/\/www\.quarto\.org\/custom'
+    self-contained-math: true
+    fig-align: center
+    html-math-method:
+      method: mathjax
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+
+execute:
+  freeze: auto

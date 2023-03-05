@@ -1,0 +1,128 @@
+---
+title: "Introduction to Statistical Learning"
+subtitle: "STAT 387"
+fig-align: center
+---
+
+## Preamble
+
+Welcome 👋! This is Group 6's Final Project, and here is our detailed work
+
+Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality ≥ 7 axnd the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
+
+[^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
+
+### Problem Statements
+
+Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using `caret` package with seed set to 1234 before each computation.
+
+(a) Fit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.
+(b) Repeat (a) using logistic regression.
+(c) Repeat (a) using LDA.
+(d) Repeat (a) using QDA.
+(e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.
+
+### Methodologies
+
+-   KNN
+-   GLM/logit/glmnet
+-   LDA
+-   QDA
+-   Regression/Multi-Regression
+-   Naive Bayes
+-   Decision Tree
+-   Classification Tree
+-   Regression Tree
+-   Classification and Regression Trees (CART)
+-   Iterative Dichotomiser 3 (ID3)
+-   C4.5
+-   Random Forest
+-   Classification
+-   Regression
+-   Bagged
+-   Boosted
+-   Gradient Boosted Trees (GBT)
+-   Extremely Randomized Trees (ExtraTrees)
+-   SVM
+
+### Data Description
+
+This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:
+
+-   `fixed.acidity`: The amount of fixed acid in the wine ($g/dm^3$)
+-   `volatile.acidity`: The amount of volatile acid in the wine ($g/dm^4$)
+-   `citric.acid`: The amount of citric acid in the wine ($g/dm^3$)
+-   `residual.sugar`: The amount of residual sugar in the wine ($g/dm^3$)
+-   `chlorides`: The amount of salt in the wine ($g/dm^3$)
+-   `free.sulfur.dioxide`: The amount of free sulfur dioxide in the wine ($mg/dm^3$)
+-   `total.sulfur.dioxide`: The amount of total sulfur dioxide in the wine ($mg/dm^3$)
+-   `density`: The density of the wine ($g/dm^3$)
+-   `pH`: The $pH$ value of the wine
+-   `sulphates`: The amount of sulphates in the wine ($g/dm^3$)
+-   `alcohol`: The alcohol content of the wine ($\% vol$)
+-   `quality`: The quality score of the wine ($0-10$)
+
+After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus `quality` column variable, and introduced a new variable `good` as our response:
+
+-   `good`: A binary variable indicating whether the wine is good (`quality` $\geq 7$) or not (`quality` $<7$).
+
+```{r knn.kfoldCV, eval=FALSE, fig.show='hide'}
+# Import model
+load("dataset\\knn.model_kfoldCV.Rdata")
+
+# Make predictions on the test data using the trained model and calculate the test error rate
+knn.predictions <- predict(knn_model, newdata = test)
+
+confusionMatrix(knn.predictions, test$good)
+
+
+# Convert predictions to a numeric vector
+knn.predictions <- as.numeric(knn.predictions)
+
+# Calculate the AUC using the performance() and auc() functions:
+pred_obj <- prediction(knn.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+# Performance plot for TP and FP
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from K-fold CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+knn.kfoldCV.ROC.plot<- recordPlot()
+
+# Accuracy and Kappa value plot
+knn.accu.kappa.plot <- function(knn.model) {
+  p <- ggplot(data=data.frame(k = knn.model$results$k,
+                              Accuracy = knn.model$results$Accuracy,
+                              Kappa = knn.model$results$Kappa)) +
+    geom_point(aes(x = k, y = Accuracy, color = "Accuracy")) +
+    geom_point(aes(x = k, y = Kappa, color = "Kappa")) +
+    geom_line(aes(x = k, y = Accuracy, linetype = "Accuracy", color = "Accuracy")) +
+    geom_line(aes(x = k, y = Kappa, linetype = "Kappa", color = "Kappa")) +
+    scale_color_manual(values = c("#98c379", "#e06c75"),
+                       guide = guide_legend(override.aes = list(linetype = c(1, 0)) )) +
+    scale_linetype_manual(values=c("solid", "dotted"),
+                          guide = guide_legend(override.aes = list(color = c("#98c379", "#e06c75")))) +
+    labs(x = "K value", 
+         y = "Accuracy / Kappa") +
+    ylim(0, 1) +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    guides(color = guide_legend(title = "Metric"),
+           linetype = guide_legend(title = "Metric"))
+  return(p)
+}
+
+knn.kfoldCV.plot <- knn.accu.kappa.plot(knn_model) + 
+  geom_text(aes(x = k, y = Accuracy, label = round(Accuracy, 3)), vjust = -1) +
+  geom_text(aes(x = k, y = Kappa, label = round(Kappa, 3)), vjust = -1) +
+  ggtitle("KNN Model Performance (10-Fold CV)")
+```
+
+### Reference

@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+
+// Base document colors
+$body-bg: #282c34;
+$body-color: #abb2bf;
+$link-color: #61afef;
+$code-color: #61afef;
+
+// Navigation element colors
+$footer-bg: #282c34;
+$navbar-bg: #282c34;
+$sidebar-bg: #2E3440;
+$input-bg:#2E3440;
+
+// Code blocks
+$code-block-bg-alpha: -.8;
+
+// Bootstrap popovers
+$popover-bg: #282c34;
+
+// Bootstrap inputs
+svg.aa-SubmitIcon{
+  color: #fff!important;
+}
+
+.aa-Autocomplete .aa-Form, .aa-DetachedFormContainer .aa-Form{
+  border: 1px solid #abb2bf!important;
+}
+
+div.sourceCode{
+border: 1px solid #abb2bf!important;
+}
+
+.dropdown-menu.show{
+font-size: 14px;
+background: #282c34;
+}
