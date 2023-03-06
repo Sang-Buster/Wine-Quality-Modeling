@@ -1,4 +1,4 @@
-<h1 align="center">Introduction to Statistical Learning</h1>
+<h1 align="center">Supervised Leaning Models for UCI Machine Learning Wine Quality Data</h1>
 <p align="center"><b>#K-nearest neighbor algorithm  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis &emsp; #Quadratic Discriminant Analysis</b></p>
 
 <p align="center">
