@@ -53,3 +53,7 @@ background: #fff;
 .quarto-secondary-nav button.quarto-search-button{
   all: initial;
 }
+
+.aa-Autocomplete .aa-Form:focus-within, .aa-DetachedFormContainer .aa-Form:focus-within{
+  box-shadow: none!important;  
+}
