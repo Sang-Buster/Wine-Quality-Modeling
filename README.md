@@ -32,6 +32,22 @@ Which of the following classifiers would you recommend? Justify your answer.
  ┃ ┣ 📂dataset
  ┃ ┃ ┣ 📂model
  ┃ ┃ ┣ 📂plot
+ ┃ ┣ 📄analysis.qmd
+ ┃ ┣ 📄bagging.qmd
+ ┃ ┣ 📄boosting.qmd
+ ┃ ┣ 📄cart.qmd
+ ┃ ┣ 📄classTree.qmd
+ ┃ ┣ 📄decisionTree.qmd
+ ┃ ┣ 📄knn.qmd
+ ┃ ┣ 📄lda.qmd
+ ┃ ┣ 📄logit.qmd
+ ┃ ┣ 📄mr.qmd
+ ┃ ┣ 📄naiveBayes.qmd
+ ┃ ┣ 📄qda.qmd
+ ┃ ┣ 📄randomForest-class.qmd
+ ┃ ┣ 📄randomForest-reg.qmd
+ ┃ ┣ 📄regTree.qmd
+ ┃ ┗ 📄svm.qmd
  ┣ 📄.gitignore
  ┣ 📄index.html
  ┣ 📄LICENSE
