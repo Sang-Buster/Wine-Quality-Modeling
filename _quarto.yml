@@ -6,8 +6,9 @@ website:
   title: "Wine Quality Modeling"
   favicon: "asset/img/favicon.png"
   description: "STAT 387 Final Project - Introduction to Statistical Learning, Winter 2023."
-  site-url: "https://sta210-s22.github.io/website/"
+  site-url: "https://wine-quality-modeling.vercel.app/"
   repo-url: https://github.com/Sang-Buster/Wine-Quality-Modeling
+  repo-actions: [edit, issue]
   open-graph: true
   page-footer:
     right: "Powered by [Quarto](https://quarto.org/)."
