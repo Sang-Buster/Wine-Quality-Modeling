@@ -52,7 +52,7 @@ website:
             text: "Linear Discriminant Analysis"
           - href: src/qda.qmd
             text: "Quadratic Discriminant Analysis"
-      - section: "Futhuer Exploration"
+      - section: "Further Modeling"
         contents:
           - href: src/mr.qmd
             text: "Multi Regression"
