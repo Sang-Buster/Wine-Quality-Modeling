@@ -11,8 +11,8 @@ website:
   repo-actions: [edit, issue]
   open-graph: true
   page-footer:
-    right: "Powered by [Quarto](https://quarto.org/)."
-    left: "&copy; Copyright 2023, Sing Song"
+    left: "Copyright &copy; Sing Song"
+    right: "[License](https://creativecommons.org/licenses/)"
   sidebar:
     logo: "asset/img/logo.svg"
     pinned: true
@@ -21,10 +21,7 @@ website:
       - icon: github
         href: https://github.com/Sang-Buster/Wine-Quality-Modeling
         text: "Repository"
-      - icon: code-square
-        href: https://github.com/Sang-Buster/Wine-Quality-Modeling/blob/main/src/
-        text: "Source Code"
-      - icon: person-fill
+      - icon: person
         text: "Author"
         menu:
           - text: Alana
@@ -33,7 +30,10 @@ website:
             url: mailto:leif8@pdx.edu
           - text: Sang
             url: mailto:sxing@pdx.edu
-
+      - icon: code-square
+        href: https://github.com/Sang-Buster/Wine-Quality-Modeling/blob/main/src/
+        text: "Source Code"
+        
     style: "docked"
     search: true
     collapse-level: 2

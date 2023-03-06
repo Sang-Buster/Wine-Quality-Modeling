@@ -31,7 +31,32 @@ div.sourceCode{
 border: 1px solid #abb2bf!important;
 }
 
-.dropdown-menu.show{
-font-size: 14px;
-background: #282c34;
+ul.dropdown-menu.show{
+  font-size: 14px;
+  border-color: #abb2bf!important;
+  background: #2E3440!important;
+}
+
+ul.dropdown-menu-end.show{
+  font-size: 14px;
+  border-color: #abb2bf!important;
+  background: #282c34!important;
+}
+
+#quarto-code-tools-menu{
+  border-color: #abb2bf!important;
+}
+
+
+input#autocomplete-0-input{
+  color: #abb2bf;
+}
+
+input{
+  caret-color: #abb2bf;
+}
+
+.dropdown-item:hover, .dropdown-item:focus{
+  background-image: none!important;
+  background-color: #3B4252!important;
 }

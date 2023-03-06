@@ -1,14 +1,13 @@
 ---
 title: "Introduction to Statistical Learning"
 subtitle: "STAT 387"
-fig-align: center
 ---
 
 ## Preamble
 
 Welcome 👋! This is Group 6's Final Project, and here is our detailed work
 
-Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality ≥ 7 axnd the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
+Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality $\geq$ 7 axnd the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
 
 [^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
@@ -62,9 +61,9 @@ This is a dataset of wine quality containing 4898 observations of 12 variables. 
 -   `pH`: The $pH$ value of the wine
 -   `sulphates`: The amount of sulphates in the wine ($g/dm^3$)
 -   `alcohol`: The alcohol content of the wine ($\% vol$)
--   `quality`: The quality score of the wine ($0-10$)
+-   `quality`: The quality score of the wine (0-10)
 
 After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus `quality` column variable, and introduced a new variable `good` as our response:
 
--   `good`: A binary variable indicating whether the wine is good (`quality` $\geq 7$) or not (`quality` $<7$).
+-   `good`: A binary variable indicating whether the wine is good (`quality` $\geq$ 7) or not (`quality` $<$ 7).
 

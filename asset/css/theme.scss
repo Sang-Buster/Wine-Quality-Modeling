@@ -7,6 +7,8 @@ text-align: center;
 }
 
 $link-color: #61AFEF;
+
+$font-size-root: 1em;
 $h1-font-size: 1.5em;
 $h2-font-size: 1.25em;
 $h3-font-size: 1em;
@@ -29,3 +31,26 @@ $code-color: #61AFEF;
 font-size: 14px;
 background: #fff;
 }
+
+.nav-footer-left{
+  display: flex!important;
+  min-height: 3.5em!important;
+  align-items: center!important;
+}
+
+.nav-footer-right{
+  vertical-align: center!important;
+}
+
+.nav-footer{
+  padding-bottom: 0rem!important;
+}
+
+.bi-person::before{
+  font-size: 20px;
+}
+
+.quarto-secondary-nav button.quarto-search-button{
+  all: initial;
+}
+
