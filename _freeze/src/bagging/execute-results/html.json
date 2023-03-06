@@ -1,0 +1,14 @@
+{
+  "hash": "19ec38c6679006ae334a18ebbf6db00f",
+  "result": {
+    "markdown": "---\ntitle: \"Bagging\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

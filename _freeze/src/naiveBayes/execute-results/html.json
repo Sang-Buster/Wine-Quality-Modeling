@@ -1,0 +1,14 @@
+{
+  "hash": "13dee951df259aecd277fb8d0a0afb84",
+  "result": {
+    "markdown": "---\ntitle: \"Naive Bayed\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

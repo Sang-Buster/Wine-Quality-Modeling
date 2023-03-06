@@ -1,0 +1,14 @@
+{
+  "hash": "748686a797e0de4e21f1b675db40bdcb",
+  "result": {
+    "markdown": "---\ntitle: \"Classification and Regression Tree (CART)\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

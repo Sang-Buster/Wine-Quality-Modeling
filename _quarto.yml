@@ -91,7 +91,7 @@ format:
     mainfont: "Times New Roman"
     code-copy: true
     code-fold: true
-    code-line-numbers: true
+    code-line-numbers: false
     code-overflow: scroll
     code-tools:
       source: true

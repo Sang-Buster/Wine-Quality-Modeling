@@ -1,0 +1,161 @@
+---
+title: "Linear Discriminant Analysis"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)  # Load core packages: 
+# ggplot2,   for data visualization.
+# dplyr,     for data manipulation.
+# tidyr,     for data tidying.
+# purrr,     for functional programming.
+# tibble,    for tibbles, a modern re-imagining of data frames.
+# stringr,   for strings.
+# forcats,   for factors.
+# lubridate, for date/times.
+# readr,     for reading .csv, .tsv, and .fwf files.
+# readxl,    for reading .xls, and .xlxs files.
+# feather,   for sharing with Python and other languages.
+# haven,     for SPSS, SAS and Stata files.
+# httr,      for web apis.
+# jsonlite   for JSON.
+# rvest,     for web scraping.
+# xml2,      for XML.
+# modelr,    for modelling within a pipeline
+# broom,     for turning models into tidy data
+# hms,       for times.
+
+library(magrittr)   # Pipeline operator
+library(lobstr)     # Visualizing abstract syntax trees, stack trees, and object sizes
+library(pander)     # Exporting/converting complex pandoc documents, EX: df to Pandoc table
+library(ggforce)    # More plot functions on top of ggplot2
+library(ggpubr)     # Automatically add p-values and significance levels  plots. 
+# Arrange and annotate multiple plots on the same page. 
+# Change graphical parameters such as colors and labels.
+library(sf)         # Geo-spatial vector manipulation: points, lines, polygons
+library(kableExtra) # Generate 90 % of complex/advanced/self-customized/beautiful tables
+library(cowplot)    # Multiple plots arrangement
+library(gridExtra)  # Multiple plots arrangement
+library(animation)  # Animated figure container
+library(latex2exp)  # Latex axis titles in ggplot2
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 slope parameters
+library(plotly)     # User interactive plots
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 regressors
+library(olsrr)      # Model selections 
+library(leaps)      # Regression subsetting 
+library(pls)        # Partial Least squares
+library(MASS)       # LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.
+library(e1071)      # Naive Bayesian Classfier,SVM, GKNN, ICA, LCA
+library(class)      # KNN, SOM, LVQ
+library(ROCR)       # Precision/Recall/Sensitivity/Specificity performance plot 
+library(boot)       # LOOCV, Bootstrap,
+library(caret)      # Classification/Regression Training, run ?caret::trainControl
+library(corrgram)   # for correlation matrix
+library(corrplot)   # for graphical display of correlation matrix
+
+set.seed(1234)        # make random results reproducible
+
+current_dir <- getwd()
+
+if (!is.null(current_dir)) {
+  setwd(current_dir)
+  remove(current_dir)
+}
+```
+
+
+## Model Construction
+```{r qda.model_savings, eval=FALSE}
+#------------#
+#----QDA-----#
+#------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+qda_model <- train(good ~ ., 
+                   data = train, 
+                   method = "qda", 
+                   trControl = train_control)
+
+save(qda_model, file = "dataset\\qda.model_kfoldCV.Rdata")
+
+#------------------#
+#----QDA (Mod)-----#
+#------------------#
+
+```
+
+## K-fold CV
+```{r qda.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\qda.model_kfoldCV.Rdata")
+
+qda.predictions <- predict(qda_model, newdata = test)
+
+confusionMatrix(qda.predictions, test$good)
+
+
+qda.predictions <- as.numeric(qda.predictions)
+pred_obj <- prediction(qda.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+qda.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r qda.kfoldCV_mod, fig.show='hide'}
+
+```
+
+| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
+| ----------------- | ---------- | ----------- | ----------- | --------- |
+| QDA               | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
+| QDA (Tuned)       | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+
+
+## Summary
+```{r, echo=FALSE}
+load("dataset\\plot\\knn.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\logit.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\lda.kfoldCV.ROC.plot.Rdata")
+```
+
+```{r log.lda.qda.ROC_curve, fig.width=10, fig.height=10}
+cowplot::plot_grid(knn.kfoldCV.ROC.plot,
+                   logit.kfoldCV.ROC.plot,
+                   lda.kfoldCV.ROC.plot,
+                   qda.kfoldCV.ROC.plot, 
+                   ncol = 2, align = "hv", scale = 0.8)
+```
+
+
+| Resampling Method           | Error Rate | Sensitivity | Specificity | AUC       |
+| --------------------------- | ---------- | ----------- | ----------- | --------- |
+| Logistic Regression         | 0.1944     | 0.9347      | 0.2929      | 0.6137776 |
+| Logistic Regression (Tuned) | 0.1919     | 0.98946     | 0.08787     | 0.5386644 |
+|                             |            |             |             |           |
+| LDA                         | 0.1919     | 0.9283      | 0.3305      | 0.6294448 |
+| LDA (Tuned)                 | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+|                             |            |             |             |           |
+| QDA                         | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
+| QDA (Tuned)                 | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+
+```{r, echo=FALSE}
+save(qda.kfoldCV.ROC.plot, file = "dataset\\plot\\qda.kfoldCV.ROC.plot.Rdata")
+```
+

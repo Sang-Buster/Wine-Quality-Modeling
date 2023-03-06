@@ -1,0 +1,14 @@
+{
+  "hash": "e397b62cca1ac7c7cc3008e161c2f90f",
+  "result": {
+    "markdown": "---\ntitle: \"Regression Tree\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

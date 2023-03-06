@@ -1,0 +1,14 @@
+{
+  "hash": "dc691c9799fd73d09abdf932a77105fc",
+  "result": {
+    "markdown": "---\ntitle: \"Decision Tree\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

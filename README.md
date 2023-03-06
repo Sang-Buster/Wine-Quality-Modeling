@@ -1,5 +1,4 @@
 <h1 align="center">Introduction to Statistical Learning</h1>
-<h6 align="center"><small>STAT 387 | Final Project | Winter 2023</small></h6>
 <p align="center"><b>#K-nearest neighbor algorithm  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis &emsp; #Quadratic Discriminant Analysis</b></p>
 
 <p align="center">
@@ -23,30 +22,22 @@ Which of the following classifiers would you recommend? Justify your answer.
 <h2 align="center">File Tree</h2>
 
 ```
-📦STAT 387 Final Project
- ┣ 📂README.asset                   // Raw Assets for README 
- ┣ 📂lib                            // Supplementary Materials
- ┃ ┣ 📂img
- ┃ ┣ 📄paper.pdf
- ┃ ┣ 📄report.pdf
- ┃ ┗ 📄report.rmd
- ┣ 📂src                            // Source Code
- ┃ ┣ 📂data                         // Raw Data
- ┃ ┃ ┣ 📄winequality-white.csv
- ┃ ┃ ┗ 📄winequality.names
- ┃ ┣ 📄Step.1_KNN.R
- ┃ ┣ 📄Step.2_Logit.R
- ┃ ┣ 📄Step.3_LDA.R
- ┃ ┣ 📄Step.4_QDA.R
- ┃ ┗ 📄Step.99_Complete_Code.R
- ┣ 📂usr                            // Member Contributions
- ┃ ┣ 📂Alana
- ┃ ┣ 📂Leif
- ┃ ┗ 📂Sang
- ┃ ┗ 📂web   
- ┣ 📂web                            // Repository Website
+📦Wine-Quality-Modeling
+ ┣ 📂_freeze
+ ┣ 📂_site              // Repository Website
+ ┣ 📂asset              // Website Assets
+ ┃ ┣ 📂css
+ ┃ ┗ 📂img
+ ┣ 📂src                // Source Code
+ ┃ ┣ 📂dataset
+ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┣ 📂plot
  ┣ 📄.gitignore
- ┗ 📄README.md
+ ┣ 📄index.html
+ ┣ 📄LICENSE
+ ┣ 📄README.md
+ ┣ 📄index.qmd
+ ┗ 📄_quarto.yml
 ```
 
 <p align="right">

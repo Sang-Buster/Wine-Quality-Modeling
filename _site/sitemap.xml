@@ -2,70 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sta210-s22.github.io/website/index.html</loc>
-    <lastmod>2023-03-05T23:12:09.510Z</lastmod>
+    <lastmod>2023-03-06T01:10:15.956Z</lastmod>
   </url>
   <url>
-    <loc>https://sta210-s22.github.io/website/LICENSE.html</loc>
-    <lastmod>2023-03-05T22:56:33.679Z</lastmod>
+    <loc>https://sta210-s22.github.io/website/src/analysis.html</loc>
+    <lastmod>2023-03-06T01:10:17.291Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/bagging.html</loc>
-    <lastmod>2023-03-05T22:56:34.514Z</lastmod>
+    <lastmod>2023-03-06T01:10:18.316Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/boosting.html</loc>
-    <lastmod>2023-03-05T22:56:35.453Z</lastmod>
+    <lastmod>2023-03-06T01:10:19.095Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/cart.html</loc>
-    <lastmod>2023-03-05T22:56:36.425Z</lastmod>
+    <lastmod>2023-03-06T01:10:20.074Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/classTree.html</loc>
-    <lastmod>2023-03-05T22:56:37.277Z</lastmod>
+    <lastmod>2023-03-06T01:10:21.395Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/decisionTree.html</loc>
-    <lastmod>2023-03-05T22:56:38.329Z</lastmod>
+    <lastmod>2023-03-06T01:10:22.554Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/knn.html</loc>
-    <lastmod>2023-03-05T23:02:27.989Z</lastmod>
+    <lastmod>2023-03-06T01:10:25.122Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/lda.html</loc>
-    <lastmod>2023-03-05T22:56:40.075Z</lastmod>
+    <lastmod>2023-03-06T01:10:26.495Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/logit.html</loc>
-    <lastmod>2023-03-05T22:56:41.145Z</lastmod>
+    <lastmod>2023-03-06T01:10:27.854Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/mr.html</loc>
-    <lastmod>2023-03-05T22:56:41.989Z</lastmod>
+    <lastmod>2023-03-06T01:10:29.200Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/naiveBayes.html</loc>
-    <lastmod>2023-03-05T22:56:42.986Z</lastmod>
+    <lastmod>2023-03-06T01:10:30.118Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/qda.html</loc>
-    <lastmod>2023-03-05T22:56:43.903Z</lastmod>
+    <lastmod>2023-03-06T01:10:31.816Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/randomForest-class.html</loc>
-    <lastmod>2023-03-05T22:56:44.681Z</lastmod>
+    <lastmod>2023-03-06T01:10:32.658Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/randomForest-reg.html</loc>
-    <lastmod>2023-03-05T22:56:45.729Z</lastmod>
+    <lastmod>2023-03-06T01:10:33.861Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/regTree.html</loc>
-    <lastmod>2023-03-05T22:56:46.530Z</lastmod>
+    <lastmod>2023-03-06T01:10:35.176Z</lastmod>
   </url>
   <url>
     <loc>https://sta210-s22.github.io/website/src/svm.html</loc>
-    <lastmod>2023-03-05T22:56:47.381Z</lastmod>
+    <lastmod>2023-03-06T01:10:36.500Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,14 @@
+{
+  "hash": "790731b18768fcce991db6a3859e9a8b",
+  "result": {
+    "markdown": "---\ntitle: \"Support Vectir Machine (SVM)\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

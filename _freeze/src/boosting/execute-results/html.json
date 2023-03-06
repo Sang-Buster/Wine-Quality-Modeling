@@ -1,0 +1,14 @@
+{
+  "hash": "a398fdcd7f05f648d4a5a93b4a304343",
+  "result": {
+    "markdown": "---\ntitle: \"Boosting\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

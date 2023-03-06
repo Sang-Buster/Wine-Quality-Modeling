@@ -1,0 +1,161 @@
+---
+title: "Logistic Regression"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)  # Load core packages: 
+# ggplot2,   for data visualization.
+# dplyr,     for data manipulation.
+# tidyr,     for data tidying.
+# purrr,     for functional programming.
+# tibble,    for tibbles, a modern re-imagining of data frames.
+# stringr,   for strings.
+# forcats,   for factors.
+# lubridate, for date/times.
+# readr,     for reading .csv, .tsv, and .fwf files.
+# readxl,    for reading .xls, and .xlxs files.
+# feather,   for sharing with Python and other languages.
+# haven,     for SPSS, SAS and Stata files.
+# httr,      for web apis.
+# jsonlite   for JSON.
+# rvest,     for web scraping.
+# xml2,      for XML.
+# modelr,    for modelling within a pipeline
+# broom,     for turning models into tidy data
+# hms,       for times.
+
+library(magrittr)   # Pipeline operator
+library(lobstr)     # Visualizing abstract syntax trees, stack trees, and object sizes
+library(pander)     # Exporting/converting complex pandoc documents, EX: df to Pandoc table
+library(ggforce)    # More plot functions on top of ggplot2
+library(ggpubr)     # Automatically add p-values and significance levels  plots. 
+# Arrange and annotate multiple plots on the same page. 
+# Change graphical parameters such as colors and labels.
+library(sf)         # Geo-spatial vector manipulation: points, lines, polygons
+library(kableExtra) # Generate 90 % of complex/advanced/self-customized/beautiful tables
+library(cowplot)    # Multiple plots arrangement
+library(gridExtra)  # Multiple plots arrangement
+library(animation)  # Animated figure container
+library(latex2exp)  # Latex axis titles in ggplot2
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 slope parameters
+library(plotly)     # User interactive plots
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 regressors
+library(olsrr)      # Model selections 
+library(leaps)      # Regression subsetting 
+library(pls)        # Partial Least squares
+library(MASS)       # LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.
+library(e1071)      # Naive Bayesian Classfier,SVM, GKNN, ICA, LCA
+library(class)      # KNN, SOM, LVQ
+library(ROCR)       # Precision/Recall/Sensitivity/Specificity performance plot 
+library(boot)       # LOOCV, Bootstrap,
+library(caret)      # Classification/Regression Training, run ?caret::trainControl
+library(corrgram)   # for correlation matrix
+library(corrplot)   # for graphical display of correlation matrix
+
+set.seed(1234)        # make random results reproducible
+
+current_dir <- getwd()
+
+if (!is.null(current_dir)) {
+  setwd(current_dir)
+  remove(current_dir)
+}
+```
+
+## Model Construction
+```{r logit.model_savings, eval=FALSE}
+#----------------------------#
+#----Logistic Regression-----#
+#----------------------------#
+
+set.seed(1234)
+# Define the training control object for 10-fold cross-validation
+train_control <- trainControl(method = "cv", number = 10)
+
+# Train the logistic regression model using 10-fold cross-validation
+set.seed(1234)
+logit_model <- train(good ~ ., 
+                     data = train, 
+                     method = "glm", 
+                     family = "binomial",
+                     trControl = train_control)
+
+save(logit_model, file = "dataset\\logit.model_kfoldCV.Rdata")
+
+
+#----------------------------------#
+#----Logistic Regression (Mod)-----#
+#----------------------------------#
+
+```
+
+## K-fold CV
+```{r logit.kfoldCV, fig.show='hide', message=FALSE}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\logit.model_kfoldCV.Rdata")
+
+logit.predictions <- predict(logit_model, newdata = test)
+
+confusionMatrix(logit.predictions, test$good)
+
+
+logit.predictions <- as.numeric(logit.predictions)
+pred_obj <- prediction(logit.predictions, test$good)
+auc_val  <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+logit.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r logit.kfoldCV_mod, fig.show='hide',}
+glm.model <- glm(good ~ ., data= train,family="binomial")
+glm.fit= stepAIC(glm.model, direction = 'backward')
+
+# Make predictions on test data and construct a confusion matrix
+logit.predictions <- predict(glm.fit, newdata = test,type = "response")
+logit.predictions <- factor(ifelse(logit.predictions > 0.7, 1, 0),
+                            levels = c(0, 1))
+confusionMatrix(logit.predictions, test$good)
+
+
+logit.predictions <- as.numeric(logit.predictions)
+pred_obj <- prediction(logit.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+logit.kfoldCV.ROC.plot <- recordPlot()
+```
+
+| Resampling Method           | Error Rate | Sensitivity | Specificity | AUC       |
+| --------------------------- | ---------- | ----------- | ----------- | --------- |
+| Logistic Regression         | 0.1944     | 0.9347      | 0.2929      | 0.6137776 |
+| Logistic Regression (Tuned) | 0.1919     | 0.98946     | 0.08787     | 0.5386644 |
+
+```{r echo=FALSE}
+save(logit.kfoldCV.ROC.plot, file = "dataset\\plot\\logit.kfoldCV.ROC.plot.Rdata")
+```
+

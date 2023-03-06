@@ -1,0 +1,14 @@
+{
+  "hash": "71b108d809c21e278ec99fe2ca5ea8c1",
+  "result": {
+    "markdown": "---\ntitle: \"Multi Regression\"\n---\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
