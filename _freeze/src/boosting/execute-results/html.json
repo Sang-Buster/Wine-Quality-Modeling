@@ -1,8 +1,10 @@
 {
-  "hash": "a398fdcd7f05f648d4a5a93b4a304343",
+  "hash": "bad0cdc40d89e53a7b4f44ffcda75c97",
   "result": {
     "markdown": "---\ntitle: \"Boosting\"\n---\n\n",
-    "supporting": [],
+    "supporting": [
+      "boosting_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

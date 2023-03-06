@@ -1,8 +1,10 @@
 {
-  "hash": "46ebfb49ffb41047979ea4f8a662d3f3",
+  "hash": "eeee4c9426cf9d3d9224ae85e68b4be1",
   "result": {
     "markdown": "---\ntitle: \"Classification Tree\"\n---\n\n",
-    "supporting": [],
+    "supporting": [
+      "classTree_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

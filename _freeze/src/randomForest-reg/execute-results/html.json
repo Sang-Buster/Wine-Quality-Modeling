@@ -1,8 +1,10 @@
 {
-  "hash": "45654482e585d5a7984981473da032a6",
+  "hash": "cabd7a3cd5142e1a469cc1f518789002",
   "result": {
     "markdown": "---\ntitle: \"Random Forest (Regression)\"\n---\n\n",
-    "supporting": [],
+    "supporting": [
+      "randomForest-reg_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

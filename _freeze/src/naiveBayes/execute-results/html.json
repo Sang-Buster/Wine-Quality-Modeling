@@ -1,8 +1,10 @@
 {
-  "hash": "13dee951df259aecd277fb8d0a0afb84",
+  "hash": "2684f2b19039098894b2d24d0eec3f24",
   "result": {
-    "markdown": "---\ntitle: \"Naive Bayed\"\n---\n\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"Naive Bayes\"\n---\n\n",
+    "supporting": [
+      "naiveBayes_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

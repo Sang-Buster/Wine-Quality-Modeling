@@ -1,8 +1,10 @@
 {
-  "hash": "48e685d11177ceb0380dca030141358a",
+  "hash": "de5a77638c95ecc3f5399f55490617fd",
   "result": {
-    "markdown": "---\ntitle: \"Random Forest (Classification))\"\n---\n\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"Random Forest (Classification)\"\n---\n\n",
+    "supporting": [
+      "randomForest-class_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

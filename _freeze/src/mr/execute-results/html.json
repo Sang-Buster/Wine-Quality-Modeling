@@ -1,8 +1,10 @@
 {
-  "hash": "71b108d809c21e278ec99fe2ca5ea8c1",
+  "hash": "d10212bed0dbdc9eee85df319f8f873b",
   "result": {
     "markdown": "---\ntitle: \"Multi Regression\"\n---\n\n",
-    "supporting": [],
+    "supporting": [
+      "mr_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

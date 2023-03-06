@@ -1,8 +1,10 @@
 ---
-title: "Naive Bayed"
+title: "Naive Bayes"
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = TRUE)
+
 library(tidyverse)  # Load core packages: 
 # ggplot2,   for data visualization.
 # dplyr,     for data manipulation.

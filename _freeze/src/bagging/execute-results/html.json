@@ -1,8 +1,10 @@
 {
-  "hash": "19ec38c6679006ae334a18ebbf6db00f",
+  "hash": "0099cd53f096e2d032d8fab24ee3a56e",
   "result": {
     "markdown": "---\ntitle: \"Bagging\"\n---\n\n",
-    "supporting": [],
+    "supporting": [
+      "bagging_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
