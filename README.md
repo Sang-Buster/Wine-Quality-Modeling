@@ -1,4 +1,5 @@
-<h1 align="center">Supervised Leaning Models <br> for UCI Machine Learning <br> Wine Quality Data</h1>
+<h1 align="center">Supervised Leaning Modelings</h1>
+<h6 align="center">Wine Quality Data | UCI Machine Learning</h6>
 <p align="center"><b>#K-nearest neighbor algorithm  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis &emsp; #Quadratic Discriminant Analysis</b></p>
 
 <p align="center">
