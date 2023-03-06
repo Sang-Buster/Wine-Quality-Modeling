@@ -21,7 +21,6 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 (d) Repeat (a) using QDA.
 (e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.
 
-
 ### Methodologies
 
 -   KNN
@@ -31,11 +30,11 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 -   Regression/Multi-Regression
 -   Naive Bayes
 -   Decision Tree
--   Classification Tree
--   Regression Tree
--   Classification and Regression Trees (CART)
--   Iterative Dichotomiser 3 (ID3)
--   C4.5
+    -   Classification Tree
+    -   Regression Tree
+    -   Classification and Regression Trees (CART)
+    -   Iterative Dichotomiser 3 (ID3)
+    -   C4.5
 -   Random Forest
 -   Classification
 -   Regression
@@ -44,7 +43,6 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 -   Gradient Boosted Trees (GBT)
 -   Extremely Randomized Trees (ExtraTrees)
 -   SVM
-
 
 ### Data Description
 
@@ -66,4 +64,3 @@ This is a dataset of wine quality containing 4898 observations of 12 variables. 
 After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus `quality` column variable, and introduced a new variable `good` as our response:
 
 -   `good`: A binary variable indicating whether the wine is good (`quality` $\geq$ 7) or not (`quality` $<$ 7).
-
