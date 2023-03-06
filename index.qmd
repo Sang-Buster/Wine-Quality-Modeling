@@ -68,5 +68,3 @@ After removing the duplicate rows from our data set, we are left with 3961 obser
 
 -   `good`: A binary variable indicating whether the wine is good (`quality` $\geq 7$) or not (`quality` $<7$).
 
-
-### Reference
