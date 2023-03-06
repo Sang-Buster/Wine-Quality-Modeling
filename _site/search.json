@@ -60,7 +60,7 @@
     "href": "src/analysis.html#data-split",
     "title": "Exploratory Analysis",
     "section": "Data Split",
-    "text": "Data Split\n\n\nShow/Hide Code\n# Splitting the dataset into train and test (7/10th for train remaining for test)\ninTrain &lt;- caret::createDataPartition(wine.data$good, p = 7/10, list = F)\ntrain &lt;- wine.data[inTrain,]\ntest &lt;- wine.data[-inTrain,]\n\n\n# Convert the outcome variable to a factor with two levels\ntrain$good &lt;- as.factor(train$good)\ntest$good &lt;- as.factor(test$good)\n\n# Data savings for model building in the next\nsave(wine.data, file = \"dataset\\\\wine.data.Rdata\")\nsave(train, file = \"dataset\\\\train.Rdata\")\nsave(test, file = \"dataset\\\\test.Rdata\")"
+    "text": "Data Split\n\n\nShow/Hide Code\nset.seed(123)\n# Splitting the dataset into train and test (7/10th for train remaining for test)\ninTrain &lt;- caret::createDataPartition(wine.data$good, p = 7/10, list = F)\ntrain &lt;- wine.data[inTrain,]\ntest &lt;- wine.data[-inTrain,]\n\n\n# Convert the outcome variable to a factor with two levels\ntrain$good &lt;- as.factor(train$good)\ntest$good &lt;- as.factor(test$good)\n\n# Data savings for model building in the next\nsave(wine.data, file = \"dataset\\\\wine.data.Rdata\")\nsave(train, file = \"dataset\\\\train.Rdata\")\nsave(test, file = \"dataset\\\\test.Rdata\")"
   },
   {
     "objectID": "src/knn.html",

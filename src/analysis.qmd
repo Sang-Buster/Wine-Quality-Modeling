@@ -144,6 +144,7 @@ wine.data$quality <- NULL
 
 ## Data Split
 ```{r data_split}
+set.seed(123)
 # Splitting the dataset into train and test (7/10th for train remaining for test)
 inTrain <- caret::createDataPartition(wine.data$good, p = 7/10, list = F)
 train <- wine.data[inTrain,]
