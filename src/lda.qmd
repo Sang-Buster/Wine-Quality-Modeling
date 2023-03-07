@@ -79,13 +79,12 @@ lda_model <- train(good ~ .,
                    method = "lda", 
                    trControl = train_control)
 
-save(lda_model, file = "dataset\\lda.model_kfoldCV.Rdata")
+save(lda_model, file = "dataset\\model\\lda.model_kfoldCV.Rdata")
 
 
 #------------------#
 #----LDA (Mod)-----#
 #------------------#
-
 ```
 
 ## K-fold CV

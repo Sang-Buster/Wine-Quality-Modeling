@@ -251,8 +251,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./src/xgboost.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">eXtreme Gradient Boosting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./src/svm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Support Vector Machine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./src/nnet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Network</span></a>
   </div>
 </li>
       </ul>
@@ -321,18 +333,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Naive Bayes</li>
 <li>Decision Tree
 <ul>
-<li>Classification Tree</li>
 <li>Classification and Regression Trees (CART)</li>
-<li>Iterative Dichotomiser 3 (ID3)</li>
-<li>C4.5</li>
 </ul></li>
 <li>Random Forest (Classification)</li>
 <li>Bagging (Bootstrap Aggregation)</li>
-<li>Boosting</li>
-<li>Gradient Boosting Machine (GBM)</li>
-<li>Gradient Boosted Trees (GBT)</li>
+<li>Boosting (Gradient Boosting Machine (GBM))</li>
+<li>eXtreme Gradient Boosting (XGBoost)</li>
 <li>Extremely Randomized Trees (ExtraTrees)</li>
 <li>SVM</li>
+<li>Neural Networks (NNET)</li>
 </ul>
 </section>
 <section id="data-description" class="level3">
@@ -807,38 +816,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>QDA</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Naive Bayes</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Decision Tree</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Classification Tree</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Classification and Regression Trees (CART)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Iterative Dichotomiser 3 (ID3)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>C4.5</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Random Forest (Classification)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Bagging (Bootstrap Aggregation)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Boosting</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Gradient Boosting Machine (GBM)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Gradient Boosted Trees (GBT)</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Extremely Randomized Trees (ExtraTrees)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SVM</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Description</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fixed.acidity`</span>: The amount of fixed acid in the wine ($g/dm^3$)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`volatile.acidity`</span>: The amount of volatile acid in the wine ($g/dm^4$)</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`citric.acid`</span>: The amount of citric acid in the wine ($g/dm^3$)</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`residual.sugar`</span>: The amount of residual sugar in the wine ($g/dm^3$)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`chlorides`</span>: The amount of salt in the wine ($g/dm^3$)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`free.sulfur.dioxide`</span>: The amount of free sulfur dioxide in the wine ($mg/dm^3$)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`total.sulfur.dioxide`</span>: The amount of total sulfur dioxide in the wine ($mg/dm^3$)</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`density`</span>: The density of the wine ($g/dm^3$)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`pH`</span>: The $pH$ value of the wine</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sulphates`</span>: The amount of sulphates in the wine ($g/dm^3$)</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`alcohol`</span>: The alcohol content of the wine ($\% vol$)</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quality`</span>: The quality score of the wine (0-10)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus <span class="in">`quality`</span> column variable, and introduced a new variable <span class="in">`good`</span> as our response:</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`good`</span>: A binary variable indicating whether the wine is good (<span class="in">`quality`</span> $\geq$ 7) or not (<span class="in">`quality`</span> $&lt;$ 7).</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Classification and Regression Trees (CART)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Random Forest (Classification)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Bagging (Bootstrap Aggregation)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Boosting (Gradient Boosting Machine (GBM))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>eXtreme Gradient Boosting (XGBoost)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Extremely Randomized Trees (ExtraTrees)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SVM</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neural Networks (NNET)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Description</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fixed.acidity`</span>: The amount of fixed acid in the wine ($g/dm^3$)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`volatile.acidity`</span>: The amount of volatile acid in the wine ($g/dm^4$)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`citric.acid`</span>: The amount of citric acid in the wine ($g/dm^3$)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`residual.sugar`</span>: The amount of residual sugar in the wine ($g/dm^3$)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`chlorides`</span>: The amount of salt in the wine ($g/dm^3$)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`free.sulfur.dioxide`</span>: The amount of free sulfur dioxide in the wine ($mg/dm^3$)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`total.sulfur.dioxide`</span>: The amount of total sulfur dioxide in the wine ($mg/dm^3$)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`density`</span>: The density of the wine ($g/dm^3$)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`pH`</span>: The $pH$ value of the wine</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sulphates`</span>: The amount of sulphates in the wine ($g/dm^3$)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`alcohol`</span>: The alcohol content of the wine ($\% vol$)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quality`</span>: The quality score of the wine (0-10)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus <span class="in">`quality`</span> column variable, and introduced a new variable <span class="in">`good`</span> as our response:</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`good`</span>: A binary variable indicating whether the wine is good (<span class="in">`quality`</span> $\geq$ 7) or not (<span class="in">`quality`</span> $&lt;$ 7).</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

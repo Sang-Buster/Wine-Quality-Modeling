@@ -63,3 +63,67 @@ if (!is.null(current_dir)) {
   remove(current_dir)
 }
 ```
+
+
+## Model Construction
+```{r nb.model_savings, eval=FALSE}
+#----------------------#
+#----Random Forest-----#
+#----------------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+rf_model <- train(good ~ ., 
+               data = train, 
+               method = "rf", 
+               trControl = train_control)
+
+save(rf_model, file = "dataset\\model\\rf.model_kfoldCV.Rdata")
+```
+
+## K-fold CV
+```{r rf.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\rf.model_kfoldCV.Rdata")
+
+rf.predictions <- predict(rf_model, newdata = test)
+
+confusionMatrix(rf.predictions, test$good)
+
+
+rf.predictions <- as.numeric(rf.predictions)
+pred_obj <- prediction(rf.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+rf.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r, rf.kfoldCV_mod, fig.show='hide'}
+
+```
+
+| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| -------------------- | ---------- | ----------- | ----------- | --------- |
+| Random Forest        | 0.1540     | 0.9501      | 0.4053      | 0.6776692 |
+| Random Forest (Tuned)| 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+
+```{r, echo=FALSE}
+save(rf.kfoldCV.ROC.plot, file = "dataset\\plot\\rf.kfoldCV.ROC.plot.Rdata")
+```

@@ -250,8 +250,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../src/xgboost.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">eXtreme Gradient Boosting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../src/svm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Support Vector Machine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/nnet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Network</span></a>
   </div>
 </li>
       </ul>
@@ -315,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span>
@@ -1044,7 +1056,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
 <span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
 <span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
 <span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span>

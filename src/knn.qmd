@@ -84,7 +84,7 @@ knn_model <- train(good ~ .,
                    trControl = train_control)
 
 # Save the model into .Rdata for future import 
-save(knn_model, file = "dataset\\knn.model_kfoldCV.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_kfoldCV.Rdata")
 
 
 #--------------------------#
@@ -102,7 +102,7 @@ knn_model <- train(good ~ .,
                    tuneLength = 10)
 
 # Save the model into .Rdata for future import 
-save(knn_model, file = "dataset\\knn.model_kfoldCV_mod.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_kfoldCV_mod.Rdata")
 
 
 #--------------------#
@@ -117,7 +117,7 @@ knn_model <- train(good ~ .,
                    data = train, 
                    method = "knn")
 
-save(knn_model, file = "dataset\\knn.model_holdoutCV.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_holdoutCV.Rdata")
 
 
 #--------------------------#
@@ -133,7 +133,7 @@ knn_model <- train(good ~ .,
                    method = "knn",
                    tuneGrid = expand.grid(k=1:30))
 
-save(knn_model, file = "dataset\\knn.model_holdoutCV_mod.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_holdoutCV_mod.Rdata")
 
 
 #--------------------#
@@ -149,7 +149,7 @@ knn_model <- train(good ~ .,
                    method = "knn", 
                    trControl = train_control)
 
-save(knn_model, file = "dataset\\knn.model_looCV.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_looCV.Rdata")
 
 
 #--------------------------#
@@ -167,7 +167,7 @@ knn_model <- train(good ~ .,
                    tuneLength = 10,
                    tuneGrid = expand.grid(k = 1:20))
 
-save(knn_model, file = "dataset\\knn.model_looCV_mod.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_looCV_mod.Rdata")
 
 
 #--------------------#
@@ -183,7 +183,7 @@ knn_model <- train(good ~ .,
                    method = "knn", 
                    trControl = train_control)
 
-save(knn_model, file = "dataset\\knn.model_repeatedCV.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_repeatedCV.Rdata")
 
 
 #--------------------------#
@@ -204,7 +204,7 @@ knn_model <- train(good ~ .,
                    tuneGrid = kknn.grid,
                    preProcess = c("center", "scale"))
 
-save(knn_model, file = "dataset\\knn.model_repeatedCV_mod.Rdata")
+save(knn_model, file = "dataset\\model\\knn.model_repeatedCV_mod.Rdata")
 ```
 
 

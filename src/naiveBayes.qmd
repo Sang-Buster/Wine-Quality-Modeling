@@ -63,3 +63,67 @@ if (!is.null(current_dir)) {
   remove(current_dir)
 }
 ```
+
+
+## Model Construction
+```{r nb.model_savings, eval=FALSE}
+#--------------------#
+#----Naive Bayes-----#
+#--------------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+nb_model <- train(good ~ ., 
+               data = train, 
+               method = "naive_bayes", 
+               trControl = train_control)
+
+save(nb_model, file = "dataset\\model\\nb.model_kfoldCV.Rdata")
+```
+
+## K-fold CV
+```{r nb.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\nb.model_kfoldCV.Rdata")
+
+nb.predictions <- predict(nb_model, newdata = test)
+
+confusionMatrix(nb.predictions, test$good)
+
+
+nb.predictions <- as.numeric(nb.predictions)
+pred_obj <- prediction(nb.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+nb.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r, nb.kfoldCV_mod, fig.show='hide'}
+
+```
+
+| Resampling Method  | Error Rate | Sensitivity | Specificity | AUC       |
+| ------------------ | ---------- | ----------- | ----------- | --------- |
+| Naive Bayes        | 0.2391     | 0.7804      | 0.6784      | 0.7294256 |
+| Naive Bayes (Tuned)| 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+
+```{r, echo=FALSE}
+save(nb.kfoldCV.ROC.plot, file = "dataset\\plot\\nb.kfoldCV.ROC.plot.Rdata")
+```

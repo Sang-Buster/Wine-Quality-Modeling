@@ -27,17 +27,14 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 -   QDA
 -   Naive Bayes
 -   Decision Tree
-    -   Classification Tree
     -   Classification and Regression Trees (CART)
-    -   Iterative Dichotomiser 3 (ID3)
-    -   C4.5
 -   Random Forest (Classification)
 -   Bagging (Bootstrap Aggregation)
--   Boosting
--   Gradient Boosting Machine (GBM)
--   Gradient Boosted Trees (GBT)
+-   Boosting (Gradient Boosting Machine (GBM))
+-   eXtreme Gradient Boosting (XGBoost)
 -   Extremely Randomized Trees (ExtraTrees)
 -   SVM
+-   Neural Networks (NNET)
 
 ### Data Description
 

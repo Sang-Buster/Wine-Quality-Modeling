@@ -79,7 +79,7 @@ qda_model <- train(good ~ .,
                    method = "qda", 
                    trControl = train_control)
 
-save(qda_model, file = "dataset\\qda.model_kfoldCV.Rdata")
+save(qda_model, file = "dataset\\model\\qda.model_kfoldCV.Rdata")
 
 #------------------#
 #----QDA (Mod)-----#

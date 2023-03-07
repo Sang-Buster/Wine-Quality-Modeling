@@ -1,0 +1,167 @@
+---
+title: "Neural Network"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = TRUE)
+
+library(tidyverse)  # Load core packages: 
+# ggplot2,   for data visualization.
+# dplyr,     for data manipulation.
+# tidyr,     for data tidying.
+# purrr,     for functional programming.
+# tibble,    for tibbles, a modern re-imagining of data frames.
+# stringr,   for strings.
+# forcats,   for factors.
+# lubridate, for date/times.
+# readr,     for reading .csv, .tsv, and .fwf files.
+# readxl,    for reading .xls, and .xlxs files.
+# feather,   for sharing with Python and other languages.
+# haven,     for SPSS, SAS and Stata files.
+# httr,      for web apis.
+# jsonlite   for JSON.
+# rvest,     for web scraping.
+# xml2,      for XML.
+# modelr,    for modelling within a pipeline
+# broom,     for turning models into tidy data
+# hms,       for times.
+
+library(magrittr)   # Pipeline operator
+library(lobstr)     # Visualizing abstract syntax trees, stack trees, and object sizes
+library(pander)     # Exporting/converting complex pandoc documents, EX: df to Pandoc table
+library(ggforce)    # More plot functions on top of ggplot2
+library(ggpubr)     # Automatically add p-values and significance levels  plots. 
+# Arrange and annotate multiple plots on the same page. 
+# Change graphical parameters such as colors and labels.
+library(sf)         # Geo-spatial vector manipulation: points, lines, polygons
+library(kableExtra) # Generate 90 % of complex/advanced/self-customized/beautiful tables
+library(cowplot)    # Multiple plots arrangement
+library(gridExtra)  # Multiple plots arrangement
+library(animation)  # Animated figure container
+library(latex2exp)  # Latex axis titles in ggplot2
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 slope parameters
+library(plotly)     # User interactive plots
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 regressors
+library(olsrr)      # Model selections 
+library(leaps)      # Regression subsetting 
+library(pls)        # Partial Least squares
+library(MASS)       # LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.
+library(e1071)      # Naive Bayesian Classfier, SVM, GKNN, ICA, LCA
+library(class)      # KNN, SOM, LVQ
+library(ROCR)       # Precision/Recall/Sensitivity/Specificity performance plot 
+library(boot)       # LOOCV, Bootstrap,
+library(caret)      # Classification/Regression Training, run ?caret::trainControl
+library(corrgram)   # for correlation matrix
+library(corrplot)   # for graphical display of correlation matrix
+
+set.seed(1234)        # make random results reproducible
+
+current_dir <- getwd()
+
+if (!is.null(current_dir)) {
+  setwd(current_dir)
+  remove(current_dir)
+}
+```
+
+## Model Construction
+```{r nnet.model_savings, eval=FALSE}
+#-------------#
+#----NNet-----#
+#-------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+nnet_model <- train(good ~ ., 
+                    data = train, 
+                    method = "nnet", 
+                    trControl = train_control)
+
+save(nnet_model, file = "dataset\\model\\nnet.model_kfoldCV.Rdata")
+```
+
+## K-fold CV
+```{r nnet.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\nnet.model_kfoldCV.Rdata")
+
+nnet.predictions <- predict(nnet_model, newdata = test)
+
+confusionMatrix(nnet.predictions, test$good)
+
+
+nnet.predictions <- as.numeric(nnet.predictions)
+pred_obj <- prediction(nnet.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+nnet.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r, nnet.kfoldCV_mod, fig.show='hide'}
+
+```
+
+| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| -------------------- | ---------- | ----------- | ----------- | --------- |
+| Neural Network       | 0.1801     | 0.9313      | 0.3480      | 0.6396696 |
+| Neural Network       | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+
+```{r, echo=FALSE}
+save(nnet.kfoldCV.ROC.plot, file = "dataset\\plot\\nnet.kfoldCV.ROC.plot.Rdata")
+```
+
+## Summary
+
+```{r, echo=FALSE}
+load("dataset\\plot\\nb.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\dc.kfoldCV_mod.ROC.plot.Rdata")
+load("dataset\\plot\\rf.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\bag.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\boost.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\xgboost.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\svm.kfoldCV.ROC.plot.Rdata")
+load("dataset\\plot\\nnet.kfoldCV.ROC.plot.Rdata")
+```
+
+```{r, fig.width=10, fig.height=10}
+cowplot::plot_grid(nb.kfoldCV.ROC.plot,
+                   dc.kfoldCV.ROC.plot,
+                   rf.kfoldCV.ROC.plot,
+                   bag.kfoldCV.ROC.plot, 
+                   ncol = 2, align = "hv", scale = 0.8)
+
+cowplot::plot_grid(boost.kfoldCV.ROC.plot,
+                   svm.kfoldCV.ROC.plot,
+                   xgboost.kfoldCV.ROC.plot,
+                   nnet.kfoldCV.ROC.plot,
+                   ncol = 2, align = "hv", scale = 0.8)
+```
+
+| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
+| ----------------- | ---------- | ----------- | ----------- | --------- |
+| Naive Bayes       | 0.2391     | 0.7804      | 0.6784      | 0.7294256 |
+| CART              | 0.181      | 0.9032      | 0.4626      | 0.6828904 |
+| Random Forest     | 0.1540     | 0.9501      | 0.4053      | 0.6776692 |
+| Bagging           | 0.1658     | 0.9178      | 0.4802      | 0.6989851 |
+| boost             | 0.1751     | 0.9251      | 0.4009      | 0.6629796 |
+| XGBoost           | 0.1633     | 0.9428      | 0.3877      | 0.6652166 |
+| SVM               | 0.1675     | 0.9646      | 0.2731      | 0.6188740 |
+| Neural Network    | 0.1801     | 0.9313      | 0.3480      | 0.6396696 |

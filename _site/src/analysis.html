@@ -250,8 +250,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../src/xgboost.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">eXtreme Gradient Boosting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../src/svm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Support Vector Machine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/nnet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Network</span></a>
   </div>
 </li>
       </ul>
@@ -516,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Data savings for model building in the next</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1099,7 +1111,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
 <span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
 <span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a><span class="co"># Data savings for model building in the next</span></span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
 <span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
 <span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
 <span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>

@@ -63,8 +63,12 @@ website:
             text: "Bagging"
           - href: src/boosting.qmd
             text: "Boosting"
+          - href: src/xgboost.qmd
+            text: "eXtreme Gradient Boosting"
           - href: src/svm.qmd
             text: "Support Vector Machine"
+          - href: src/nnet.qmd
+            text: "Neural Network"
 
 format:
   html:

@@ -82,7 +82,7 @@ logit_model <- train(good ~ .,
                      family = "binomial",
                      trControl = train_control)
 
-save(logit_model, file = "dataset\\logit.model_kfoldCV.Rdata")
+save(logit_model, file = "dataset\\model\\logit.model_kfoldCV.Rdata")
 
 
 #----------------------------------#

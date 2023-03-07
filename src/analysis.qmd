@@ -157,7 +157,7 @@ test <- wine.data[-inTrain,]
 train$good <- as.factor(train$good)
 test$good <- as.factor(test$good)
 
-# Data savings for model building in the next
+# Save data for building models in the next step
 save(wine.data, file = "dataset\\wine.data.Rdata")
 save(train, file = "dataset\\train.Rdata")
 save(test, file = "dataset\\test.Rdata")

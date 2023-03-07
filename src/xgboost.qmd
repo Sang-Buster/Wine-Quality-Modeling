@@ -1,0 +1,133 @@
+---
+title: "eXtreme Gradient Boosting (XGBoost)"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = TRUE)
+
+library(tidyverse)  # Load core packages: 
+# ggplot2,   for data visualization.
+# dplyr,     for data manipulation.
+# tidyr,     for data tidying.
+# purrr,     for functional programming.
+# tibble,    for tibbles, a modern re-imagining of data frames.
+# stringr,   for strings.
+# forcats,   for factors.
+# lubridate, for date/times.
+# readr,     for reading .csv, .tsv, and .fwf files.
+# readxl,    for reading .xls, and .xlxs files.
+# feather,   for sharing with Python and other languages.
+# haven,     for SPSS, SAS and Stata files.
+# httr,      for web apis.
+# jsonlite   for JSON.
+# rvest,     for web scraping.
+# xml2,      for XML.
+# modelr,    for modelling within a pipeline
+# broom,     for turning models into tidy data
+# hms,       for times.
+
+library(magrittr)   # Pipeline operator
+library(lobstr)     # Visualizing abstract syntax trees, stack trees, and object sizes
+library(pander)     # Exporting/converting complex pandoc documents, EX: df to Pandoc table
+library(ggforce)    # More plot functions on top of ggplot2
+library(ggpubr)     # Automatically add p-values and significance levels  plots. 
+# Arrange and annotate multiple plots on the same page. 
+# Change graphical parameters such as colors and labels.
+library(sf)         # Geo-spatial vector manipulation: points, lines, polygons
+library(kableExtra) # Generate 90 % of complex/advanced/self-customized/beautiful tables
+library(cowplot)    # Multiple plots arrangement
+library(gridExtra)  # Multiple plots arrangement
+library(animation)  # Animated figure container
+library(latex2exp)  # Latex axis titles in ggplot2
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 slope parameters
+library(plotly)     # User interactive plots
+library(ellipse)    # Simultaneous confidence interval region to check C.I. of 2 regressors
+library(olsrr)      # Model selections 
+library(leaps)      # Regression subsetting 
+library(pls)        # Partial Least squares
+library(MASS)       # LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.
+library(e1071)      # Naive Bayesian Classfier,SVM, GKNN, ICA, LCA
+library(class)      # KNN, SOM, LVQ
+library(ROCR)       # Precision/Recall/Sensitivity/Specificity performance plot 
+library(boot)       # LOOCV, Bootstrap,
+library(caret)      # Classification/Regression Training, run ?caret::trainControl
+library(corrgram)   # for correlation matrix
+library(corrplot)   # for graphical display of correlation matrix
+
+set.seed(1234)        # make random results reproducible
+
+current_dir <- getwd()
+
+if (!is.null(current_dir)) {
+  setwd(current_dir)
+  remove(current_dir)
+}
+```
+
+
+## Model Construction
+```{r xgboost.model_savings, eval=FALSE}
+#----------------#
+#----XGBoost-----#
+#----------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+xgboost_model <- train(good ~ ., 
+                       data = train, 
+                       method = "xgbTree",
+                       trControl = train_control,
+                       tuneGrid = expand.grid(nrounds = 100,
+                                              max_depth = 5,
+                                              eta = 0.05,
+                                              gamma = 0,
+                                              colsample_bytree = 0.5,
+                                              min_child_weight = 1,
+                                              subsample = 0.5),
+                       verbose = FALSE,
+                       metric = "Accuracy")
+
+save(xgboost_model, file = "dataset\\model\\xgboost.model_kfoldCV.Rdata")
+```
+
+## K-fold CV
+```{r xgboost.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\xgboost.model_kfoldCV.Rdata")
+
+xgboost.predictions <- predict(xgboost_model, newdata = test)
+xgboost.predictions <- ifelse(xgboost.predictions == "X1", 1, 0)
+xgboost.predictions <- factor(xgboost.predictions, levels = c(0, 1))
+confusionMatrix(xgboost.predictions, test$good)
+
+xgboost.predictions <- as.numeric(xgboost.predictions)
+pred_obj <- prediction(xgboost.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+xgboost.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r, xgboost.kfoldCV_mod, fig.show='hide'}
+
+```
+
+```{r, echo=FALSE}
+save(xgboost.kfoldCV.ROC.plot, file = "dataset\\plot\\xgboost.kfoldCV.ROC.plot.Rdata")
+```

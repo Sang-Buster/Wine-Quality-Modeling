@@ -63,3 +63,110 @@ if (!is.null(current_dir)) {
   remove(current_dir)
 }
 ```
+
+
+
+## Model Construction
+```{r nb.model_savings, eval=FALSE}
+#----------------------#
+#----Decision Tree-----#
+#----------------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+dc_model <- train(good ~ ., 
+               data = train, 
+               method = "rpart2", 
+               trControl = train_control,
+               na.action = na.omit)
+
+save(dc_model, file = "dataset\\model\\dc.model_kfoldCV.Rdata")
+
+
+#----------------------------#
+#----Decision Tree (Mod)-----#
+#----------------------------#
+set.seed(1234)
+train_control <- trainControl(method = "cv", number = 10)
+
+set.seed(1234)
+dc_model <- train(good ~ ., 
+               data = train, 
+               method = "rpart", 
+               trControl = train_control,
+               tuneLength = 5,
+               tuneGrid = data.frame(cp = seq(0.001, 0.1, by = 0.001)))
+
+save(dc_model, file = "dataset\\model\\dc.model_kfoldCV_mod.Rdata")
+```
+
+## K-fold CV
+```{r dc.kfoldCV, fig.show='hide'}
+# Data Import
+load("dataset\\wine.data.Rdata")
+load("dataset\\train.Rdata")
+load("dataset\\test.Rdata")
+
+# Model Import
+load("dataset\\model\\dc.model_kfoldCV.Rdata")
+
+dc.predictions <- predict(dc_model, newdata = test)
+
+confusionMatrix(dc.predictions, test$good)
+
+
+dc.predictions <- as.numeric(dc.predictions)
+pred_obj <- prediction(dc.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+dc.kfoldCV.ROC.plot <- recordPlot()
+```
+
+### Tuned
+```{r, dc.kfoldCV_mod, fig.show='hide'}
+# Model Import
+load("dataset\\model\\dc.model_kfoldCV_mod.Rdata")
+
+dc.predictions <- predict(dc_model, newdata = test)
+
+confusionMatrix(dc.predictions, test$good)
+
+
+dc.predictions <- as.numeric(dc.predictions)
+pred_obj <- prediction(dc.predictions, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+auc_val
+
+roc_obj <- performance(pred_obj, "tpr", "fpr")
+plot(roc_obj, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "ROC Curves from Repeated CV")
+points(auc_val, 1 - auc_val, 
+       col = "steelblue", 
+       pch = 21)
+abline(a = 0, b = 1)
+dc.kfoldCV_mod.ROC.plot <- recordPlot()
+```
+
+| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| -------------------- | ---------- | ----------- | ----------- | --------- |
+| CART                 | 0.181      | 0.9032      | 0.4626      | 0.6828904 |
+| CART (Tuned)         | 0.1751     | 0.9251      | 0.4009      | 0.6629796 |
+
+```{r, echo=FALSE}
+save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
+save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
+save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV_mod.ROC.plot.Rdata")
+```
