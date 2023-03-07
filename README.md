@@ -63,6 +63,6 @@ Which of the following classifiers would you recommend? Justify your answer.
 </a>
 </p>
 
-<h2 align="center">Reference</h2>
+<h3 align="center">Reference</h3>
 
 [^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
