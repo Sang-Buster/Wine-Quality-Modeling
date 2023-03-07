@@ -51,10 +51,10 @@ ul.dropdown-menu-end.show{
   background: #282c34!important;
 }
 
-#quarto-code-tools-menu{
+#quarto-code-tools-menu,
+button#quarto-code-tools-source.btn.code-tools-button{
   border-color: #abb2bf!important;
 }
-
 
 input#autocomplete-0-input{
   color: #abb2bf;

@@ -290,7 +290,7 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 invisible(plot(roc_obj, colorize = TRUE, lwd = 2,
                xlab = "False Positive Rate", 
                ylab = "True Positive Rate",
-               main = "ROC Curves from Tuned K-fold CV"))
+               main = "ROC Curves from Tuned 10-fold CV"))
 points(auc_val, 1 - auc_val, 
        col = "steelblue", 
        pch = 21)

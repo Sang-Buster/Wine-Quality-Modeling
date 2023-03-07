@@ -5,8 +5,6 @@ subtitle: "STAT 387"
 
 ## Preamble
 
-Welcome 👋! This is Group 6's Final Project, and here is our detailed work
-
 Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality $\geq$ 7 axnd the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
 
 [^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
@@ -27,19 +25,16 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 -   GLM/logit/glmnet
 -   LDA
 -   QDA
--   Regression/Multi-Regression
 -   Naive Bayes
 -   Decision Tree
     -   Classification Tree
-    -   Regression Tree
     -   Classification and Regression Trees (CART)
     -   Iterative Dichotomiser 3 (ID3)
     -   C4.5
--   Random Forest
--   Classification
--   Regression
--   Bagged
--   Boosted
+-   Random Forest (Classification)
+-   Bagging (Bootstrap Aggregation)
+-   Boosting
+-   Gradient Boosting Machine (GBM)
 -   Gradient Boosted Trees (GBT)
 -   Extremely Randomized Trees (ExtraTrees)
 -   SVM

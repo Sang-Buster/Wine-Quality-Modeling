@@ -11,8 +11,7 @@ website:
   repo-actions: [edit, issue]
   open-graph: true
   page-footer:
-    left: "Copyright &copy; Sing Song"
-    right: "[License](https://creativecommons.org/licenses/)"
+    center: "Copyright &copy; Sing Song"
   sidebar:
     logo: "asset/img/logo.svg"
     pinned: true
@@ -54,24 +53,12 @@ website:
             text: "Quadratic Discriminant Analysis"
       - section: "Further Modeling"
         contents:
-          - href: src/mr.qmd
-            text: "Multi Regression"
           - href: src/naiveBayes.qmd
             text: "Naive Bayes"
-          - section: "Decision Tree"
-            contents:
-              - href: src/classTree.qmd
-                text: "Classification Tree"
-              - href: src/regTree.qmd
-                text: "Regression Tree"
-              - href: src/decisionTree.qmd
-                text: "Decision Tree"
-              - href: src/cart.qmd
-                text: "Classification and Regression Trees (CART)"
-          - href: src/randomForest-class.qmd
-            text: "Random Forest - Classification"
-          - href: src/randomForest-reg.qmd
-            text: "Random Forest - Regression"
+          - href: src/decisionTree.qmd
+            text: "Decision Tree"
+          - href: src/randomForest.qmd
+            text: "Random Forest"
           - href: src/bagging.qmd
             text: "Bagging"
           - href: src/boosting.qmd
