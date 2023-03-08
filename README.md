@@ -3,7 +3,7 @@
 <p align="center"><b>#K-nearest neighbor algorithm  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis &emsp; #Quadratic Discriminant Analysis</b></p>
 
 <p align="center">
-<a href="https://github.com/theRealLeif/STAT387" target="_blank">
+<a href="https://github.com/Sang-Buster/Wine-Quality-Modeling" target="_blank">
 <img src="asset\img\logo.svg" width="200"/>
 </a>
 </p>
@@ -58,7 +58,7 @@ Which of the following classifiers would you recommend? Justify your answer.
 ```
 
 <p align="right">
-<a href="https://github.com/theRealLeif/STAT387" target="_blank">
+<a href="https://github.com/Sang-Buster/Wine-Quality-Modeling" target="_blank">
 <img src="https://img.shields.io/github/last-commit/theRealLeif/STAT387?label=Last%20commit"/>
 </a>
 </p>
