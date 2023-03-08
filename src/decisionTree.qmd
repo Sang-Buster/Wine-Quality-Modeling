@@ -64,6 +64,7 @@ if (!is.null(current_dir)) {
 }
 ```
 
+The CART (Classification and Regression Trees) algorithm is a decision tree method. CART is a popular algorithm used for both classification and regression problems. For our classification task, it constructs a binary tree in which each internal node represents a test on a single feature, and each leaf node represents a class label or a numeric value. The splitting of nodes in the tree is based on a measure of impurity such as Gini impurity or entropy. The CART algorithm is often used in applications such as finance, marketing, and healthcare.
 
 
 ## Model Construction

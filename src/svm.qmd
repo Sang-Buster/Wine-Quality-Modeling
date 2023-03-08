@@ -85,7 +85,6 @@ save(svm_model, file = "dataset\\model\\svm.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r svm.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 

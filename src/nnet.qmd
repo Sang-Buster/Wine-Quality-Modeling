@@ -84,7 +84,6 @@ save(nnet_model, file = "dataset\\model\\nnet.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r nnet.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 

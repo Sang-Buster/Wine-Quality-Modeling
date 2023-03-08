@@ -471,17 +471,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Show/Hide Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Import</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test data using the trained model and calculate the test error rate</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test data using the trained model and calculate the test error rate</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
@@ -532,7 +531,7 @@ Prediction   0   1
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from K-fold CV"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from 10-fold CV"</span>)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
@@ -1880,368 +1879,366 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb55-211"><a href="#cb55-211" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-fold CV </span></span>
 <span id="cb55-212"><a href="#cb55-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.kfoldCV, fig.show='hide'}</span></span>
 <span id="cb55-213"><a href="#cb55-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Import</span></span>
-<span id="cb55-214"><a href="#cb55-214" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
-<span id="cb55-215"><a href="#cb55-215" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb55-216"><a href="#cb55-216" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb55-217"><a href="#cb55-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-218"><a href="#cb55-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
-<span id="cb55-219"><a href="#cb55-219" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb55-220"><a href="#cb55-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-221"><a href="#cb55-221" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test data using the trained model and calculate the test error rate</span></span>
-<span id="cb55-222"><a href="#cb55-222" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-223"><a href="#cb55-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-224"><a href="#cb55-224" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-214"><a href="#cb55-214" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb55-215"><a href="#cb55-215" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb55-216"><a href="#cb55-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-217"><a href="#cb55-217" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
+<span id="cb55-218"><a href="#cb55-218" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb55-219"><a href="#cb55-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-220"><a href="#cb55-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test data using the trained model and calculate the test error rate</span></span>
+<span id="cb55-221"><a href="#cb55-221" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-222"><a href="#cb55-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-223"><a href="#cb55-223" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-224"><a href="#cb55-224" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-225"><a href="#cb55-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-226"><a href="#cb55-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-227"><a href="#cb55-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert predictions to a numeric vector</span></span>
-<span id="cb55-228"><a href="#cb55-228" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-229"><a href="#cb55-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-230"><a href="#cb55-230" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the AUC using the performance() and auc() functions:</span></span>
-<span id="cb55-231"><a href="#cb55-231" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-232"><a href="#cb55-232" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-233"><a href="#cb55-233" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-234"><a href="#cb55-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-235"><a href="#cb55-235" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance plot for TP and FP</span></span>
-<span id="cb55-236"><a href="#cb55-236" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-237"><a href="#cb55-237" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-238"><a href="#cb55-238" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-239"><a href="#cb55-239" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-240"><a href="#cb55-240" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from K-fold CV"</span>)</span>
-<span id="cb55-241"><a href="#cb55-241" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-242"><a href="#cb55-242" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-243"><a href="#cb55-243" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-244"><a href="#cb55-244" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-245"><a href="#cb55-245" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV.ROC.plot<span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-246"><a href="#cb55-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-247"><a href="#cb55-247" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy and Kappa value plot</span></span>
-<span id="cb55-248"><a href="#cb55-248" aria-hidden="true" tabindex="-1"></a>knn.accu.kappa.plot <span class="ot">&lt;-</span> <span class="cf">function</span>(knn.model) {</span>
-<span id="cb55-249"><a href="#cb55-249" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(<span class="at">k =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>k,</span>
-<span id="cb55-250"><a href="#cb55-250" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Accuracy =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>Accuracy,</span>
-<span id="cb55-251"><a href="#cb55-251" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Kappa =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>Kappa)) <span class="sc">+</span></span>
-<span id="cb55-252"><a href="#cb55-252" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
-<span id="cb55-253"><a href="#cb55-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
-<span id="cb55-254"><a href="#cb55-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">linetype =</span> <span class="st">"Accuracy"</span>, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
-<span id="cb55-255"><a href="#cb55-255" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">linetype =</span> <span class="st">"Kappa"</span>, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
-<span id="cb55-256"><a href="#cb55-256" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>),</span>
-<span id="cb55-257"><a href="#cb55-257" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)) )) <span class="sc">+</span></span>
-<span id="cb55-258"><a href="#cb55-258" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dotted"</span>),</span>
-<span id="cb55-259"><a href="#cb55-259" aria-hidden="true" tabindex="-1"></a>                          <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>)))) <span class="sc">+</span></span>
-<span id="cb55-260"><a href="#cb55-260" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
-<span id="cb55-261"><a href="#cb55-261" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Accuracy / Kappa"</span>) <span class="sc">+</span></span>
-<span id="cb55-262"><a href="#cb55-262" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-263"><a href="#cb55-263" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb55-264"><a href="#cb55-264" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb55-265"><a href="#cb55-265" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>),</span>
-<span id="cb55-266"><a href="#cb55-266" aria-hidden="true" tabindex="-1"></a>           <span class="at">linetype =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>))</span>
-<span id="cb55-267"><a href="#cb55-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
-<span id="cb55-268"><a href="#cb55-268" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb55-269"><a href="#cb55-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-270"><a href="#cb55-270" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
-<span id="cb55-271"><a href="#cb55-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-272"><a href="#cb55-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-273"><a href="#cb55-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (10-Fold CV)"</span>)</span>
-<span id="cb55-274"><a href="#cb55-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb55-275"><a href="#cb55-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-276"><a href="#cb55-276" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
-<span id="cb55-277"><a href="#cb55-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.kfoldCV_mod, fig.show='hide'}</span></span>
-<span id="cb55-278"><a href="#cb55-278" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV_mod.Rdata"</span>)</span>
-<span id="cb55-279"><a href="#cb55-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-280"><a href="#cb55-280" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-281"><a href="#cb55-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-282"><a href="#cb55-282" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-283"><a href="#cb55-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-284"><a href="#cb55-284" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-285"><a href="#cb55-285" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-286"><a href="#cb55-286" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-287"><a href="#cb55-287" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-288"><a href="#cb55-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-289"><a href="#cb55-289" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-290"><a href="#cb55-290" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-291"><a href="#cb55-291" aria-hidden="true" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-292"><a href="#cb55-292" aria-hidden="true" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-293"><a href="#cb55-293" aria-hidden="true" tabindex="-1"></a>               <span class="at">main =</span> <span class="st">"ROC Curves from Tuned 10-fold CV"</span>))</span>
-<span id="cb55-294"><a href="#cb55-294" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-295"><a href="#cb55-295" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-296"><a href="#cb55-296" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-297"><a href="#cb55-297" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-298"><a href="#cb55-298" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-299"><a href="#cb55-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-300"><a href="#cb55-300" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span></span>
-<span id="cb55-301"><a href="#cb55-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-302"><a href="#cb55-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-303"><a href="#cb55-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned 10-Fold CV)"</span>)</span>
-<span id="cb55-304"><a href="#cb55-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-226"><a href="#cb55-226" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert predictions to a numeric vector</span></span>
+<span id="cb55-227"><a href="#cb55-227" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-228"><a href="#cb55-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-229"><a href="#cb55-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the AUC using the performance() and auc() functions:</span></span>
+<span id="cb55-230"><a href="#cb55-230" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-231"><a href="#cb55-231" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-232"><a href="#cb55-232" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-233"><a href="#cb55-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-234"><a href="#cb55-234" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance plot for TP and FP</span></span>
+<span id="cb55-235"><a href="#cb55-235" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-236"><a href="#cb55-236" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-237"><a href="#cb55-237" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-238"><a href="#cb55-238" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-239"><a href="#cb55-239" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from 10-fold CV"</span>)</span>
+<span id="cb55-240"><a href="#cb55-240" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-241"><a href="#cb55-241" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-242"><a href="#cb55-242" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-243"><a href="#cb55-243" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-244"><a href="#cb55-244" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV.ROC.plot<span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-245"><a href="#cb55-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-246"><a href="#cb55-246" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy and Kappa value plot</span></span>
+<span id="cb55-247"><a href="#cb55-247" aria-hidden="true" tabindex="-1"></a>knn.accu.kappa.plot <span class="ot">&lt;-</span> <span class="cf">function</span>(knn.model) {</span>
+<span id="cb55-248"><a href="#cb55-248" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(<span class="at">k =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>k,</span>
+<span id="cb55-249"><a href="#cb55-249" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Accuracy =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>Accuracy,</span>
+<span id="cb55-250"><a href="#cb55-250" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Kappa =</span> knn.model<span class="sc">$</span>results<span class="sc">$</span>Kappa)) <span class="sc">+</span></span>
+<span id="cb55-251"><a href="#cb55-251" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
+<span id="cb55-252"><a href="#cb55-252" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
+<span id="cb55-253"><a href="#cb55-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">linetype =</span> <span class="st">"Accuracy"</span>, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
+<span id="cb55-254"><a href="#cb55-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">linetype =</span> <span class="st">"Kappa"</span>, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
+<span id="cb55-255"><a href="#cb55-255" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>),</span>
+<span id="cb55-256"><a href="#cb55-256" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)) )) <span class="sc">+</span></span>
+<span id="cb55-257"><a href="#cb55-257" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dotted"</span>),</span>
+<span id="cb55-258"><a href="#cb55-258" aria-hidden="true" tabindex="-1"></a>                          <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>)))) <span class="sc">+</span></span>
+<span id="cb55-259"><a href="#cb55-259" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
+<span id="cb55-260"><a href="#cb55-260" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Accuracy / Kappa"</span>) <span class="sc">+</span></span>
+<span id="cb55-261"><a href="#cb55-261" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-262"><a href="#cb55-262" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb55-263"><a href="#cb55-263" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb55-264"><a href="#cb55-264" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>),</span>
+<span id="cb55-265"><a href="#cb55-265" aria-hidden="true" tabindex="-1"></a>           <span class="at">linetype =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>))</span>
+<span id="cb55-266"><a href="#cb55-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
+<span id="cb55-267"><a href="#cb55-267" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-268"><a href="#cb55-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-269"><a href="#cb55-269" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
+<span id="cb55-270"><a href="#cb55-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-271"><a href="#cb55-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-272"><a href="#cb55-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (10-Fold CV)"</span>)</span>
+<span id="cb55-273"><a href="#cb55-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-274"><a href="#cb55-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-275"><a href="#cb55-275" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
+<span id="cb55-276"><a href="#cb55-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.kfoldCV_mod, fig.show='hide'}</span></span>
+<span id="cb55-277"><a href="#cb55-277" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_kfoldCV_mod.Rdata"</span>)</span>
+<span id="cb55-278"><a href="#cb55-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-279"><a href="#cb55-279" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-280"><a href="#cb55-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-281"><a href="#cb55-281" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-282"><a href="#cb55-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-283"><a href="#cb55-283" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-284"><a href="#cb55-284" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-285"><a href="#cb55-285" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-286"><a href="#cb55-286" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-287"><a href="#cb55-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-288"><a href="#cb55-288" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-289"><a href="#cb55-289" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-290"><a href="#cb55-290" aria-hidden="true" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-291"><a href="#cb55-291" aria-hidden="true" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-292"><a href="#cb55-292" aria-hidden="true" tabindex="-1"></a>               <span class="at">main =</span> <span class="st">"ROC Curves from Tuned 10-fold CV"</span>))</span>
+<span id="cb55-293"><a href="#cb55-293" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-294"><a href="#cb55-294" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-295"><a href="#cb55-295" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-296"><a href="#cb55-296" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-297"><a href="#cb55-297" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-298"><a href="#cb55-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-299"><a href="#cb55-299" aria-hidden="true" tabindex="-1"></a>knn.kfoldCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span></span>
+<span id="cb55-300"><a href="#cb55-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-301"><a href="#cb55-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-302"><a href="#cb55-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned 10-Fold CV)"</span>)</span>
+<span id="cb55-303"><a href="#cb55-303" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-304"><a href="#cb55-304" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-305"><a href="#cb55-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-306"><a href="#cb55-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-307"><a href="#cb55-307" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hold-out CV (Validation Set Approach)</span></span>
-<span id="cb55-308"><a href="#cb55-308" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.holdoutCV, fig.show='hide'}</span></span>
-<span id="cb55-309"><a href="#cb55-309" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_holdoutCV.Rdata"</span>)</span>
-<span id="cb55-310"><a href="#cb55-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-311"><a href="#cb55-311" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-312"><a href="#cb55-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-313"><a href="#cb55-313" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-314"><a href="#cb55-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-315"><a href="#cb55-315" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-316"><a href="#cb55-316" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-317"><a href="#cb55-317" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-318"><a href="#cb55-318" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-319"><a href="#cb55-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-320"><a href="#cb55-320" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-321"><a href="#cb55-321" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-322"><a href="#cb55-322" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-323"><a href="#cb55-323" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-324"><a href="#cb55-324" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Hold-out CV"</span>)</span>
-<span id="cb55-325"><a href="#cb55-325" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-326"><a href="#cb55-326" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-327"><a href="#cb55-327" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-328"><a href="#cb55-328" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-329"><a href="#cb55-329" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-330"><a href="#cb55-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-331"><a href="#cb55-331" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span></span>
-<span id="cb55-332"><a href="#cb55-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-333"><a href="#cb55-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-334"><a href="#cb55-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Hold-out CV)"</span>)</span>
-<span id="cb55-335"><a href="#cb55-335" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb55-336"><a href="#cb55-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-337"><a href="#cb55-337" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
-<span id="cb55-338"><a href="#cb55-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.holdoutCV_mod, fig.show='hide'}</span></span>
-<span id="cb55-339"><a href="#cb55-339" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_holdoutCV_mod.Rdata"</span>)</span>
-<span id="cb55-340"><a href="#cb55-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-341"><a href="#cb55-341" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-342"><a href="#cb55-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-343"><a href="#cb55-343" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-344"><a href="#cb55-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-345"><a href="#cb55-345" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-346"><a href="#cb55-346" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-347"><a href="#cb55-347" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-348"><a href="#cb55-348" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-349"><a href="#cb55-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-350"><a href="#cb55-350" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-351"><a href="#cb55-351" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-352"><a href="#cb55-352" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-353"><a href="#cb55-353" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-354"><a href="#cb55-354" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned Hold-out CV"</span>)</span>
-<span id="cb55-355"><a href="#cb55-355" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-356"><a href="#cb55-356" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-357"><a href="#cb55-357" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-358"><a href="#cb55-358" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-359"><a href="#cb55-359" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-360"><a href="#cb55-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-361"><a href="#cb55-361" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
-<span id="cb55-362"><a href="#cb55-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
-<span id="cb55-363"><a href="#cb55-363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">hjust=</span><span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
-<span id="cb55-364"><a href="#cb55-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned Hold-out CV)"</span>)</span>
-<span id="cb55-365"><a href="#cb55-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-306"><a href="#cb55-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hold-out CV (Validation Set Approach)</span></span>
+<span id="cb55-307"><a href="#cb55-307" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.holdoutCV, fig.show='hide'}</span></span>
+<span id="cb55-308"><a href="#cb55-308" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_holdoutCV.Rdata"</span>)</span>
+<span id="cb55-309"><a href="#cb55-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-310"><a href="#cb55-310" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-311"><a href="#cb55-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-312"><a href="#cb55-312" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-313"><a href="#cb55-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-314"><a href="#cb55-314" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-315"><a href="#cb55-315" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-316"><a href="#cb55-316" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-317"><a href="#cb55-317" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-318"><a href="#cb55-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-319"><a href="#cb55-319" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-320"><a href="#cb55-320" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-321"><a href="#cb55-321" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-322"><a href="#cb55-322" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-323"><a href="#cb55-323" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Hold-out CV"</span>)</span>
+<span id="cb55-324"><a href="#cb55-324" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-325"><a href="#cb55-325" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-326"><a href="#cb55-326" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-327"><a href="#cb55-327" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-328"><a href="#cb55-328" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-329"><a href="#cb55-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-330"><a href="#cb55-330" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span></span>
+<span id="cb55-331"><a href="#cb55-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-332"><a href="#cb55-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-333"><a href="#cb55-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Hold-out CV)"</span>)</span>
+<span id="cb55-334"><a href="#cb55-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-335"><a href="#cb55-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-336"><a href="#cb55-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
+<span id="cb55-337"><a href="#cb55-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.holdoutCV_mod, fig.show='hide'}</span></span>
+<span id="cb55-338"><a href="#cb55-338" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_holdoutCV_mod.Rdata"</span>)</span>
+<span id="cb55-339"><a href="#cb55-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-340"><a href="#cb55-340" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-341"><a href="#cb55-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-342"><a href="#cb55-342" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-343"><a href="#cb55-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-344"><a href="#cb55-344" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-345"><a href="#cb55-345" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-346"><a href="#cb55-346" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-347"><a href="#cb55-347" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-348"><a href="#cb55-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-349"><a href="#cb55-349" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-350"><a href="#cb55-350" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-351"><a href="#cb55-351" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-352"><a href="#cb55-352" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-353"><a href="#cb55-353" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned Hold-out CV"</span>)</span>
+<span id="cb55-354"><a href="#cb55-354" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-355"><a href="#cb55-355" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-356"><a href="#cb55-356" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-357"><a href="#cb55-357" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-358"><a href="#cb55-358" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-359"><a href="#cb55-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-360"><a href="#cb55-360" aria-hidden="true" tabindex="-1"></a>knn.holdoutCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
+<span id="cb55-361"><a href="#cb55-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb55-362"><a href="#cb55-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">hjust=</span><span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb55-363"><a href="#cb55-363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned Hold-out CV)"</span>)</span>
+<span id="cb55-364"><a href="#cb55-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-365"><a href="#cb55-365" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-366"><a href="#cb55-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-367"><a href="#cb55-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-368"><a href="#cb55-368" aria-hidden="true" tabindex="-1"></a><span class="fu">## LOOCV</span></span>
-<span id="cb55-369"><a href="#cb55-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.LOOCV, fig.show='hide'}</span></span>
-<span id="cb55-370"><a href="#cb55-370" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_looCV.Rdata"</span>)</span>
-<span id="cb55-371"><a href="#cb55-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-372"><a href="#cb55-372" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-373"><a href="#cb55-373" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-374"><a href="#cb55-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-375"><a href="#cb55-375" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-376"><a href="#cb55-376" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-377"><a href="#cb55-377" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-378"><a href="#cb55-378" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-379"><a href="#cb55-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-380"><a href="#cb55-380" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-381"><a href="#cb55-381" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-382"><a href="#cb55-382" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-383"><a href="#cb55-383" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-384"><a href="#cb55-384" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">'ROC Curves from LOOCV'</span>)</span>
-<span id="cb55-385"><a href="#cb55-385" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-386"><a href="#cb55-386" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-387"><a href="#cb55-387" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-388"><a href="#cb55-388" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-389"><a href="#cb55-389" aria-hidden="true" tabindex="-1"></a>knn.looCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-390"><a href="#cb55-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-391"><a href="#cb55-391" aria-hidden="true" tabindex="-1"></a>knn.looCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
-<span id="cb55-392"><a href="#cb55-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-393"><a href="#cb55-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-394"><a href="#cb55-394" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (LOOCV)"</span>)</span>
-<span id="cb55-395"><a href="#cb55-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb55-396"><a href="#cb55-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-397"><a href="#cb55-397" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
-<span id="cb55-398"><a href="#cb55-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.LOOCV_mod, fig.show='hide'}</span></span>
-<span id="cb55-399"><a href="#cb55-399" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_looCV_mod.Rdata"</span>)</span>
-<span id="cb55-400"><a href="#cb55-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-401"><a href="#cb55-401" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-402"><a href="#cb55-402" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-403"><a href="#cb55-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-404"><a href="#cb55-404" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-405"><a href="#cb55-405" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-406"><a href="#cb55-406" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-407"><a href="#cb55-407" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-408"><a href="#cb55-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-409"><a href="#cb55-409" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-410"><a href="#cb55-410" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-411"><a href="#cb55-411" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-412"><a href="#cb55-412" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-413"><a href="#cb55-413" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned LOOCV"</span>)</span>
-<span id="cb55-414"><a href="#cb55-414" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-415"><a href="#cb55-415" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-416"><a href="#cb55-416" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-417"><a href="#cb55-417" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-418"><a href="#cb55-418" aria-hidden="true" tabindex="-1"></a>knn.looCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-419"><a href="#cb55-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-420"><a href="#cb55-420" aria-hidden="true" tabindex="-1"></a>knn.looCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
-<span id="cb55-421"><a href="#cb55-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
-<span id="cb55-422"><a href="#cb55-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
-<span id="cb55-423"><a href="#cb55-423" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned LOOCV)"</span>)</span>
-<span id="cb55-424"><a href="#cb55-424" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-367"><a href="#cb55-367" aria-hidden="true" tabindex="-1"></a><span class="fu">## LOOCV</span></span>
+<span id="cb55-368"><a href="#cb55-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.LOOCV, fig.show='hide'}</span></span>
+<span id="cb55-369"><a href="#cb55-369" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_looCV.Rdata"</span>)</span>
+<span id="cb55-370"><a href="#cb55-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-371"><a href="#cb55-371" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-372"><a href="#cb55-372" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-373"><a href="#cb55-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-374"><a href="#cb55-374" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-375"><a href="#cb55-375" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-376"><a href="#cb55-376" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-377"><a href="#cb55-377" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-378"><a href="#cb55-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-379"><a href="#cb55-379" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-380"><a href="#cb55-380" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-381"><a href="#cb55-381" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-382"><a href="#cb55-382" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-383"><a href="#cb55-383" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">'ROC Curves from LOOCV'</span>)</span>
+<span id="cb55-384"><a href="#cb55-384" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-385"><a href="#cb55-385" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-386"><a href="#cb55-386" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-387"><a href="#cb55-387" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-388"><a href="#cb55-388" aria-hidden="true" tabindex="-1"></a>knn.looCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-389"><a href="#cb55-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-390"><a href="#cb55-390" aria-hidden="true" tabindex="-1"></a>knn.looCV.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
+<span id="cb55-391"><a href="#cb55-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-392"><a href="#cb55-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-393"><a href="#cb55-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (LOOCV)"</span>)</span>
+<span id="cb55-394"><a href="#cb55-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-395"><a href="#cb55-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-396"><a href="#cb55-396" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
+<span id="cb55-397"><a href="#cb55-397" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.LOOCV_mod, fig.show='hide'}</span></span>
+<span id="cb55-398"><a href="#cb55-398" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_looCV_mod.Rdata"</span>)</span>
+<span id="cb55-399"><a href="#cb55-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-400"><a href="#cb55-400" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-401"><a href="#cb55-401" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-402"><a href="#cb55-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-403"><a href="#cb55-403" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-404"><a href="#cb55-404" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-405"><a href="#cb55-405" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-406"><a href="#cb55-406" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-407"><a href="#cb55-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-408"><a href="#cb55-408" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-409"><a href="#cb55-409" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-410"><a href="#cb55-410" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-411"><a href="#cb55-411" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-412"><a href="#cb55-412" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned LOOCV"</span>)</span>
+<span id="cb55-413"><a href="#cb55-413" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-414"><a href="#cb55-414" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-415"><a href="#cb55-415" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-416"><a href="#cb55-416" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-417"><a href="#cb55-417" aria-hidden="true" tabindex="-1"></a>knn.looCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-418"><a href="#cb55-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-419"><a href="#cb55-419" aria-hidden="true" tabindex="-1"></a>knn.looCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">knn.accu.kappa.plot</span>(knn_model) <span class="sc">+</span> </span>
+<span id="cb55-420"><a href="#cb55-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb55-421"><a href="#cb55-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">angle=</span><span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb55-422"><a href="#cb55-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KNN Model Performance (Tuned LOOCV)"</span>)</span>
+<span id="cb55-423"><a href="#cb55-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-424"><a href="#cb55-424" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-425"><a href="#cb55-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-426"><a href="#cb55-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-427"><a href="#cb55-427" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repeated CV</span></span>
-<span id="cb55-428"><a href="#cb55-428" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.repeatedCV, fig.show='hide'}</span></span>
-<span id="cb55-429"><a href="#cb55-429" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_repeatedCV.Rdata"</span>)</span>
-<span id="cb55-430"><a href="#cb55-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-431"><a href="#cb55-431" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-432"><a href="#cb55-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-433"><a href="#cb55-433" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-434"><a href="#cb55-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-435"><a href="#cb55-435" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-436"><a href="#cb55-436" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-437"><a href="#cb55-437" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-438"><a href="#cb55-438" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-439"><a href="#cb55-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-440"><a href="#cb55-440" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-441"><a href="#cb55-441" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-442"><a href="#cb55-442" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-443"><a href="#cb55-443" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-444"><a href="#cb55-444" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
-<span id="cb55-445"><a href="#cb55-445" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-446"><a href="#cb55-446" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-447"><a href="#cb55-447" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-448"><a href="#cb55-448" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-449"><a href="#cb55-449" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-450"><a href="#cb55-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-451"><a href="#cb55-451" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> knn_model<span class="sc">$</span>results</span>
-<span id="cb55-452"><a href="#cb55-452" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x =</span> kmax, <span class="at">y =</span> Accuracy)) <span class="sc">+</span></span>
-<span id="cb55-453"><a href="#cb55-453" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
-<span id="cb55-454"><a href="#cb55-454" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
-<span id="cb55-455"><a href="#cb55-455" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> <span class="st">"Accuracy"</span>, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
-<span id="cb55-456"><a href="#cb55-456" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Kappa, <span class="at">linetype =</span> <span class="st">"Kappa"</span>, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
-<span id="cb55-457"><a href="#cb55-457" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-458"><a href="#cb55-458" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-459"><a href="#cb55-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>),</span>
-<span id="cb55-460"><a href="#cb55-460" aria-hidden="true" tabindex="-1"></a>                     <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)) )) <span class="sc">+</span></span>
-<span id="cb55-461"><a href="#cb55-461" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dotted"</span>),</span>
-<span id="cb55-462"><a href="#cb55-462" aria-hidden="true" tabindex="-1"></a>                        <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>)))) <span class="sc">+</span></span>
-<span id="cb55-463"><a href="#cb55-463" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
-<span id="cb55-464"><a href="#cb55-464" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Accuracy / Kappa"</span>,</span>
-<span id="cb55-465"><a href="#cb55-465" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"KNN Model Performance (Repeated CV)"</span>) <span class="sc">+</span></span>
-<span id="cb55-466"><a href="#cb55-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-467"><a href="#cb55-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb55-468"><a href="#cb55-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb55-469"><a href="#cb55-469" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>),</span>
-<span id="cb55-470"><a href="#cb55-470" aria-hidden="true" tabindex="-1"></a>         <span class="at">linetype =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>))</span>
-<span id="cb55-471"><a href="#cb55-471" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb55-472"><a href="#cb55-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-473"><a href="#cb55-473" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
-<span id="cb55-474"><a href="#cb55-474" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.repeatedCV_mod, fig.show='hide'}</span></span>
-<span id="cb55-475"><a href="#cb55-475" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_repeatedCV_mod.Rdata"</span>)</span>
-<span id="cb55-476"><a href="#cb55-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-477"><a href="#cb55-477" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
-<span id="cb55-478"><a href="#cb55-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-479"><a href="#cb55-479" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-480"><a href="#cb55-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-481"><a href="#cb55-481" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
-<span id="cb55-482"><a href="#cb55-482" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb55-483"><a href="#cb55-483" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb55-484"><a href="#cb55-484" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb55-485"><a href="#cb55-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-486"><a href="#cb55-486" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb55-487"><a href="#cb55-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-488"><a href="#cb55-488" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb55-489"><a href="#cb55-489" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb55-490"><a href="#cb55-490" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb55-491"><a href="#cb55-491" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned Repeated CV"</span>)</span>
-<span id="cb55-492"><a href="#cb55-492" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb55-493"><a href="#cb55-493" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb55-494"><a href="#cb55-494" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb55-495"><a href="#cb55-495" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb55-496"><a href="#cb55-496" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb55-497"><a href="#cb55-497" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-498"><a href="#cb55-498" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(knn_model) <span class="sc">+</span></span>
-<span id="cb55-499"><a href="#cb55-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
-<span id="cb55-500"><a href="#cb55-500" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Accuracy"</span>, </span>
-<span id="cb55-501"><a href="#cb55-501" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"KNN Model Performance (Tuned Repeated CV)"</span>) <span class="sc">+</span></span>
-<span id="cb55-502"><a href="#cb55-502" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb55-503"><a href="#cb55-503" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) </span>
-<span id="cb55-504"><a href="#cb55-504" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-426"><a href="#cb55-426" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repeated CV</span></span>
+<span id="cb55-427"><a href="#cb55-427" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.repeatedCV, fig.show='hide'}</span></span>
+<span id="cb55-428"><a href="#cb55-428" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_repeatedCV.Rdata"</span>)</span>
+<span id="cb55-429"><a href="#cb55-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-430"><a href="#cb55-430" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-431"><a href="#cb55-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-432"><a href="#cb55-432" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-433"><a href="#cb55-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-434"><a href="#cb55-434" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-435"><a href="#cb55-435" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-436"><a href="#cb55-436" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-437"><a href="#cb55-437" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-438"><a href="#cb55-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-439"><a href="#cb55-439" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-440"><a href="#cb55-440" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-441"><a href="#cb55-441" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-442"><a href="#cb55-442" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-443"><a href="#cb55-443" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
+<span id="cb55-444"><a href="#cb55-444" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-445"><a href="#cb55-445" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-446"><a href="#cb55-446" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-447"><a href="#cb55-447" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-448"><a href="#cb55-448" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-449"><a href="#cb55-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-450"><a href="#cb55-450" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> knn_model<span class="sc">$</span>results</span>
+<span id="cb55-451"><a href="#cb55-451" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x =</span> kmax, <span class="at">y =</span> Accuracy)) <span class="sc">+</span></span>
+<span id="cb55-452"><a href="#cb55-452" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
+<span id="cb55-453"><a href="#cb55-453" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
+<span id="cb55-454"><a href="#cb55-454" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> <span class="st">"Accuracy"</span>, <span class="at">color =</span> <span class="st">"Accuracy"</span>)) <span class="sc">+</span></span>
+<span id="cb55-455"><a href="#cb55-455" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Kappa, <span class="at">linetype =</span> <span class="st">"Kappa"</span>, <span class="at">color =</span> <span class="st">"Kappa"</span>)) <span class="sc">+</span></span>
+<span id="cb55-456"><a href="#cb55-456" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-457"><a href="#cb55-457" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-458"><a href="#cb55-458" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>),</span>
+<span id="cb55-459"><a href="#cb55-459" aria-hidden="true" tabindex="-1"></a>                     <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">linetype =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)) )) <span class="sc">+</span></span>
+<span id="cb55-460"><a href="#cb55-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dotted"</span>),</span>
+<span id="cb55-461"><a href="#cb55-461" aria-hidden="true" tabindex="-1"></a>                        <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#98c379"</span>, <span class="st">"#e06c75"</span>)))) <span class="sc">+</span></span>
+<span id="cb55-462"><a href="#cb55-462" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
+<span id="cb55-463"><a href="#cb55-463" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Accuracy / Kappa"</span>,</span>
+<span id="cb55-464"><a href="#cb55-464" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"KNN Model Performance (Repeated CV)"</span>) <span class="sc">+</span></span>
+<span id="cb55-465"><a href="#cb55-465" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-466"><a href="#cb55-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb55-467"><a href="#cb55-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb55-468"><a href="#cb55-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>),</span>
+<span id="cb55-469"><a href="#cb55-469" aria-hidden="true" tabindex="-1"></a>         <span class="at">linetype =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Metric"</span>))</span>
+<span id="cb55-470"><a href="#cb55-470" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-471"><a href="#cb55-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-472"><a href="#cb55-472" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
+<span id="cb55-473"><a href="#cb55-473" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.repeatedCV_mod, fig.show='hide'}</span></span>
+<span id="cb55-474"><a href="#cb55-474" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">knn.model_repeatedCV_mod.Rdata"</span>)</span>
+<span id="cb55-475"><a href="#cb55-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-476"><a href="#cb55-476" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(knn_model, <span class="at">newdata =</span> test)</span>
+<span id="cb55-477"><a href="#cb55-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-478"><a href="#cb55-478" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-479"><a href="#cb55-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-480"><a href="#cb55-480" aria-hidden="true" tabindex="-1"></a>knn.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(knn.predictions)</span>
+<span id="cb55-481"><a href="#cb55-481" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(knn.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb55-482"><a href="#cb55-482" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb55-483"><a href="#cb55-483" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb55-484"><a href="#cb55-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-485"><a href="#cb55-485" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb55-486"><a href="#cb55-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-487"><a href="#cb55-487" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb55-488"><a href="#cb55-488" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb55-489"><a href="#cb55-489" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb55-490"><a href="#cb55-490" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Tuned Repeated CV"</span>)</span>
+<span id="cb55-491"><a href="#cb55-491" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
+<span id="cb55-492"><a href="#cb55-492" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
+<span id="cb55-493"><a href="#cb55-493" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb55-494"><a href="#cb55-494" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb55-495"><a href="#cb55-495" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV_mod.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb55-496"><a href="#cb55-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-497"><a href="#cb55-497" aria-hidden="true" tabindex="-1"></a>knn.repeatedCV_mod.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(knn_model) <span class="sc">+</span></span>
+<span id="cb55-498"><a href="#cb55-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"K value"</span>, </span>
+<span id="cb55-499"><a href="#cb55-499" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Accuracy"</span>, </span>
+<span id="cb55-500"><a href="#cb55-500" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"KNN Model Performance (Tuned Repeated CV)"</span>) <span class="sc">+</span></span>
+<span id="cb55-501"><a href="#cb55-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb55-502"><a href="#cb55-502" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) </span>
+<span id="cb55-503"><a href="#cb55-503" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-504"><a href="#cb55-504" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-505"><a href="#cb55-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-506"><a href="#cb55-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-507"><a href="#cb55-507" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
-<span id="cb55-508"><a href="#cb55-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-509"><a href="#cb55-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.Accuracy.Kappa.Plot, fig.width=15, fig.height=20}</span></span>
-<span id="cb55-510"><a href="#cb55-510" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(knn.kfoldCV.plot,</span>
-<span id="cb55-511"><a href="#cb55-511" aria-hidden="true" tabindex="-1"></a>          knn.kfoldCV_mod.plot,</span>
-<span id="cb55-512"><a href="#cb55-512" aria-hidden="true" tabindex="-1"></a>          knn.holdoutCV.plot,</span>
-<span id="cb55-513"><a href="#cb55-513" aria-hidden="true" tabindex="-1"></a>          knn.holdoutCV_mod.plot,</span>
-<span id="cb55-514"><a href="#cb55-514" aria-hidden="true" tabindex="-1"></a>          knn.looCV.plot,</span>
-<span id="cb55-515"><a href="#cb55-515" aria-hidden="true" tabindex="-1"></a>          knn.looCV_mod.plot,</span>
-<span id="cb55-516"><a href="#cb55-516" aria-hidden="true" tabindex="-1"></a>          knn.repeatedCV.plot,</span>
-<span id="cb55-517"><a href="#cb55-517" aria-hidden="true" tabindex="-1"></a>          knn.repeatedCV_mod.plot,</span>
-<span id="cb55-518"><a href="#cb55-518" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span>
-<span id="cb55-519"><a href="#cb55-519" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb55-520"><a href="#cb55-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-521"><a href="#cb55-521" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.ROC_curve, fig.width=10}</span></span>
-<span id="cb55-522"><a href="#cb55-522" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.kfoldCV.ROC.plot, knn.kfoldCV_mod.ROC.plot,</span>
-<span id="cb55-523"><a href="#cb55-523" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
-<span id="cb55-524"><a href="#cb55-524" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.holdoutCV.ROC.plot, knn.holdoutCV_mod.ROC.plot,</span>
-<span id="cb55-525"><a href="#cb55-525" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
-<span id="cb55-526"><a href="#cb55-526" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.looCV.ROC.plot, knn.looCV_mod.ROC.plot,</span>
-<span id="cb55-527"><a href="#cb55-527" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
-<span id="cb55-528"><a href="#cb55-528" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.repeatedCV.ROC.plot, knn.repeatedCV_mod.ROC.plot,</span>
-<span id="cb55-529"><a href="#cb55-529" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
-<span id="cb55-530"><a href="#cb55-530" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-506"><a href="#cb55-506" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb55-507"><a href="#cb55-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-508"><a href="#cb55-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.Accuracy.Kappa.Plot, fig.width=15, fig.height=20}</span></span>
+<span id="cb55-509"><a href="#cb55-509" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(knn.kfoldCV.plot,</span>
+<span id="cb55-510"><a href="#cb55-510" aria-hidden="true" tabindex="-1"></a>          knn.kfoldCV_mod.plot,</span>
+<span id="cb55-511"><a href="#cb55-511" aria-hidden="true" tabindex="-1"></a>          knn.holdoutCV.plot,</span>
+<span id="cb55-512"><a href="#cb55-512" aria-hidden="true" tabindex="-1"></a>          knn.holdoutCV_mod.plot,</span>
+<span id="cb55-513"><a href="#cb55-513" aria-hidden="true" tabindex="-1"></a>          knn.looCV.plot,</span>
+<span id="cb55-514"><a href="#cb55-514" aria-hidden="true" tabindex="-1"></a>          knn.looCV_mod.plot,</span>
+<span id="cb55-515"><a href="#cb55-515" aria-hidden="true" tabindex="-1"></a>          knn.repeatedCV.plot,</span>
+<span id="cb55-516"><a href="#cb55-516" aria-hidden="true" tabindex="-1"></a>          knn.repeatedCV_mod.plot,</span>
+<span id="cb55-517"><a href="#cb55-517" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span>
+<span id="cb55-518"><a href="#cb55-518" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-519"><a href="#cb55-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-520"><a href="#cb55-520" aria-hidden="true" tabindex="-1"></a><span class="in">```{r knn.ROC_curve, fig.width=10}</span></span>
+<span id="cb55-521"><a href="#cb55-521" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.kfoldCV.ROC.plot, knn.kfoldCV_mod.ROC.plot,</span>
+<span id="cb55-522"><a href="#cb55-522" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
+<span id="cb55-523"><a href="#cb55-523" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.holdoutCV.ROC.plot, knn.holdoutCV_mod.ROC.plot,</span>
+<span id="cb55-524"><a href="#cb55-524" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
+<span id="cb55-525"><a href="#cb55-525" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.looCV.ROC.plot, knn.looCV_mod.ROC.plot,</span>
+<span id="cb55-526"><a href="#cb55-526" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
+<span id="cb55-527"><a href="#cb55-527" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(knn.repeatedCV.ROC.plot, knn.repeatedCV_mod.ROC.plot,</span>
+<span id="cb55-528"><a href="#cb55-528" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
+<span id="cb55-529"><a href="#cb55-529" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb55-530"><a href="#cb55-530" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-531"><a href="#cb55-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-532"><a href="#cb55-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-533"><a href="#cb55-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-534"><a href="#cb55-534" aria-hidden="true" tabindex="-1"></a>| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |</span>
-<span id="cb55-535"><a href="#cb55-535" aria-hidden="true" tabindex="-1"></a>| -------------------- | ---------- | ----------- | ----------- | --------- |</span>
-<span id="cb55-536"><a href="#cb55-536" aria-hidden="true" tabindex="-1"></a>| K-Fold CV            | 0.2273     | 0.9199      | 0.1883      | 0.5541001 |</span>
-<span id="cb55-537"><a href="#cb55-537" aria-hidden="true" tabindex="-1"></a>| K-Fold CV (Tuned)    | 0.1995     | 0.9768      | 0.1004      | 0.5386181 |</span>
-<span id="cb55-538"><a href="#cb55-538" aria-hidden="true" tabindex="-1"></a>| Hold-out CV          | 0.2222     | 0.9336      | 0.1590      | 0.5463051 |</span>
-<span id="cb55-539"><a href="#cb55-539" aria-hidden="true" tabindex="-1"></a>| Hold-out CV  (Tuned) | 0.2022     | 0.9926      | 0.0251      | 0.5088642 |</span>
-<span id="cb55-540"><a href="#cb55-540" aria-hidden="true" tabindex="-1"></a>| LOOCV                | 0.1717     | 0.9642      | 0.2887      | 0.6264379 |</span>
-<span id="cb55-541"><a href="#cb55-541" aria-hidden="true" tabindex="-1"></a>| LOOCV (Tuned)        | 0.1995     | 0.9768      | 0.1004      | 0.5386181 |</span>
-<span id="cb55-542"><a href="#cb55-542" aria-hidden="true" tabindex="-1"></a>| Repeated CV          | 0.1776     | 0.9104      | 0.4728      | 0.6916177 |</span>
-<span id="cb55-543"><a href="#cb55-543" aria-hidden="true" tabindex="-1"></a>| Repeated CV (Tuned)  | 0.1120     | 0.9547      | 0.6234      | 0.7890601 |</span>
-<span id="cb55-544"><a href="#cb55-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-545"><a href="#cb55-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-546"><a href="#cb55-546" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb55-547"><a href="#cb55-547" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.kfoldCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.kfoldCV.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-548"><a href="#cb55-548" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.kfoldCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.kfoldCV_mod.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-549"><a href="#cb55-549" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.holdoutCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.holdoutCV.ROC.plot.Rdata.Rdata"</span>)</span>
-<span id="cb55-550"><a href="#cb55-550" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.holdoutCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.holdoutCV_mod.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-551"><a href="#cb55-551" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.looCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.looCV.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-552"><a href="#cb55-552" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.looCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.looCV_mod.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-553"><a href="#cb55-553" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.repeatedCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.repeatedCV.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-554"><a href="#cb55-554" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.repeatedCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.repeatedCV_mod.ROC.plot.Rdata"</span>)</span>
-<span id="cb55-555"><a href="#cb55-555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-556"><a href="#cb55-556" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn_model, df)</span>
-<span id="cb55-557"><a href="#cb55-557" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn.kfoldCV.plot,</span>
-<span id="cb55-558"><a href="#cb55-558" aria-hidden="true" tabindex="-1"></a>       knn.kfoldCV_mod.plot,</span>
-<span id="cb55-559"><a href="#cb55-559" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV.plot,</span>
-<span id="cb55-560"><a href="#cb55-560" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV_mod.plot,</span>
-<span id="cb55-561"><a href="#cb55-561" aria-hidden="true" tabindex="-1"></a>       knn.looCV.plot,</span>
-<span id="cb55-562"><a href="#cb55-562" aria-hidden="true" tabindex="-1"></a>       knn.looCV_mod.plot,</span>
-<span id="cb55-563"><a href="#cb55-563" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV.plot,</span>
-<span id="cb55-564"><a href="#cb55-564" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV_mod.plot)</span>
-<span id="cb55-565"><a href="#cb55-565" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn.kfoldCV.ROC.plot,</span>
-<span id="cb55-566"><a href="#cb55-566" aria-hidden="true" tabindex="-1"></a>       knn.kfoldCV_mod.ROC.plot,</span>
-<span id="cb55-567"><a href="#cb55-567" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV.ROC.plot,</span>
-<span id="cb55-568"><a href="#cb55-568" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV_mod.ROC.plot,</span>
-<span id="cb55-569"><a href="#cb55-569" aria-hidden="true" tabindex="-1"></a>       knn.looCV.ROC.plot,</span>
-<span id="cb55-570"><a href="#cb55-570" aria-hidden="true" tabindex="-1"></a>       knn.looCV_mod.ROC.plot,</span>
-<span id="cb55-571"><a href="#cb55-571" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV.ROC.plot,</span>
-<span id="cb55-572"><a href="#cb55-572" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV_mod.ROC.plot)</span>
-<span id="cb55-573"><a href="#cb55-573" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(pred_obj, roc_obj)</span>
-<span id="cb55-574"><a href="#cb55-574" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(auc_val, knn.predictions)</span>
-<span id="cb55-575"><a href="#cb55-575" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb55-532"><a href="#cb55-532" aria-hidden="true" tabindex="-1"></a>| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |</span>
+<span id="cb55-533"><a href="#cb55-533" aria-hidden="true" tabindex="-1"></a>| -------------------- | ---------- | ----------- | ----------- | --------- |</span>
+<span id="cb55-534"><a href="#cb55-534" aria-hidden="true" tabindex="-1"></a>| K-Fold CV            | 0.2273     | 0.9199      | 0.1883      | 0.5541001 |</span>
+<span id="cb55-535"><a href="#cb55-535" aria-hidden="true" tabindex="-1"></a>| K-Fold CV (Tuned)    | 0.1995     | 0.9768      | 0.1004      | 0.5386181 |</span>
+<span id="cb55-536"><a href="#cb55-536" aria-hidden="true" tabindex="-1"></a>| Hold-out CV          | 0.2222     | 0.9336      | 0.1590      | 0.5463051 |</span>
+<span id="cb55-537"><a href="#cb55-537" aria-hidden="true" tabindex="-1"></a>| Hold-out CV  (Tuned) | 0.2022     | 0.9926      | 0.0251      | 0.5088642 |</span>
+<span id="cb55-538"><a href="#cb55-538" aria-hidden="true" tabindex="-1"></a>| LOOCV                | 0.1717     | 0.9642      | 0.2887      | 0.6264379 |</span>
+<span id="cb55-539"><a href="#cb55-539" aria-hidden="true" tabindex="-1"></a>| LOOCV (Tuned)        | 0.1995     | 0.9768      | 0.1004      | 0.5386181 |</span>
+<span id="cb55-540"><a href="#cb55-540" aria-hidden="true" tabindex="-1"></a>| Repeated CV          | 0.1776     | 0.9104      | 0.4728      | 0.6916177 |</span>
+<span id="cb55-541"><a href="#cb55-541" aria-hidden="true" tabindex="-1"></a>| Repeated CV (Tuned)  | 0.1120     | 0.9547      | 0.6234      | 0.7890601 |</span>
+<span id="cb55-542"><a href="#cb55-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-543"><a href="#cb55-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-544"><a href="#cb55-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb55-545"><a href="#cb55-545" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.kfoldCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.kfoldCV.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-546"><a href="#cb55-546" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.kfoldCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.kfoldCV_mod.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-547"><a href="#cb55-547" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.holdoutCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.holdoutCV.ROC.plot.Rdata.Rdata"</span>)</span>
+<span id="cb55-548"><a href="#cb55-548" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.holdoutCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.holdoutCV_mod.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-549"><a href="#cb55-549" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.looCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.looCV.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-550"><a href="#cb55-550" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.looCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.looCV_mod.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-551"><a href="#cb55-551" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.repeatedCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.repeatedCV.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-552"><a href="#cb55-552" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(knn.repeatedCV_mod.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">knn.repeatedCV_mod.ROC.plot.Rdata"</span>)</span>
+<span id="cb55-553"><a href="#cb55-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-554"><a href="#cb55-554" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn_model, df)</span>
+<span id="cb55-555"><a href="#cb55-555" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn.kfoldCV.plot,</span>
+<span id="cb55-556"><a href="#cb55-556" aria-hidden="true" tabindex="-1"></a>       knn.kfoldCV_mod.plot,</span>
+<span id="cb55-557"><a href="#cb55-557" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV.plot,</span>
+<span id="cb55-558"><a href="#cb55-558" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV_mod.plot,</span>
+<span id="cb55-559"><a href="#cb55-559" aria-hidden="true" tabindex="-1"></a>       knn.looCV.plot,</span>
+<span id="cb55-560"><a href="#cb55-560" aria-hidden="true" tabindex="-1"></a>       knn.looCV_mod.plot,</span>
+<span id="cb55-561"><a href="#cb55-561" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV.plot,</span>
+<span id="cb55-562"><a href="#cb55-562" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV_mod.plot)</span>
+<span id="cb55-563"><a href="#cb55-563" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(knn.kfoldCV.ROC.plot,</span>
+<span id="cb55-564"><a href="#cb55-564" aria-hidden="true" tabindex="-1"></a>       knn.kfoldCV_mod.ROC.plot,</span>
+<span id="cb55-565"><a href="#cb55-565" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV.ROC.plot,</span>
+<span id="cb55-566"><a href="#cb55-566" aria-hidden="true" tabindex="-1"></a>       knn.holdoutCV_mod.ROC.plot,</span>
+<span id="cb55-567"><a href="#cb55-567" aria-hidden="true" tabindex="-1"></a>       knn.looCV.ROC.plot,</span>
+<span id="cb55-568"><a href="#cb55-568" aria-hidden="true" tabindex="-1"></a>       knn.looCV_mod.ROC.plot,</span>
+<span id="cb55-569"><a href="#cb55-569" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV.ROC.plot,</span>
+<span id="cb55-570"><a href="#cb55-570" aria-hidden="true" tabindex="-1"></a>       knn.repeatedCV_mod.ROC.plot)</span>
+<span id="cb55-571"><a href="#cb55-571" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(pred_obj, roc_obj)</span>
+<span id="cb55-572"><a href="#cb55-572" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(auc_val, knn.predictions)</span>
+<span id="cb55-573"><a href="#cb55-573" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

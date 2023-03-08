@@ -211,7 +211,6 @@ save(knn_model, file = "dataset\\model\\knn.model_repeatedCV_mod.Rdata")
 ## K-fold CV 
 ```{r knn.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
@@ -237,7 +236,7 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 plot(roc_obj, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from K-fold CV")
+     main = "ROC Curves from 10-fold CV")
 points(auc_val, 1 - auc_val, 
        col = "steelblue", 
        pch = 21)
@@ -528,7 +527,6 @@ cowplot::plot_grid(knn.looCV.ROC.plot, knn.looCV_mod.ROC.plot,
 cowplot::plot_grid(knn.repeatedCV.ROC.plot, knn.repeatedCV_mod.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
-
 
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |

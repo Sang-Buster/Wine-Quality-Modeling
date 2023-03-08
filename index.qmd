@@ -26,8 +26,7 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 -   LDA
 -   QDA
 -   Naive Bayes
--   Decision Tree
-    -   Classification and Regression Trees (CART)
+-   Decision Tree (CART Algorithm)
 -   Random Forest (Classification)
 -   Bagging (Bootstrap Aggregation)
 -   Boosting (Gradient Boosting Machine (GBM))

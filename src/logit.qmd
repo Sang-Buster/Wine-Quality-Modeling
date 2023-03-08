@@ -94,7 +94,6 @@ save(logit_model, file = "dataset\\model\\logit.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r logit.kfoldCV, fig.show='hide', message=FALSE}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 

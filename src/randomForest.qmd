@@ -85,7 +85,6 @@ save(rf_model, file = "dataset\\model\\rf.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r rf.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 

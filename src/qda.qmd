@@ -90,7 +90,6 @@ save(qda_model, file = "dataset\\model\\qda.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r qda.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 

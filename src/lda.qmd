@@ -90,7 +90,6 @@ save(lda_model, file = "dataset\\model\\lda.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r lda.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
