@@ -100,15 +100,15 @@ cowplot::plot_grid(knn.kfoldCV.ROC.plot,
 | KNN 10-Fold CV                                   | 0.1692     | 0.9615      | 0.2775      | 0.6195157 |
 | KNN 10-Fold CV (Tuned)                           | 0.1953     | 0.9750      | 0.0837      | 0.5293632 |
 | KNN Hold-out CV                                  | 0.1768     | 0.9563      | 0.2599      | 0.6081037 |
-| KNN Hold-out CV  (Tuned)                         | 0.1944     | 0.9886      | 0.03084     | 0.5096953 |
+| KNN Hold-out CV  (Tuned)                         | 0.1944     | 0.9886      | 0.0308      | 0.5096953 |
 | KNN LOOCV                                        | 0.1692     | 0.9605      | 0.2819      | 0.6211981 |
 | KNN LOOCV (Tuned)                                | 0.1961     | 0.9740      | 0.0837      | 0.5288429 |
 | KNN Repeated CV                                  | 0.1069     | 0.9542      | 0.6344      | 0.7942878 |
 | KNN Repeated CV (Tuned)                          | 0.1204     | 0.9584      | 0.5463      | 0.7523161 |
 |                                                  |            |             |             |           |
 | Logistic Regression (`caret` 10-fold CV)         | 0.1793     | 0.9324      | 0.3480      | 0.6401899 |
-| Logistic Regression (`caret` tuned with stepAIC) | 0.1801     | 0.99272     | 0.0881      | 0.5404108 |
-| Logistic Regression (`MASS` 10-fold CV)          | 0.1616     | 1.00000     | 0.0857      | 0.5438871 |
+| Logistic Regression (`caret` tuned with stepAIC) | 0.1801     | 0.9927      | 0.0881      | 0.5404108 |
+| Logistic Regression (`MASS` 10-fold CV)          | 0.1616     | 1.0000      | 0.0857      | 0.5438871 |
 | Logistic Regression (`MASS` Hold-out CV)         | 0.1894     | 0.9884      | 0.1046      | 0.5465057 |
 |                                                  |            |             |             |           |
 | LDA (`caret` 10-fold CV)                         | 0.1919     | 0.9283      | 0.3305      | 0.6294448 |
@@ -152,7 +152,7 @@ cowplot::plot_grid(xgboost.kfoldCV.ROC.plot,
 | Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
 | Naive Bayes       | 0.2391     | 0.7804      | 0.6784      | 0.7294256 |
-| CART              | 0.181      | 0.9032      | 0.4626      | 0.6828904 |
+| CART              | 0.1810     | 0.9032      | 0.4626      | 0.6828904 |
 | Random Forest     | 0.1540     | 0.9501      | 0.4053      | 0.6776692 |
 | Bagging           | 0.1658     | 0.9178      | 0.4802      | 0.6989851 |
 | Boosting          | 0.1751     | 0.9251      | 0.4009      | 0.6629796 |
