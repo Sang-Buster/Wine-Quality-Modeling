@@ -151,6 +151,8 @@ dc.kfoldCV.plot <- accu.kappa.plot(dc_df) +
   geom_text(aes(x = k, y = Kappa, label = round(Kappa, 3)), hjust = -0.3, angle=90) +
   labs(x="Max Depth")
   ggtitle("CART Model Performance")
+  
+pander::pander(dc_model$results)
 ```
 
 ### Tuned

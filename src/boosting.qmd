@@ -97,9 +97,6 @@ load("dataset\\model\\boost.model_kfoldCV.Rdata")
 
 boost.predictions <- predict(boost_model, newdata = test)
 
-rmse <- sqrt(mean((boost.predictions - test$good) ^ 2))
-mae <- mean(abs(boost.predictions - test$good))
-
 confusionMatrix(boost.predictions, test$good)
 
 boost.predictions <- as.numeric(boost.predictions)

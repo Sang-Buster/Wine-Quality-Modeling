@@ -97,12 +97,10 @@ load("dataset\\model\\bag.model_kfoldCV.Rdata")
 
 bag.predictions <- predict(bag_model, newdata = test)
 
-rmse <- sqrt(mean((bag.predictions - test$good) ^ 2))
-mae <- mean(abs(bag.predictions - test$good))
-
 confusionMatrix(bag.predictions, test$good)
 
 bag.predictions <- as.numeric(bag.predictions)
+
 pred_obj <- prediction(bag.predictions, test$good)
 auc_val <- performance(pred_obj, "auc")@y.values[[1]]
 auc_val
