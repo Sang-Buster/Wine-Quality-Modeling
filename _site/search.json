@@ -4,14 +4,28 @@
     "href": "index.html",
     "title": "Introduction to Statistical Learning",
     "section": "",
-    "text": "Consider the wine quality dataset from UCI Machine Learning Respository1. We will focus only on the data concerning white wines (and not red wines). Dichotomize the quality variable as good, which takes the value 1 if quality \\(\\geq\\) 7 and the value 0, otherwise. We will take good as response and all the 11 physiochemical characteristics of the wines in the data as predictors.\n\n\nUse 10-fold cross-validation for estimating the test error rates below and compute the estimates using caret package with seed set to 1234 before each computation.\n\nFit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.\nRepeat (a) using logistic regression.\nRepeat (a) using LDA.\nRepeat (a) using QDA.\nCompare the results in (a)-(d). Which classifier would you recommend? Justify your answer.\n\n\n\n\nData Modeling\n\nK-nearest Neighbors Classifier (KNN)\nLogistic Regression\nLinear Discriminant Analysis (LDA)\nQuadratic Discriminant Analysis (QDA)\n\nFurther Modeling\n\nNaive Bayes\nDecision Tree (CART Algorithm)\nRandom Forest (Classification)\nBagging (Bootstrap Aggregation)\nBoosting\neXtreme Gradient Boosting (XGBoost)\nSupport Vector Machine (SVM)\nNeural Networks (NNET)"
+    "text": "Consider the wine quality dataset from UCI Machine Learning Respository1. We will focus only on the data concerning white wines (and not red wines). Dichotomize the quality variable as good, which takes the value 1 if quality \\(\\geq\\) 7 and the value 0, otherwise. We will take good as response and all the 11 physiochemical characteristics of the wines in the data as predictors."
   },
   {
     "objectID": "index.html#preamble",
     "href": "index.html#preamble",
     "title": "Introduction to Statistical Learning",
     "section": "",
-    "text": "Consider the wine quality dataset from UCI Machine Learning Respository1. We will focus only on the data concerning white wines (and not red wines). Dichotomize the quality variable as good, which takes the value 1 if quality \\(\\geq\\) 7 and the value 0, otherwise. We will take good as response and all the 11 physiochemical characteristics of the wines in the data as predictors.\n\n\nUse 10-fold cross-validation for estimating the test error rates below and compute the estimates using caret package with seed set to 1234 before each computation.\n\nFit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.\nRepeat (a) using logistic regression.\nRepeat (a) using LDA.\nRepeat (a) using QDA.\nCompare the results in (a)-(d). Which classifier would you recommend? Justify your answer.\n\n\n\n\nData Modeling\n\nK-nearest Neighbors Classifier (KNN)\nLogistic Regression\nLinear Discriminant Analysis (LDA)\nQuadratic Discriminant Analysis (QDA)\n\nFurther Modeling\n\nNaive Bayes\nDecision Tree (CART Algorithm)\nRandom Forest (Classification)\nBagging (Bootstrap Aggregation)\nBoosting\neXtreme Gradient Boosting (XGBoost)\nSupport Vector Machine (SVM)\nNeural Networks (NNET)"
+    "text": "Consider the wine quality dataset from UCI Machine Learning Respository1. We will focus only on the data concerning white wines (and not red wines). Dichotomize the quality variable as good, which takes the value 1 if quality \\(\\geq\\) 7 and the value 0, otherwise. We will take good as response and all the 11 physiochemical characteristics of the wines in the data as predictors."
+  },
+  {
+    "objectID": "index.html#problem-statements",
+    "href": "index.html#problem-statements",
+    "title": "Introduction to Statistical Learning",
+    "section": "Problem Statements",
+    "text": "Problem Statements\nUse 10-fold cross-validation for estimating the test error rates below and compute the estimates using caret package with seed set to 1234 before each computation.\n\nFit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.\nRepeat (a) using logistic regression.\nRepeat (a) using LDA.\nRepeat (a) using QDA.\nCompare the results in (a)-(d). Which classifier would you recommend? Justify your answer."
+  },
+  {
+    "objectID": "index.html#methodologies",
+    "href": "index.html#methodologies",
+    "title": "Introduction to Statistical Learning",
+    "section": "Methodologies",
+    "text": "Methodologies\nData Modeling\n\nK-nearest Neighbors Classifier (KNN)\nLogistic Regression\nLinear Discriminant Analysis (LDA)\nQuadratic Discriminant Analysis (QDA)\n\nFurther Modeling\n\nNaive Bayes\nDecision Tree (CART Algorithm)\nRandom Forest (Classification)\nBagging (Bootstrap Aggregation)\nBoosting\neXtreme Gradient Boosting (XGBoost)\nSupport Vector Machine (SVM)\nNeural Networks (NNET)"
   },
   {
     "objectID": "index.html#footnotes",

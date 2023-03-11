@@ -285,11 +285,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of Contents</h2>
    
   <ul>
-  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble">Preamble</a>
-  <ul>
+  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble">Preamble</a></li>
   <li><a href="#problem-statements" id="toc-problem-statements" class="nav-link" data-scroll-target="#problem-statements">Problem Statements</a></li>
   <li><a href="#methodologies" id="toc-methodologies" class="nav-link" data-scroll-target="#methodologies">Methodologies</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -317,8 +315,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preamble" class="level2">
 <h2 class="anchored" data-anchor-id="preamble">Preamble</h2>
 <p>Consider the wine quality dataset from <a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">UCI Machine Learning Respository</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We will focus only on the data concerning white wines (and not red wines). Dichotomize the <code>quality</code> variable as <code>good</code>, which takes the value 1 if <code>quality</code> <span class="math inline">\(\geq\)</span> 7 and the value 0, otherwise. We will take <code>good</code> as response and all the 11 physiochemical characteristics of the wines in the data as predictors.</p>
-<section id="problem-statements" class="level3">
-<h3 class="anchored" data-anchor-id="problem-statements">Problem Statements</h3>
+</section>
+<section id="problem-statements" class="level2">
+<h2 class="anchored" data-anchor-id="problem-statements">Problem Statements</h2>
 <p>Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using <code>caret</code> package with seed set to 1234 before each computation.</p>
 <ol type="a">
 <li>Fit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.</li>
@@ -328,8 +327,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.</li>
 </ol>
 </section>
-<section id="methodologies" class="level3">
-<h3 class="anchored" data-anchor-id="methodologies">Methodologies</h3>
+<section id="methodologies" class="level2">
+<h2 class="anchored" data-anchor-id="methodologies">Methodologies</h2>
 <p>Data Modeling</p>
 <ul>
 <li>K-nearest Neighbors Classifier (KNN)</li>
@@ -352,7 +351,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- -->
 
-</section>
 </section>
 
 
@@ -781,7 +779,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">### Problem Statements</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problem Statements</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using <span class="in">`caret`</span> package with seed set to 1234 before each computation.</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
@@ -791,7 +789,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>(d) Repeat (a) using QDA.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methodologies</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Methodologies</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>Data Modeling</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
