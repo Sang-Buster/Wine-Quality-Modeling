@@ -20,15 +20,6 @@ website:
       - icon: github
         href: https://github.com/Sang-Buster/Wine-Quality-Modeling
         text: "Repository"
-      - icon: person
-        text: "Author"
-        menu:
-          - text: Alana
-            url: mailto:atauala@pdx.edu
-          - text: Leif
-            url: mailto:leif8@pdx.edu
-          - text: Sang
-            url: mailto:sxing@pdx.edu
       - icon: code-square
         href: https://github.com/Sang-Buster/Wine-Quality-Modeling/blob/main/src/
         text: "Source Code"
