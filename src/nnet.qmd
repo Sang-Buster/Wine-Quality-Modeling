@@ -84,10 +84,14 @@ save(nnet_model, file = "dataset\\model\\nnet.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r nnet.kfoldCV, fig.show='hide'}
 # Data Import
+load("dataset\\wine.data_cleaned.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
-# Model Import
+# Function Import
+load("dataset\\function\\accu.kappa.plot.Rdata")
+
+# Model import
 load("dataset\\model\\nnet.model_kfoldCV.Rdata")
 
 nnet.predictions <- predict(nnet_model, newdata = test)
@@ -104,63 +108,31 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 plot(roc_obj, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from Repeated CV")
-points(auc_val, 1 - auc_val, 
-       col = "steelblue", 
-       pch = 21)
+     main = "Neural Network (10-fold CV)")
 abline(a = 0, b = 1)
+x_values <- as.numeric(unlist(roc_obj@x.values))
+y_values <- as.numeric(unlist(roc_obj@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 nnet.kfoldCV.ROC.plot <- recordPlot()
+
+pander::pander(nnet_model$results)
 ```
 
-### Tuned
-```{r, nnet.kfoldCV_mod, fig.show='hide'}
-
+## Summary
+```{r fig.width=5, fig.height=5}
+cowplot::plot_grid(nnet.kfoldCV.ROC.plot)
 ```
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | Neural Network       | 0.1801     | 0.9313      | 0.3480      | 0.6396696 |
-| Neural Network       | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
 
 ```{r, echo=FALSE}
 save(nnet.kfoldCV.ROC.plot, file = "dataset\\plot\\nnet.kfoldCV.ROC.plot.Rdata")
 ```
-
-## Summary
-
-```{r, echo=FALSE}
-load("dataset\\plot\\nb.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\dc.kfoldCV_mod.ROC.plot.Rdata")
-load("dataset\\plot\\rf.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\bag.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\boost.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\xgboost.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\svm.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\nnet.kfoldCV.ROC.plot.Rdata")
-```
-
-```{r, fig.width=10, fig.height=10}
-cowplot::plot_grid(nb.kfoldCV.ROC.plot,
-                   dc.kfoldCV.ROC.plot,
-                   rf.kfoldCV.ROC.plot,
-                   bag.kfoldCV.ROC.plot, 
-                   ncol = 2, align = "hv", scale = 0.8)
-
-cowplot::plot_grid(boost.kfoldCV.ROC.plot,
-                   svm.kfoldCV.ROC.plot,
-                   xgboost.kfoldCV.ROC.plot,
-                   nnet.kfoldCV.ROC.plot,
-                   ncol = 2, align = "hv", scale = 0.8)
-```
-
-| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
-| ----------------- | ---------- | ----------- | ----------- | --------- |
-| Naive Bayes       | 0.2391     | 0.7804      | 0.6784      | 0.7294256 |
-| CART              | 0.181      | 0.9032      | 0.4626      | 0.6828904 |
-| Random Forest     | 0.1540     | 0.9501      | 0.4053      | 0.6776692 |
-| Bagging           | 0.1658     | 0.9178      | 0.4802      | 0.6989851 |
-| boost             | 0.1751     | 0.9251      | 0.4009      | 0.6629796 |
-| XGBoost           | 0.1633     | 0.9428      | 0.3877      | 0.6652166 |
-| SVM               | 0.1675     | 0.9646      | 0.2731      | 0.6188740 |
-| Neural Network    | 0.1801     | 0.9313      | 0.3480      | 0.6396696 |

@@ -68,10 +68,12 @@ if (!is.null(current_dir)) {
 ```{r data_import}
 wine.data <- read.csv("dataset\\winequality-white.csv", sep=";", header = T)
 
+head(wine.data)
+
+
 # Removing duplicate Rows, mutate our categorical response good
 wine.data_cleaned <-  wine.data %>% mutate(good = ifelse(quality>=7, 1, 0)) %>% distinct() %>% dplyr::select(c(1:11, 13))
 
-head(wine.data)
 head(wine.data_cleaned)
 ```
 

@@ -69,7 +69,8 @@ website:
             text: "Support Vector Machine"
           - href: src/nnet.qmd
             text: "Neural Network"
-
+      - href: src/summary.qmd
+        text: "Summary"
 format:
   html:
     grid:

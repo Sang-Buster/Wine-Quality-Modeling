@@ -268,6 +268,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -278,11 +284,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of Contents</h2>
    
   <ul>
-  <li><a href="#model-construction" id="toc-model-construction" class="nav-link active" data-scroll-target="#model-construction">Model Construction</a></li>
-  <li><a href="#k-fold-cv" id="toc-k-fold-cv" class="nav-link" data-scroll-target="#k-fold-cv">K-fold CV</a>
-  <ul>
-  <li><a href="#tuned" id="toc-tuned" class="nav-link" data-scroll-target="#tuned">Tuned</a></li>
-  </ul></li>
+  <li><a href="#k-fold-cv-caret" id="toc-k-fold-cv-caret" class="nav-link active" data-scroll-target="#k-fold-cv-caret">K-fold CV (<code>caret</code>)</a></li>
+  <li><a href="#k-fold-cv-tuned-caret" id="toc-k-fold-cv-tuned-caret" class="nav-link" data-scroll-target="#k-fold-cv-tuned-caret">K-fold CV Tuned (<code>caret</code>)</a></li>
+  <li><a href="#k-fold-cv-mass" id="toc-k-fold-cv-mass" class="nav-link" data-scroll-target="#k-fold-cv-mass">K-fold CV (<code>MASS</code>)</a></li>
+  <li><a href="#hold-out-cv-mass" id="toc-hold-out-cv-mass" class="nav-link" data-scroll-target="#hold-out-cv-mass">Hold-out CV (<code>MASS</code>)</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/edit/main/src/logit.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -306,77 +312,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="model-construction" class="level2">
-<h2 class="anchored" data-anchor-id="model-construction">Model Construction</h2>
+<section id="k-fold-cv-caret" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-caret">K-fold CV (<code>caret</code>)</h2>
 <div class="cell" data-layout-align="TRUE">
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------#</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#----Logistic Regression-----#</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------#</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the training control object for 10-fold cross-validation</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the logistic regression model using 10-fold cross-validation</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">train</span>(good <span class="sc">~</span> ., </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> train, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"glm"</span>, </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#----Logistic Regression (Mod)-----#</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------#</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#----Model Construction-----#</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------#</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the training control object for 10-fold cross-validation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the logistic regression model using 10-fold cross-validation</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">train</span>(good <span class="sc">~</span> ., </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> train, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"glm"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="k-fold-cv" class="level2">
-<h2 class="anchored" data-anchor-id="k-fold-cv">K-fold CV</h2>
 <div class="cell" data-layout-align="TRUE">
 <details>
 <summary>Show/Hide Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Import</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Function Import</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">function</span><span class="sc">\\</span><span class="st">accu.kappa.plot.Rdata"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
           Reference
 Prediction   0   1
-         0 899 154
-         1  62  73
+         0 896 148
+         1  65  79
                                           
-               Accuracy : 0.8182          
-                 95% CI : (0.7951, 0.8397)
+               Accuracy : 0.8207          
+                 95% CI : (0.7977, 0.8421)
     No Information Rate : 0.8089          
-    P-Value [Acc &gt; NIR] : 0.2201          
+    P-Value [Acc &gt; NIR] : 0.1596          
                                           
-                  Kappa : 0.3041          
+                  Kappa : 0.3259          
                                           
- Mcnemar's Test P-Value : 5.949e-10       
+ Mcnemar's Test P-Value : 1.926e-08       
                                           
-            Sensitivity : 0.9355          
-            Specificity : 0.3216          
-         Pos Pred Value : 0.8538          
-         Neg Pred Value : 0.5407          
+            Sensitivity : 0.9324          
+            Specificity : 0.3480          
+         Pos Pred Value : 0.8582          
+         Neg Pred Value : 0.5486          
              Prevalence : 0.8089          
-         Detection Rate : 0.7567          
-   Detection Prevalence : 0.8864          
-      Balanced Accuracy : 0.6285          
+         Detection Rate : 0.7542          
+   Detection Prevalence : 0.8788          
+      Balanced Accuracy : 0.6402          
                                           
        'Positive' Class : 0               
                                           </code></pre>
@@ -385,31 +386,77 @@ Prediction   0   1
 <summary>Show/Hide Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the RMSE and MAE</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">RMSE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>MAE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">MAE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute AUC value</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6285349</code></pre>
+<pre><code>[1] 0.6401899</code></pre>
 </div>
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"caret::glm ROC Curves"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_caret.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> logit_model<span class="sc">$</span>results<span class="sc">$</span>Accuracy, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> RMSE, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> MAE,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> logit_model<span class="sc">$</span>results<span class="sc">$</span>Kappa), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"caret::glm Performance (10-fold CV)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>caret::glm Performance (10-fold CV)</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Accuracy</th>
+<th style="text-align: center;">RMSE</th>
+<th style="text-align: center;">MAE</th>
+<th style="text-align: center;">Kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.8107</td>
+<td style="text-align: center;">0.4234</td>
+<td style="text-align: center;">0.1793</td>
+<td style="text-align: center;">0.3351</td>
+</tr>
+</tbody>
+</table>
 </div>
-<section id="tuned" class="level3">
-<h3 class="anchored" data-anchor-id="tuned">Tuned</h3>
+</div>
+</section>
+<section id="k-fold-cv-tuned-caret" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-tuned-caret">K-fold CV Tuned (<code>caret</code>)</h2>
 <div class="cell" data-layout-align="TRUE">
 <details>
 <summary>Show/Hide Code</summary>
@@ -493,38 +540,419 @@ Prediction   0   1
 </div>
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Accuracy <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">1</span>]]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Kappa <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">2</span>]] </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the RMSE and MAE</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">RMSE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>MAE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">MAE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute AUC value</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5404108</code></pre>
 </div>
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"caret::glm ROC Curves with stepAIC"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_caret_tuned.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> Accuracy,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> RMSE, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> MAE,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> Kappa),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"caret::glm Performance (10-fold CV with stepAIC)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>caret::glm Performance (10-fold CV with stepAIC)</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Accuracy</th>
+<th style="text-align: center;">RMSE</th>
+<th style="text-align: center;">MAE</th>
+<th style="text-align: center;">Kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.8199</td>
+<td style="text-align: center;">0.4244</td>
+<td style="text-align: center;">0.1801</td>
+<td style="text-align: center;">0.1218</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="k-fold-cv-mass" class="level2">
+<h2 class="anchored" data-anchor-id="k-fold-cv-mass">K-fold CV (<code>MASS</code>)</h2>
+<div class="cell" data-layout-align="TRUE">
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of folds</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly assign each row in the data to a fold</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>fold_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">length.out =</span> <span class="fu">nrow</span>(wine.data_cleaned)))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty list to store the folds</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, k)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign each row to a fold</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">which</span>(fold_indices <span class="sc">==</span> i)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#To store the error rate of each fold</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>error_rate <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>confusion_matrices <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, k)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each fold</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the i-th fold as the testing set</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  test_indices <span class="ot">&lt;-</span> <span class="fu">unlist</span>(folds[[i]])</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  test <span class="ot">&lt;-</span> wine.data_cleaned[test_indices, ]</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  train <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>test_indices, ]</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fit the model on the training set</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make predictions on the testing set and calculate the error rate</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  log.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute RMSE</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  rmse[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute MAE</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>  mae[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good))</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute MAE</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>  error_rate[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predicted_classes<span class="sc">&gt;</span> <span class="fl">0.7</span>) <span class="sc">!=</span> test<span class="sc">$</span>good)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute confusion matrix</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>  test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>  predicted_classes <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  confusion_matrices[[i]] <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute Kappa value</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>  kappa[i] <span class="ot">&lt;-</span> confusion_matrices[[i]]<span class="sc">$</span>overall[[<span class="dv">2</span>]]</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print the error rates for each fold</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"Fold "</span>, i, <span class="st">": "</span>, <span class="st">"OER:"</span>, error_rate[i], <span class="st">" RMSE:"</span>, rmse[i], <span class="st">" MAE:"</span>, mae[i], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fold 1: OER:0.198992443324937 RMSE:0.446085690562853 MAE:0.198992443324937
+Fold 2: OER:0.181818181818182 RMSE:0.426401432711221 MAE:0.181818181818182
+Fold 3: OER:0.20959595959596 RMSE:0.457816513022367 MAE:0.20959595959596
+Fold 4: OER:0.247474747474747 RMSE:0.497468338163091 MAE:0.247474747474747
+Fold 5: OER:0.174242424242424 RMSE:0.417423554968361 MAE:0.174242424242424
+Fold 6: OER:0.22979797979798 RMSE:0.479372485441102 MAE:0.22979797979798
+Fold 7: OER:0.184343434343434 RMSE:0.429352342888023 MAE:0.184343434343434
+Fold 8: OER:0.196969696969697 RMSE:0.443812682299297 MAE:0.196969696969697
+Fold 9: OER:0.161616161616162 RMSE:0.402015126103685 MAE:0.161616161616162
+Fold 10: OER:0.179292929292929 RMSE:0.423429957954004 MAE:0.179292929292929</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>best_confmat_index <span class="ot">&lt;-</span> <span class="fu">which.min</span>(error_rate)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>best_confmat_indexi <span class="ot">&lt;-</span> <span class="fu">which.min</span>(rmse)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>best_confmat_index <span class="ot">&lt;-</span> <span class="fu">which.min</span>(mae)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>confusion_matrices[best_confmat_index]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 326  64
+         1   0   6
+                                          
+               Accuracy : 0.8384          
+                 95% CI : (0.7984, 0.8733)
+    No Information Rate : 0.8232          
+    P-Value [Acc &gt; NIR] : 0.2365          
+                                          
+                  Kappa : 0.1337          
+                                          
+ Mcnemar's Test P-Value : 3.407e-15       
+                                          
+            Sensitivity : 1.00000         
+            Specificity : 0.08571         
+         Pos Pred Value : 0.83590         
+         Neg Pred Value : 1.00000         
+             Prevalence : 0.82323         
+         Detection Rate : 0.82323         
+   Detection Prevalence : 0.98485         
+      Balanced Accuracy : 0.54286         
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#AUC and Performance Plot</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predicted_classes)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj,<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5438871</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MASS::glm ROC Curves"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_MASS.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>logit_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span>k,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Accuracy =</span> <span class="dv">1</span><span class="sc">-</span>error_rate, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Kappa =</span> kappa)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_MASS.plot <span class="ot">&lt;-</span> <span class="fu">accu.kappa.plot</span>(logit_df) <span class="sc">+</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MASS::glm Model Performance (10-Fold CV)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="hold-out-cv-mass" class="level2">
+<h2 class="anchored" data-anchor-id="hold-out-cv-mass">Hold-out CV (<code>MASS</code>)</h2>
+<div class="cell" data-layout-align="TRUE">
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for reproducibility</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of data to use for training</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>train_prop <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(wine.data_cleaned)), <span class="at">size =</span> <span class="fu">round</span>(train_prop <span class="sc">*</span> <span class="fu">nrow</span>(wine.data_cleaned)), <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[train_indices, ]</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>train_indices, ]</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on the training set</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the testing set and calculate the error rate</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>log.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute RMSE</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MAE</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good))</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute error rate</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>error_rate <span class="ot">&lt;-</span> <span class="fu">mean</span>((predicted_classes <span class="sc">&gt;</span> <span class="fl">0.7</span>) <span class="sc">!=</span> test<span class="sc">$</span>good)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the accuracy of the predictions on the testing set</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(train<span class="sc">$</span>good)</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 938 214
+         1  11  25
+                                          
+               Accuracy : 0.8106          
+                 95% CI : (0.7871, 0.8325)
+    No Information Rate : 0.7988          
+    P-Value [Acc &gt; NIR] : 0.1643          
+                                          
+                  Kappa : 0.1363          
+                                          
+ Mcnemar's Test P-Value : &lt;2e-16          
+                                          
+            Sensitivity : 0.9884          
+            Specificity : 0.1046          
+         Pos Pred Value : 0.8142          
+         Neg Pred Value : 0.6944          
+             Prevalence : 0.7988          
+         Detection Rate : 0.7896          
+   Detection Prevalence : 0.9697          
+      Balanced Accuracy : 0.5465          
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">2</span>]]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#AUC and Performance Plot</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predicted_classes)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj,<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>auc_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5465057</code></pre>
+</div>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MASS::glm ROC Curves with Hold-out CV"</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>logit.holdoutCV_MASS.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> error_rate, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> rmse, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> mae,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> kappa))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Accuracy</th>
+<th style="text-align: center;">RMSE</th>
+<th style="text-align: center;">MAE</th>
+<th style="text-align: center;">Kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.8106</td>
+<td style="text-align: center;">0.4352</td>
+<td style="text-align: center;">0.1894</td>
+<td style="text-align: center;">0.1363</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<div class="cell" data-layout-align="TRUE">
+<details>
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(logit.kfoldCV_caret.ROC.plot,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                   logit.kfoldCV_caret_tuned.ROC.plot,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                   logit.kfoldCV_MASS.ROC.plot,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                   logit.holdoutCV_MASS.ROC.plot,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="logit_files/figure-html/logit.ROC_curve-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
 </div>
 <table class="table">
 <colgroup>
-<col style="width: 39%">
-<col style="width: 14%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 13%">
+<col style="width: 53%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -537,18 +965,32 @@ Prediction   0   1
 </thead>
 <tbody>
 <tr class="odd">
-<td>Logistic Regression</td>
-<td>0.1944</td>
-<td>0.9347</td>
-<td>0.2929</td>
-<td>0.6137776</td>
+<td>Logistic Regression (<code>caret</code>)</td>
+<td>0.1793</td>
+<td>0.9324</td>
+<td>0.3480</td>
+<td>0.6401899</td>
 </tr>
 <tr class="even">
-<td>Logistic Regression (Tuned)</td>
-<td>0.1919</td>
-<td>0.98946</td>
-<td>0.08787</td>
-<td>0.5386644</td>
+<td>Logistic Regression (<code>caret</code> tuned with stepAIC)</td>
+<td>0.1801</td>
+<td>0.99272</td>
+<td>0.0881</td>
+<td>0.5404108</td>
+</tr>
+<tr class="odd">
+<td>Logistic Regression (<code>MASS</code> 10-fold CV)</td>
+<td>0.1616</td>
+<td>1.00000</td>
+<td>0.0857</td>
+<td>0.5438871</td>
+</tr>
+<tr class="even">
+<td>Logistic Regression (<code>MASS</code> Hold-out CV)</td>
+<td>0.1894</td>
+<td>0.9884</td>
+<td>0.1046</td>
+<td>0.5465057</td>
 </tr>
 </tbody>
 </table>
@@ -556,7 +998,6 @@ Prediction   0   1
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -971,167 +1412,386 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Logistic Regression"</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">fig.align =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># Load core packages: </span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2,   for data visualization.</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr,     for data manipulation.</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># tidyr,     for data tidying.</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># purrr,     for functional programming.</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># tibble,    for tibbles, a modern re-imagining of data frames.</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr,   for strings.</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># forcats,   for factors.</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># lubridate, for date/times.</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># readr,     for reading .csv, .tsv, and .fwf files.</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># readxl,    for reading .xls, and .xlxs files.</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># feather,   for sharing with Python and other languages.</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># haven,     for SPSS, SAS and Stata files.</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># httr,      for web apis.</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># jsonlite   for JSON.</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># rvest,     for web scraping.</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># xml2,      for XML.</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># modelr,    for modelling within a pipeline</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># broom,     for turning models into tidy data</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co"># hms,       for times.</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)   <span class="co"># Pipeline operator</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lobstr)     <span class="co"># Visualizing abstract syntax trees, stack trees, and object sizes</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pander)     <span class="co"># Exporting/converting complex pandoc documents, EX: df to Pandoc table</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)    <span class="co"># More plot functions on top of ggplot2</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)     <span class="co"># Automatically add p-values and significance levels  plots. </span></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange and annotate multiple plots on the same page. </span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Change graphical parameters such as colors and labels.</span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)         <span class="co"># Geo-spatial vector manipulation: points, lines, polygons</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra) <span class="co"># Generate 90 % of complex/advanced/self-customized/beautiful tables</span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)    <span class="co"># Multiple plots arrangement</span></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)  <span class="co"># Multiple plots arrangement</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animation)  <span class="co"># Animated figure container</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)  <span class="co"># Latex axis titles in ggplot2</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)    <span class="co"># Simultaneous confidence interval region to check C.I. of 2 slope parameters</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)     <span class="co"># User interactive plots</span></span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)    <span class="co"># Simultaneous confidence interval region to check C.I. of 2 regressors</span></span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olsrr)      <span class="co"># Model selections </span></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)      <span class="co"># Regression subsetting </span></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pls)        <span class="co"># Partial Least squares</span></span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)       <span class="co"># LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)      <span class="co"># Naive Bayesian Classfier,SVM, GKNN, ICA, LCA</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(class)      <span class="co"># KNN, SOM, LVQ</span></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)       <span class="co"># Precision/Recall/Sensitivity/Specificity performance plot </span></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)       <span class="co"># LOOCV, Bootstrap,</span></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)      <span class="co"># Classification/Regression Training, run ?caret::trainControl</span></span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrgram)   <span class="co"># for correlation matrix</span></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)   <span class="co"># for graphical display of correlation matrix</span></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)        <span class="co"># make random results reproducible</span></span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>current_dir <span class="ot">&lt;-</span> <span class="fu">getwd</span>()</span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(current_dir)) {</span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(current_dir)</span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove</span>(current_dir)</span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Construction</span></span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.model_savings, eval=FALSE}</span></span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------#</span></span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="co">#----Logistic Regression-----#</span></span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------#</span></span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the training control object for 10-fold cross-validation</span></span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the logistic regression model using 10-fold cross-validation</span></span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">train</span>(good <span class="sc">~</span> ., </span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> train, </span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"glm"</span>, </span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="co">#----Logistic Regression (Mod)-----#</span></span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------#</span></span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-fold CV</span></span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.kfoldCV, fig.show='hide', message=FALSE}</span></span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Import</span></span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
-<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
-<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test)</span>
-<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
-<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
-<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tuned</span></span>
-<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.kfoldCV_mod, fig.show='hide',}</span></span>
-<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a>glm.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data=</span> train,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a>glm.fit<span class="ot">=</span> <span class="fu">stepAIC</span>(glm.model, <span class="at">direction =</span> <span class="st">'backward'</span>)</span>
-<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on test data and construct a confusion matrix</span></span>
-<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.fit, <span class="at">newdata =</span> test,<span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(logit.predictions <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
-<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
-<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a>auc_val</span>
-<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
-<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
-<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
-<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"ROC Curves from Repeated CV"</span>)</span>
-<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(auc_val, <span class="dv">1</span> <span class="sc">-</span> auc_val, </span>
-<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"steelblue"</span>, </span>
-<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">21</span>)</span>
-<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
-<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
-<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a>| Resampling Method           | Error Rate | Sensitivity | Specificity | AUC       |</span>
-<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a>| --------------------------- | ---------- | ----------- | ----------- | --------- |</span>
-<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a>| Logistic Regression         | 0.1944     | 0.9347      | 0.2929      | 0.6137776 |</span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>| Logistic Regression (Tuned) | 0.1919     | 0.98946     | 0.08787     | 0.5386644 |</span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.kfoldCV.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.kfoldCV.ROC.plot.Rdata"</span>)</span>
-<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Logistic Regression"</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">fig.align =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># Load core packages: </span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2,   for data visualization.</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr,     for data manipulation.</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># tidyr,     for data tidying.</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># purrr,     for functional programming.</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># tibble,    for tibbles, a modern re-imagining of data frames.</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr,   for strings.</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co"># forcats,   for factors.</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># lubridate, for date/times.</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># readr,     for reading .csv, .tsv, and .fwf files.</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># readxl,    for reading .xls, and .xlxs files.</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># feather,   for sharing with Python and other languages.</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># haven,     for SPSS, SAS and Stata files.</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># httr,      for web apis.</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co"># jsonlite   for JSON.</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="co"># rvest,     for web scraping.</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="co"># xml2,      for XML.</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="co"># modelr,    for modelling within a pipeline</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="co"># broom,     for turning models into tidy data</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="co"># hms,       for times.</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)   <span class="co"># Pipeline operator</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lobstr)     <span class="co"># Visualizing abstract syntax trees, stack trees, and object sizes</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pander)     <span class="co"># Exporting/converting complex pandoc documents, EX: df to Pandoc table</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)    <span class="co"># More plot functions on top of ggplot2</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)     <span class="co"># Automatically add p-values and significance levels  plots. </span></span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange and annotate multiple plots on the same page. </span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Change graphical parameters such as colors and labels.</span></span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)         <span class="co"># Geo-spatial vector manipulation: points, lines, polygons</span></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra) <span class="co"># Generate 90 % of complex/advanced/self-customized/beautiful tables</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)    <span class="co"># Multiple plots arrangement</span></span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)  <span class="co"># Multiple plots arrangement</span></span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animation)  <span class="co"># Animated figure container</span></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)  <span class="co"># Latex axis titles in ggplot2</span></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)    <span class="co"># Simultaneous confidence interval region to check C.I. of 2 slope parameters</span></span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)     <span class="co"># User interactive plots</span></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellipse)    <span class="co"># Simultaneous confidence interval region to check C.I. of 2 regressors</span></span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olsrr)      <span class="co"># Model selections </span></span>
+<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)      <span class="co"># Regression subsetting </span></span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pls)        <span class="co"># Partial Least squares</span></span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)       <span class="co"># LDA, QDA, OLS, Ridge Regression, Box-Cox, stepAIC, etc,.</span></span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)      <span class="co"># Naive Bayesian Classfier,SVM, GKNN, ICA, LCA</span></span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(class)      <span class="co"># KNN, SOM, LVQ</span></span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)       <span class="co"># Precision/Recall/Sensitivity/Specificity performance plot </span></span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)       <span class="co"># LOOCV, Bootstrap,</span></span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)      <span class="co"># Classification/Regression Training, run ?caret::trainControl</span></span>
+<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrgram)   <span class="co"># for correlation matrix</span></span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)   <span class="co"># for graphical display of correlation matrix</span></span>
+<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)        <span class="co"># make random results reproducible</span></span>
+<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a>current_dir <span class="ot">&lt;-</span> <span class="fu">getwd</span>()</span>
+<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(current_dir)) {</span>
+<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(current_dir)</span>
+<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove</span>(current_dir)</span>
+<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-fold CV (`caret`)</span></span>
+<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.model_savings, eval=FALSE}</span></span>
+<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------#</span></span>
+<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a><span class="co">#----Model Construction-----#</span></span>
+<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------#</span></span>
+<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the training control object for 10-fold cross-validation</span></span>
+<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
+<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the logistic regression model using 10-fold cross-validation</span></span>
+<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">train</span>(good <span class="sc">~</span> ., </span>
+<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> train, </span>
+<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"glm"</span>, </span>
+<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
+<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> train_control)</span>
+<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-84"><a href="#cb37-84" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit_model, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-86"><a href="#cb37-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-87"><a href="#cb37-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.kfoldCV, fig.show='hide', message=FALSE}</span></span>
+<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Import</span></span>
+<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
+<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb37-92"><a href="#cb37-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-93"><a href="#cb37-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Function Import</span></span>
+<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">function</span><span class="sc">\\</span><span class="st">accu.kappa.plot.Rdata"</span>)</span>
+<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Import</span></span>
+<span id="cb37-97"><a href="#cb37-97" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">model</span><span class="sc">\\</span><span class="st">logit.model_kfoldCV.Rdata"</span>)</span>
+<span id="cb37-98"><a href="#cb37-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test)</span>
+<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
+<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-107"><a href="#cb37-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the RMSE and MAE</span></span>
+<span id="cb37-108"><a href="#cb37-108" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">RMSE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb37-109"><a href="#cb37-109" aria-hidden="true" tabindex="-1"></a>MAE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">MAE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb37-110"><a href="#cb37-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute AUC value</span></span>
+<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-115"><a href="#cb37-115" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb37-116"><a href="#cb37-116" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb37-117"><a href="#cb37-117" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb37-118"><a href="#cb37-118" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"caret::glm ROC Curves"</span>)</span>
+<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb37-122"><a href="#cb37-122" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb37-123"><a href="#cb37-123" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb37-127"><a href="#cb37-127" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-128"><a href="#cb37-128" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span>
+<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_caret.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> logit_model<span class="sc">$</span>results<span class="sc">$</span>Accuracy, </span>
+<span id="cb37-133"><a href="#cb37-133" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> RMSE, </span>
+<span id="cb37-134"><a href="#cb37-134" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> MAE,</span>
+<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> logit_model<span class="sc">$</span>results<span class="sc">$</span>Kappa), </span>
+<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"caret::glm Performance (10-fold CV)"</span>)</span>
+<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-138"><a href="#cb37-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-139"><a href="#cb37-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-140"><a href="#cb37-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-fold CV Tuned (`caret`)</span></span>
+<span id="cb37-141"><a href="#cb37-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.kfoldCV_tuned, fig.show='hide'}</span></span>
+<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a>glm.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data=</span> train,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
+<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a>glm.fit<span class="ot">=</span> <span class="fu">stepAIC</span>(glm.model, <span class="at">direction =</span> <span class="st">'backward'</span>)</span>
+<span id="cb37-144"><a href="#cb37-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-145"><a href="#cb37-145" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on test data and construct a confusion matrix</span></span>
+<span id="cb37-146"><a href="#cb37-146" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.fit, <span class="at">newdata =</span> test,<span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(logit.predictions <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a>Accuracy <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">1</span>]]</span>
+<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a>Kappa <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(logit.predictions, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">2</span>]] </span>
+<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a>logit.predictions <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(logit.predictions)</span>
+<span id="cb37-155"><a href="#cb37-155" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(logit.predictions, test<span class="sc">$</span>good)</span>
+<span id="cb37-156"><a href="#cb37-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the RMSE and MAE</span></span>
+<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">RMSE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a>MAE <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">MAE</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pred_obj<span class="sc">@</span>predictions)), <span class="fu">as.numeric</span>(test<span class="sc">$</span>good))</span>
+<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-161"><a href="#cb37-161" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute AUC value</span></span>
+<span id="cb37-162"><a href="#cb37-162" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb37-164"><a href="#cb37-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-165"><a href="#cb37-165" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"tpr"</span>, <span class="st">"fpr"</span>)</span>
+<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"caret::glm ROC Curves with stepAIC"</span>)</span>
+<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb37-174"><a href="#cb37-174" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-175"><a href="#cb37-175" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb37-177"><a href="#cb37-177" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-178"><a href="#cb37-178" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-179"><a href="#cb37-179" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span>
+<span id="cb37-180"><a href="#cb37-180" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_caret_tuned.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> Accuracy,</span>
+<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> RMSE, </span>
+<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> MAE,</span>
+<span id="cb37-185"><a href="#cb37-185" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> Kappa),</span>
+<span id="cb37-186"><a href="#cb37-186" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"caret::glm Performance (10-fold CV with stepAIC)"</span>)</span>
+<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## K-fold CV (`MASS`)</span></span>
+<span id="cb37-190"><a href="#cb37-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.kfoldCV_MASS, fig.show='hide'}</span></span>
+<span id="cb37-191"><a href="#cb37-191" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of folds</span></span>
+<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly assign each row in the data to a fold</span></span>
+<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a>fold_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">length.out =</span> <span class="fu">nrow</span>(wine.data_cleaned)))</span>
+<span id="cb37-197"><a href="#cb37-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-198"><a href="#cb37-198" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty list to store the folds</span></span>
+<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, k)</span>
+<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign each row to a fold</span></span>
+<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">which</span>(fold_indices <span class="sc">==</span> i)</span>
+<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a><span class="co">#To store the error rate of each fold</span></span>
+<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a>error_rate <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb37-208"><a href="#cb37-208" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb37-209"><a href="#cb37-209" aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb37-210"><a href="#cb37-210" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="fu">numeric</span>(k)</span>
+<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a>confusion_matrices <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, k)</span>
+<span id="cb37-212"><a href="#cb37-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-213"><a href="#cb37-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each fold</span></span>
+<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the i-th fold as the testing set</span></span>
+<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a>  test_indices <span class="ot">&lt;-</span> <span class="fu">unlist</span>(folds[[i]])</span>
+<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a>  test <span class="ot">&lt;-</span> wine.data_cleaned[test_indices, ]</span>
+<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a>  train <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>test_indices, ]</span>
+<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fit the model on the training set</span></span>
+<span id="cb37-222"><a href="#cb37-222" aria-hidden="true" tabindex="-1"></a>  logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb37-223"><a href="#cb37-223" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-224"><a href="#cb37-224" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make predictions on the testing set and calculate the error rate</span></span>
+<span id="cb37-225"><a href="#cb37-225" aria-hidden="true" tabindex="-1"></a>  log.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a>  predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute RMSE</span></span>
+<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a>  rmse[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute MAE</span></span>
+<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a>  mae[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good))</span>
+<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute MAE</span></span>
+<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a>  error_rate[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predicted_classes<span class="sc">&gt;</span> <span class="fl">0.7</span>) <span class="sc">!=</span> test<span class="sc">$</span>good)</span>
+<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-237"><a href="#cb37-237" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute confusion matrix</span></span>
+<span id="cb37-238"><a href="#cb37-238" aria-hidden="true" tabindex="-1"></a>  test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb37-239"><a href="#cb37-239" aria-hidden="true" tabindex="-1"></a>  predicted_classes <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb37-240"><a href="#cb37-240" aria-hidden="true" tabindex="-1"></a>  confusion_matrices[[i]] <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb37-241"><a href="#cb37-241" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-242"><a href="#cb37-242" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute Kappa value</span></span>
+<span id="cb37-243"><a href="#cb37-243" aria-hidden="true" tabindex="-1"></a>  kappa[i] <span class="ot">&lt;-</span> confusion_matrices[[i]]<span class="sc">$</span>overall[[<span class="dv">2</span>]]</span>
+<span id="cb37-244"><a href="#cb37-244" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-245"><a href="#cb37-245" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print the error rates for each fold</span></span>
+<span id="cb37-246"><a href="#cb37-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"Fold "</span>, i, <span class="st">": "</span>, <span class="st">"OER:"</span>, error_rate[i], <span class="st">" RMSE:"</span>, rmse[i], <span class="st">" MAE:"</span>, mae[i], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb37-247"><a href="#cb37-247" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-248"><a href="#cb37-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-249"><a href="#cb37-249" aria-hidden="true" tabindex="-1"></a>best_confmat_index <span class="ot">&lt;-</span> <span class="fu">which.min</span>(error_rate)</span>
+<span id="cb37-250"><a href="#cb37-250" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span>
+<span id="cb37-251"><a href="#cb37-251" aria-hidden="true" tabindex="-1"></a>best_confmat_indexi <span class="ot">&lt;-</span> <span class="fu">which.min</span>(rmse)</span>
+<span id="cb37-252"><a href="#cb37-252" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span>
+<span id="cb37-253"><a href="#cb37-253" aria-hidden="true" tabindex="-1"></a>best_confmat_index <span class="ot">&lt;-</span> <span class="fu">which.min</span>(mae)</span>
+<span id="cb37-254"><a href="#cb37-254" aria-hidden="true" tabindex="-1"></a>best_confmat_index</span>
+<span id="cb37-255"><a href="#cb37-255" aria-hidden="true" tabindex="-1"></a>confusion_matrices[best_confmat_index]</span>
+<span id="cb37-256"><a href="#cb37-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a><span class="co">#AUC and Performance Plot</span></span>
+<span id="cb37-258"><a href="#cb37-258" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predicted_classes)</span>
+<span id="cb37-259"><a href="#cb37-259" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb37-260"><a href="#cb37-260" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb37-261"><a href="#cb37-261" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj,<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)</span>
+<span id="cb37-262"><a href="#cb37-262" aria-hidden="true" tabindex="-1"></a>auc_val  <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb37-263"><a href="#cb37-263" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb37-264"><a href="#cb37-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-265"><a href="#cb37-265" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb37-266"><a href="#cb37-266" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb37-267"><a href="#cb37-267" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb37-268"><a href="#cb37-268" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MASS::glm ROC Curves"</span>)</span>
+<span id="cb37-269"><a href="#cb37-269" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb37-270"><a href="#cb37-270" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb37-271"><a href="#cb37-271" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb37-272"><a href="#cb37-272" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb37-273"><a href="#cb37-273" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-274"><a href="#cb37-274" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-275"><a href="#cb37-275" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb37-276"><a href="#cb37-276" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-277"><a href="#cb37-277" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-278"><a href="#cb37-278" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span>
+<span id="cb37-279"><a href="#cb37-279" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_MASS.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb37-280"><a href="#cb37-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-281"><a href="#cb37-281" aria-hidden="true" tabindex="-1"></a>logit_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span>k,</span>
+<span id="cb37-282"><a href="#cb37-282" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Accuracy =</span> <span class="dv">1</span><span class="sc">-</span>error_rate, </span>
+<span id="cb37-283"><a href="#cb37-283" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Kappa =</span> kappa)</span>
+<span id="cb37-284"><a href="#cb37-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-285"><a href="#cb37-285" aria-hidden="true" tabindex="-1"></a>logit.kfoldCV_MASS.plot <span class="ot">&lt;-</span> <span class="fu">accu.kappa.plot</span>(logit_df) <span class="sc">+</span> </span>
+<span id="cb37-286"><a href="#cb37-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Accuracy, <span class="at">label =</span> <span class="fu">round</span>(Accuracy, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-287"><a href="#cb37-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> Kappa, <span class="at">label =</span> <span class="fu">round</span>(Kappa, <span class="dv">3</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-288"><a href="#cb37-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MASS::glm Model Performance (10-Fold CV)"</span>)</span>
+<span id="cb37-289"><a href="#cb37-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-290"><a href="#cb37-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-291"><a href="#cb37-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-292"><a href="#cb37-292" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hold-out CV (`MASS`)</span></span>
+<span id="cb37-293"><a href="#cb37-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.holdoutCV_MASS, fig.show='hide'}</span></span>
+<span id="cb37-294"><a href="#cb37-294" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for reproducibility</span></span>
+<span id="cb37-295"><a href="#cb37-295" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb37-296"><a href="#cb37-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-297"><a href="#cb37-297" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of data to use for training</span></span>
+<span id="cb37-298"><a href="#cb37-298" aria-hidden="true" tabindex="-1"></a>train_prop <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
+<span id="cb37-299"><a href="#cb37-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-300"><a href="#cb37-300" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb37-301"><a href="#cb37-301" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(wine.data_cleaned)), <span class="at">size =</span> <span class="fu">round</span>(train_prop <span class="sc">*</span> <span class="fu">nrow</span>(wine.data_cleaned)), <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb37-302"><a href="#cb37-302" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[train_indices, ]</span>
+<span id="cb37-303"><a href="#cb37-303" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>train_indices, ]</span>
+<span id="cb37-304"><a href="#cb37-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-305"><a href="#cb37-305" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on the training set</span></span>
+<span id="cb37-306"><a href="#cb37-306" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(good <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb37-307"><a href="#cb37-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-308"><a href="#cb37-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the testing set and calculate the error rate</span></span>
+<span id="cb37-309"><a href="#cb37-309" aria-hidden="true" tabindex="-1"></a>log.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_model, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb37-310"><a href="#cb37-310" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb37-311"><a href="#cb37-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-312"><a href="#cb37-312" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute RMSE</span></span>
+<span id="cb37-313"><a href="#cb37-313" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb37-314"><a href="#cb37-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-315"><a href="#cb37-315" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MAE</span></span>
+<span id="cb37-316"><a href="#cb37-316" aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(predicted_classes <span class="sc">-</span> test<span class="sc">$</span>good))</span>
+<span id="cb37-317"><a href="#cb37-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-318"><a href="#cb37-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute error rate</span></span>
+<span id="cb37-319"><a href="#cb37-319" aria-hidden="true" tabindex="-1"></a>error_rate <span class="ot">&lt;-</span> <span class="fu">mean</span>((predicted_classes <span class="sc">&gt;</span> <span class="fl">0.7</span>) <span class="sc">!=</span> test<span class="sc">$</span>good)</span>
+<span id="cb37-320"><a href="#cb37-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-321"><a href="#cb37-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the accuracy of the predictions on the testing set</span></span>
+<span id="cb37-322"><a href="#cb37-322" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(train<span class="sc">$</span>good)</span>
+<span id="cb37-323"><a href="#cb37-323" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb37-324"><a href="#cb37-324" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(log.pred <span class="sc">&gt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb37-325"><a href="#cb37-325" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb37-326"><a href="#cb37-326" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(predicted_classes, test<span class="sc">$</span>good)<span class="sc">$</span>overall[[<span class="dv">2</span>]]</span>
+<span id="cb37-327"><a href="#cb37-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-328"><a href="#cb37-328" aria-hidden="true" tabindex="-1"></a><span class="co">#AUC and Performance Plot</span></span>
+<span id="cb37-329"><a href="#cb37-329" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predicted_classes)</span>
+<span id="cb37-330"><a href="#cb37-330" aria-hidden="true" tabindex="-1"></a>pred_obj <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predicted_classes, test<span class="sc">$</span>good)</span>
+<span id="cb37-331"><a href="#cb37-331" aria-hidden="true" tabindex="-1"></a>log.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj,<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)</span>
+<span id="cb37-332"><a href="#cb37-332" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred_obj, <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
+<span id="cb37-333"><a href="#cb37-333" aria-hidden="true" tabindex="-1"></a>auc_val</span>
+<span id="cb37-334"><a href="#cb37-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-335"><a href="#cb37-335" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log.perf, <span class="at">colorize =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb37-336"><a href="#cb37-336" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"False Positive Rate"</span>, </span>
+<span id="cb37-337"><a href="#cb37-337" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"True Positive Rate"</span>,</span>
+<span id="cb37-338"><a href="#cb37-338" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MASS::glm ROC Curves with Hold-out CV"</span>)</span>
+<span id="cb37-339"><a href="#cb37-339" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb37-340"><a href="#cb37-340" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>x.values))</span>
+<span id="cb37-341"><a href="#cb37-341" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(log.perf<span class="sc">@</span>y.values))</span>
+<span id="cb37-342"><a href="#cb37-342" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, </span>
+<span id="cb37-343"><a href="#cb37-343" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-344"><a href="#cb37-344" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-345"><a href="#cb37-345" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb37-346"><a href="#cb37-346" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.3803922</span>, <span class="fl">0.6862745</span>, <span class="fl">0.9372549</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>),</span>
+<span id="cb37-347"><a href="#cb37-347" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb37-348"><a href="#cb37-348" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fu">paste</span>(<span class="st">"AUC ="</span>, <span class="fu">round</span>(auc_val, <span class="dv">4</span>)))</span>
+<span id="cb37-349"><a href="#cb37-349" aria-hidden="true" tabindex="-1"></a>logit.holdoutCV_MASS.ROC.plot <span class="ot">&lt;-</span> <span class="fu">recordPlot</span>()</span>
+<span id="cb37-350"><a href="#cb37-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-351"><a href="#cb37-351" aria-hidden="true" tabindex="-1"></a>pander<span class="sc">::</span><span class="fu">pander</span>(<span class="fu">data.frame</span>(<span class="st">"Accuracy"</span> <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> error_rate, </span>
+<span id="cb37-352"><a href="#cb37-352" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"RMSE"</span> <span class="ot">=</span> rmse, </span>
+<span id="cb37-353"><a href="#cb37-353" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"MAE"</span> <span class="ot">=</span> mae,</span>
+<span id="cb37-354"><a href="#cb37-354" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Kappa"</span> <span class="ot">=</span> kappa))</span>
+<span id="cb37-355"><a href="#cb37-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-356"><a href="#cb37-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-357"><a href="#cb37-357" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb37-358"><a href="#cb37-358" aria-hidden="true" tabindex="-1"></a><span class="in">```{r logit.ROC_curve, fig.width=15, fig.height=15}</span></span>
+<span id="cb37-359"><a href="#cb37-359" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(logit.kfoldCV_caret.ROC.plot,</span>
+<span id="cb37-360"><a href="#cb37-360" aria-hidden="true" tabindex="-1"></a>                   logit.kfoldCV_caret_tuned.ROC.plot,</span>
+<span id="cb37-361"><a href="#cb37-361" aria-hidden="true" tabindex="-1"></a>                   logit.kfoldCV_MASS.ROC.plot,</span>
+<span id="cb37-362"><a href="#cb37-362" aria-hidden="true" tabindex="-1"></a>                   logit.holdoutCV_MASS.ROC.plot,</span>
+<span id="cb37-363"><a href="#cb37-363" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
+<span id="cb37-364"><a href="#cb37-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-365"><a href="#cb37-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-366"><a href="#cb37-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-367"><a href="#cb37-367" aria-hidden="true" tabindex="-1"></a>| Resampling Method                                | Error Rate | Sensitivity | Specificity | AUC       |</span>
+<span id="cb37-368"><a href="#cb37-368" aria-hidden="true" tabindex="-1"></a>| ------------------------------------------------ | ---------- | ----------- | ----------- | --------- |</span>
+<span id="cb37-369"><a href="#cb37-369" aria-hidden="true" tabindex="-1"></a>| Logistic Regression (<span class="in">`caret`</span>)                    | 0.1793     | 0.9324      | 0.3480      | 0.6401899 |</span>
+<span id="cb37-370"><a href="#cb37-370" aria-hidden="true" tabindex="-1"></a>| Logistic Regression (<span class="in">`caret`</span> tuned with stepAIC) | 0.1801     | 0.99272     | 0.0881      | 0.5404108 |</span>
+<span id="cb37-371"><a href="#cb37-371" aria-hidden="true" tabindex="-1"></a>| Logistic Regression (<span class="in">`MASS`</span> 10-fold CV)          | 0.1616     | 1.00000     | 0.0857      | 0.5438871 |</span>
+<span id="cb37-372"><a href="#cb37-372" aria-hidden="true" tabindex="-1"></a>| Logistic Regression (<span class="in">`MASS`</span> Hold-out CV)         | 0.1894     | 0.9884      | 0.1046      | 0.5465057 |</span>
+<span id="cb37-373"><a href="#cb37-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-374"><a href="#cb37-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb37-375"><a href="#cb37-375" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.kfoldCV_MASS.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.kfoldCV_MASS.plot.Rdata"</span>)</span>
+<span id="cb37-376"><a href="#cb37-376" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.kfoldCV_caret.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.kfoldCV_caret.ROC.plot.Rdata"</span>)</span>
+<span id="cb37-377"><a href="#cb37-377" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.kfoldCV_caret_tuned.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.kfoldCV_caret_tuned.ROC.plot.Rdata"</span>)</span>
+<span id="cb37-378"><a href="#cb37-378" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.kfoldCV_MASS.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.kfoldCV_MASS.ROC.plot.Rdata"</span>)</span>
+<span id="cb37-379"><a href="#cb37-379" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(logit.holdoutCV_MASS.ROC.plot, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">logit.holdoutCV_MASS.ROC.plot.Rdata"</span>)</span>
+<span id="cb37-380"><a href="#cb37-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

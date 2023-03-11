@@ -85,10 +85,14 @@ save(rf_model, file = "dataset\\model\\rf.model_kfoldCV.Rdata")
 ## K-fold CV
 ```{r rf.kfoldCV, fig.show='hide'}
 # Data Import
+load("dataset\\wine.data_cleaned.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
-# Model Import
+# Function Import
+load("dataset\\function\\accu.kappa.plot.Rdata")
+
+# Model import
 load("dataset\\model\\rf.model_kfoldCV.Rdata")
 
 rf.predictions <- predict(rf_model, newdata = test)
@@ -105,23 +109,30 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 plot(roc_obj, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from Repeated CV")
-points(auc_val, 1 - auc_val, 
-       col = "steelblue", 
-       pch = 21)
+     main = "Random Forest (10-fold CV)")
 abline(a = 0, b = 1)
+x_values <- as.numeric(unlist(roc_obj@x.values))
+y_values <- as.numeric(unlist(roc_obj@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 rf.kfoldCV.ROC.plot <- recordPlot()
+
+pander::pander(rf_model$results)
 ```
 
-### Tuned
-```{r, rf.kfoldCV_mod, fig.show='hide'}
-
+## Summary
+```{r fig.width=5, fig.height=5}
+cowplot::plot_grid(rf.kfoldCV.ROC.plot)
 ```
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | Random Forest        | 0.1540     | 0.9501      | 0.4053      | 0.6776692 |
-| Random Forest (Tuned)| 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
 
 ```{r, echo=FALSE}
 save(rf.kfoldCV.ROC.plot, file = "dataset\\plot\\rf.kfoldCV.ROC.plot.Rdata")

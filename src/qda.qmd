@@ -65,11 +65,11 @@ if (!is.null(current_dir)) {
 ```
 
 
-## Model Construction
+## K-fold CV (`caret`)
 ```{r qda.model_savings, eval=FALSE}
-#------------#
-#----QDA-----#
-#------------#
+#---------------------------#
+#----Model Construction-----#
+#---------------------------#
 set.seed(1234)
 train_control <- trainControl(method = "cv", number = 10)
 
@@ -79,84 +79,183 @@ qda_model <- train(good ~ .,
                    method = "qda", 
                    trControl = train_control)
 
-save(qda_model, file = "dataset\\model\\qda.model_kfoldCV.Rdata")
-
-#------------------#
-#----QDA (Mod)-----#
-#------------------#
-
+save(qda_model, file = "dataset\\qda.model_kfoldCV.Rdata")
 ```
 
-## K-fold CV
-```{r qda.kfoldCV, fig.show='hide'}
+```{r qda.kfoldCV_caret, fig.show='hide'}
 # Data Import
+load("dataset\\wine.data_cleaned.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
-# Model Import
+# Function Import
+load("dataset\\function\\accu.kappa.plot.Rdata")
+
+# Model import
 load("dataset\\model\\qda.model_kfoldCV.Rdata")
 
 qda.predictions <- predict(qda_model, newdata = test)
 
 confusionMatrix(qda.predictions, test$good)
 
-
+k <- 10
 qda.predictions <- as.numeric(qda.predictions)
 pred_obj <- prediction(qda.predictions, test$good)
+# Compute the RMSE and MAE
+RMSE <- caret::RMSE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
+MAE <- caret::MAE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
+
+# Compute AUC value
 auc_val <- performance(pred_obj, "auc")@y.values[[1]]
 auc_val
 
-roc_obj <- performance(pred_obj, "tpr", "fpr")
-plot(roc_obj, colorize = TRUE, lwd = 2,
+qda.perf <- performance(pred_obj, "tpr", "fpr")
+plot(qda.perf, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from Repeated CV")
-points(auc_val, 1 - auc_val, 
-       col = "steelblue", 
-       pch = 21)
+     main = "caret::qda ROC Curves")
 abline(a = 0, b = 1)
-qda.kfoldCV.ROC.plot <- recordPlot()
+x_values <- as.numeric(unlist(qda.perf@x.values))
+y_values <- as.numeric(unlist(qda.perf@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
+qda.kfoldCV_caret.ROC.plot <- recordPlot()
+
+qda_df <- data.frame(k = 1:k,
+                     Accuracy = qda_model$results$Accuracy,
+                     Kappa = qda_model$results$Kappa)
+
+pander::pander(data.frame("Accuracy" = qda_model$results$Accuracy, 
+                          "RMSE" = RMSE, 
+                          "MAE" = MAE,
+                          "Kappa" = qda_model$results$Kappa), 
+               caption = "caret::qda Performance (10-fold CV)")
 ```
 
-### Tuned
-```{r qda.kfoldCV_mod, fig.show='hide'}
+## K-fold CV (`MASS`)
+```{r qda.kfoldCV_MASS, fig.show='hide'}
+# Set the number of folds
+k <- 10
 
+# Randomly assign each row in the data to a fold
+set.seed(1234) # for reproducibility
+fold_indices <- sample(rep(1:k, length.out = nrow(wine.data_cleaned)))
+
+# Initialize an empty list to store the folds
+folds <- vector("list", k)
+
+# Assign each row to a fold
+for (i in 1:k) {
+  folds[[i]] <- which(fold_indices == i)
+}
+
+#To store the error rate of each fold
+error_rate <- numeric(k)
+rmse <- numeric(k)
+mae <- numeric(k)
+confusion_matrices <- vector("list", k)
+kappa <- numeric(k)
+
+
+# Loop through each fold
+for (i in 1:10) {
+  # Extract the i-th fold as the testing set
+  test_indices <- unlist(folds[[i]])
+  
+  test <- wine.data_cleaned[test_indices, ]
+  train <- wine.data_cleaned[-test_indices, ]
+  
+  # Fit the model on the training set
+  qda_model <- qda(good ~ ., data = train, family = binomial)
+  
+  # Make predictions on the testing set and calculate the error rate
+  qda.pred <- predict(qda_model, newdata = test, type = "response")
+  predicted_classes <- ifelse(qda.pred$posterior[,2] > 0.7, 1, 0)
+  
+  # Compute RMSE
+  rmse[i] <- sqrt(mean((predicted_classes - as.numeric(test$good)) ^ 2))
+  
+  # Compute MAE
+  mae[i] <- mean(abs(predicted_classes - as.numeric(test$good)))
+  
+  # Compute OER
+  error_rate[i] <- mean((predicted_classes > 0.7) != as.numeric(test$good))
+  
+  # Compute confusion matrix
+  test$good <- as.factor(test$good)
+  predicted_classes <- factor(predicted_classes, levels = c(0, 1))
+  confusion_matrices[[i]] <- caret::confusionMatrix(predicted_classes, test$good)
+  
+  # Compute Kappa value
+  kappa[i] <- confusion_matrices[[i]]$overall[[2]]
+  
+  # Print the error rates for each fold
+  cat(paste0("Fold ", i, ": ", "OER:", error_rate[i], " RMSE:", rmse[i], " MAE:", mae[i], "\n"))
+}
+
+best_confmat_index <- which.min(error_rate)
+best_confmat_index
+best_confmat_indexi <- which.min(rmse)
+best_confmat_index
+best_confmat_index <- which.min(mae)
+best_confmat_index
+confusion_matrices[best_confmat_index]
+
+#AUC and Performance Plot
+predicted_classes <- as.numeric(predicted_classes)
+pred_obj <- prediction(predicted_classes, test$good)
+auc_val <- performance(pred_obj, "auc")@y.values[[1]]
+qda.perf <- performance(pred_obj,"tpr","fpr")
+auc_val
+
+plot(qda.perf, colorize = TRUE, lwd = 2,
+     xlab = "False Positive Rate", 
+     ylab = "True Positive Rate",
+     main = "MASS::qda ROC Curves")
+abline(a = 0, b = 1)
+x_values <- as.numeric(unlist(qda.perf@x.values))
+y_values <- as.numeric(unlist(qda.perf@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
+qda.kfoldCV_MASS.ROC.plot <- recordPlot()
+
+qda_df <- data.frame(k = 1:k,
+                     Accuracy = 1-error_rate, 
+                     Kappa = kappa)
+
+qda.kfoldCV_MASS.plot <- accu.kappa.plot(qda_df) + 
+  geom_text(aes(x = k, y = Accuracy, label = round(Accuracy, 3)), vjust = -1) +
+  geom_text(aes(x = k, y = Kappa, label = round(Kappa, 3)), vjust = -1) +
+  ggtitle("MASS::qda Model Performance (10-Fold CV)")
+```
+
+
+## Summary
+```{r qda.ROC_curve, fig.width=20, fig.height=10}
+cowplot::plot_grid(qda.kfoldCV_caret.ROC.plot,
+                   qda.kfoldCV_MASS.ROC.plot,
+                   ncol = 2, align = "hv", scale = 0.8)
 ```
 
 | Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
-| QDA               | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
-| QDA (Tuned)       | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
+| QDA (`caret`)     | 0.2399     | 0.7743      | 0.7013      | 0.7377967 |
+| QDA (`MASS`)      | 0.1692     | 0.8934      | 0.5714      | 0.7324227 |
 
-
-## Summary
-```{r, echo=FALSE}
-load("dataset\\plot\\knn.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\logit.kfoldCV.ROC.plot.Rdata")
-load("dataset\\plot\\lda.kfoldCV.ROC.plot.Rdata")
-```
-
-```{r log.lda.qda.ROC_curve, fig.width=10, fig.height=10}
-cowplot::plot_grid(knn.kfoldCV.ROC.plot,
-                   logit.kfoldCV.ROC.plot,
-                   lda.kfoldCV.ROC.plot,
-                   qda.kfoldCV.ROC.plot, 
-                   ncol = 2, align = "hv", scale = 0.8)
-```
-
-
-| Resampling Method           | Error Rate | Sensitivity | Specificity | AUC       |
-| --------------------------- | ---------- | ----------- | ----------- | --------- |
-| Logistic Regression         | 0.1944     | 0.9347      | 0.2929      | 0.6137776 |
-| Logistic Regression (Tuned) | 0.1919     | 0.98946     | 0.08787     | 0.5386644 |
-|                             |            |             |             |           |
-| LDA                         | 0.1919     | 0.9283      | 0.3305      | 0.6294448 |
-| LDA (Tuned)                 | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
-|                             |            |             |             |           |
-| QDA                         | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
-| QDA (Tuned)                 | 0.xxxx     | 0.xxxx      | 0.xxxx      | 0.xxxxxxx |
 
 ```{r, echo=FALSE}
-save(qda.kfoldCV.ROC.plot, file = "dataset\\plot\\qda.kfoldCV.ROC.plot.Rdata")
+save(qda.kfoldCV_MASS.plot, file = "dataset\\plot\\qda.kfoldCV_MASS.plot.Rdata")
+save(qda.kfoldCV_caret.ROC.plot, file = "dataset\\plot\\qda.kfoldCV_caret.ROC.plot.Rdata")
+save(qda.kfoldCV_MASS.ROC.plot, file = "dataset\\plot\\qda.kfoldCV_MASS.ROC.plot.Rdata")
 ```
 

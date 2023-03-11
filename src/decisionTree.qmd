@@ -77,10 +77,10 @@ train_control <- trainControl(method = "cv", number = 10)
 
 set.seed(1234)
 dc_model <- train(good ~ ., 
-               data = train, 
-               method = "rpart2", 
-               trControl = train_control,
-               na.action = na.omit)
+                  data = train, 
+                  method = "rpart2", 
+                  trControl = train_control,
+                  na.action = na.omit)
 
 save(dc_model, file = "dataset\\model\\dc.model_kfoldCV.Rdata")
 
@@ -93,11 +93,11 @@ train_control <- trainControl(method = "cv", number = 10)
 
 set.seed(1234)
 dc_model <- train(good ~ ., 
-               data = train, 
-               method = "rpart", 
-               trControl = train_control,
-               tuneLength = 5,
-               tuneGrid = data.frame(cp = seq(0.001, 0.1, by = 0.001)))
+                  data = train, 
+                  method = "rpart", 
+                  trControl = train_control,
+                  tuneLength = 5,
+                  tuneGrid = data.frame(cp = seq(0.001, 0.1, by = 0.005)))
 
 save(dc_model, file = "dataset\\model\\dc.model_kfoldCV_mod.Rdata")
 ```
@@ -105,11 +105,14 @@ save(dc_model, file = "dataset\\model\\dc.model_kfoldCV_mod.Rdata")
 ## K-fold CV
 ```{r dc.kfoldCV, fig.show='hide'}
 # Data Import
-load("dataset\\wine.data.Rdata")
+load("dataset\\wine.data_cleaned.Rdata")
 load("dataset\\train.Rdata")
 load("dataset\\test.Rdata")
 
-# Model Import
+# Function Import
+load("dataset\\function\\accu.kappa.plot.Rdata")
+
+# Model import
 load("dataset\\model\\dc.model_kfoldCV.Rdata")
 
 dc.predictions <- predict(dc_model, newdata = test)
@@ -126,12 +129,28 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 plot(roc_obj, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from Repeated CV")
-points(auc_val, 1 - auc_val, 
-       col = "steelblue", 
-       pch = 21)
+     main = "CART (10-fold CV)")
 abline(a = 0, b = 1)
+x_values <- as.numeric(unlist(roc_obj@x.values))
+y_values <- as.numeric(unlist(roc_obj@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 dc.kfoldCV.ROC.plot <- recordPlot()
+
+dc_df <- data.frame(k= dc_model$results$maxdepth,
+                    Accuracy=dc_model$results$Accuracy,
+                    Kappa=dc_model$results$Kappa)
+
+dc.kfoldCV.plot <- accu.kappa.plot(dc_df) + 
+  geom_text(aes(x = k, y = Accuracy, label = round(Accuracy, 3)), hjust = -0.3, angle=90) +
+  geom_text(aes(x = k, y = Kappa, label = round(Kappa, 3)), hjust = -0.3, angle=90) +
+  labs(x="Max Depth")
+  ggtitle("CART Model Performance")
 ```
 
 ### Tuned
@@ -153,21 +172,34 @@ roc_obj <- performance(pred_obj, "tpr", "fpr")
 plot(roc_obj, colorize = TRUE, lwd = 2,
      xlab = "False Positive Rate", 
      ylab = "True Positive Rate",
-     main = "ROC Curves from Repeated CV")
-points(auc_val, 1 - auc_val, 
-       col = "steelblue", 
-       pch = 21)
+     main = "CART Tuned (10-fold CV)")
 abline(a = 0, b = 1)
+x_values <- as.numeric(unlist(roc_obj@x.values))
+y_values <- as.numeric(unlist(roc_obj@y.values))
+polygon(x = x_values, y = y_values, 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+polygon(x = c(0, 1, 1), y = c(0, 0, 1), 
+        col = rgb(0.3803922, 0.6862745, 0.9372549, alpha = 0.3),
+        border = NA)
+text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 dc.kfoldCV_mod.ROC.plot <- recordPlot()
+
+pander::pander(dc_model$results)
+```
+
+## Summary
+```{r fig.width=20, fig.height=10}
+cowplot::plot_grid(dc.kfoldCV.ROC.plot, dc.kfoldCV_mod.ROC.plot, 
+                   ncol = 2, align = "hv", scale = 0.8)
 ```
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | CART                 | 0.181      | 0.9032      | 0.4626      | 0.6828904 |
-| CART (Tuned)         | 0.1751     | 0.9251      | 0.4009      | 0.6629796 |
+| CART (Tuned)         | 0.1852     | 0.9063      | 0.4273      | 0.6668302 |
 
 ```{r, echo=FALSE}
 save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
-save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV.ROC.plot.Rdata")
-save(dc.kfoldCV.ROC.plot, file = "dataset\\plot\\dc.kfoldCV_mod.ROC.plot.Rdata")
+save(dc.kfoldCV_mod.ROC.plot, file = "dataset\\plot\\dc.kfoldCV_mod.ROC.plot.Rdata")
 ```
