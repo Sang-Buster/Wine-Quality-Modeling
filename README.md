@@ -1,6 +1,6 @@
 <h1 align="center">Supervised Leaning Modelings</h1>
 <h6 align="center">Wine Quality Data | UCI Machine Learning</h6>
-<p align="center"><b>#K-nearest neighbor algorithm  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis &emsp; #Quadratic Discriminant Analysis <br> #Naive Bayes  &emsp; #Decision Tree (CART) &emsp; #Random Forest (Classification) <br> #Bagging  &emsp; #Boosting &emsp; #Support Vector Machine &emsp; #Neural Net Work <br></b></p>
+<p align="center"><b>#K-nearest neighbor algorithm (KNN)  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis (LDA) &emsp; #Quadratic Discriminant Analysis(QDA) <br> #Naive Bayes  &emsp; #Decision Tree (CART) &emsp; #Random Forest (Classification) <br> #Bagging  &emsp; #Boosting &emsp; #Support Vector Machine (SVM) &emsp; #Neural Net Work <br></b></p>
 
 <p align="center">
 <a href="https://github.com/Sang-Buster/Wine-Quality-Modeling" target="_blank">
