@@ -9,7 +9,6 @@ Consider the wine quality dataset from [UCI Machine Learning Respository](https:
 
 [^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
-
 ### Problem Statements
 
 Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using `caret` package with seed set to 1234 before each computation.
@@ -22,10 +21,15 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 
 ### Methodologies
 
+Data Modeling
+
 -   K-nearest Neighbors Classifier (KNN)
 -   Logistic Regression
 -   Linear Discriminant Analysis (LDA)
 -   Quadratic Discriminant Analysis (QDA)
+
+Further Modeling
+
 -   Naive Bayes
 -   Decision Tree (CART Algorithm)
 -   Random Forest (Classification)
