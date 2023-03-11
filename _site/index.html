@@ -289,7 +289,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#problem-statements" id="toc-problem-statements" class="nav-link" data-scroll-target="#problem-statements">Problem Statements</a></li>
   <li><a href="#methodologies" id="toc-methodologies" class="nav-link" data-scroll-target="#methodologies">Methodologies</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/Sang-Buster/Wine-Quality-Modeling/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -317,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="preamble" class="level2">
 <h2 class="anchored" data-anchor-id="preamble">Preamble</h2>
-<p>Consider the wine quality dataset from <a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">UCI Machine Learning Respository</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We will focus only on the data concerning white wines (and not red wines). Dichotomize the <code>quality</code> variable as <code>good</code>, which takes the value 1 if quality <span class="math inline">\(\geq\)</span> 7 axnd the value 0, otherwise. We will take <code>good</code> as response and all the 11 physiochemical characteristics of the wines in the data as predictors.</p>
+<p>Consider the wine quality dataset from <a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">UCI Machine Learning Respository</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We will focus only on the data concerning white wines (and not red wines). Dichotomize the <code>quality</code> variable as <code>good</code>, which takes the value 1 if <code>quality</code> <span class="math inline">\(\geq\)</span> 7 and the value 0, otherwise. We will take <code>good</code> as response and all the 11 physiochemical characteristics of the wines in the data as predictors.</p>
 <section id="problem-statements" class="level3">
 <h3 class="anchored" data-anchor-id="problem-statements">Problem Statements</h3>
 <p>Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using <code>caret</code> package with seed set to 1234 before each computation.</p>
@@ -332,41 +331,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="methodologies" class="level3">
 <h3 class="anchored" data-anchor-id="methodologies">Methodologies</h3>
 <ul>
-<li>KNN</li>
-<li>GLM/logit/glmnet</li>
-<li>LDA</li>
-<li>QDA</li>
+<li>K-nearest Neighbors Classifier (KNN)</li>
+<li>Logistic Regression</li>
+<li>Linear Discriminant Analysis (LDA)</li>
+<li>Quadratic Discriminant Analysis (QDA)</li>
 <li>Naive Bayes</li>
 <li>Decision Tree (CART Algorithm)</li>
 <li>Random Forest (Classification)</li>
 <li>Bagging (Bootstrap Aggregation)</li>
-<li>Boosting (Gradient Boosting Machine (GBM))</li>
+<li>Boosting</li>
 <li>eXtreme Gradient Boosting (XGBoost)</li>
-<li>Extremely Randomized Trees (ExtraTrees)</li>
-<li>SVM</li>
+<li>Support Vector Machine (SVM)</li>
 <li>Neural Networks (NNET)</li>
-</ul>
-</section>
-<section id="data-description" class="level3">
-<h3 class="anchored" data-anchor-id="data-description">Data Description</h3>
-<p>This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:</p>
-<ul>
-<li><code>fixed.acidity</code>: The amount of fixed acid in the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>volatile.acidity</code>: The amount of volatile acid in the wine (<span class="math inline">\(g/dm^4\)</span>)</li>
-<li><code>citric.acid</code>: The amount of citric acid in the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>residual.sugar</code>: The amount of residual sugar in the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>chlorides</code>: The amount of salt in the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>free.sulfur.dioxide</code>: The amount of free sulfur dioxide in the wine (<span class="math inline">\(mg/dm^3\)</span>)</li>
-<li><code>total.sulfur.dioxide</code>: The amount of total sulfur dioxide in the wine (<span class="math inline">\(mg/dm^3\)</span>)</li>
-<li><code>density</code>: The density of the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>pH</code>: The <span class="math inline">\(pH\)</span> value of the wine</li>
-<li><code>sulphates</code>: The amount of sulphates in the wine (<span class="math inline">\(g/dm^3\)</span>)</li>
-<li><code>alcohol</code>: The alcohol content of the wine (<span class="math inline">\(\% vol\)</span>)</li>
-<li><code>quality</code>: The quality score of the wine (0-10)</li>
-</ul>
-<p>After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus <code>quality</code> column variable, and introduced a new variable <code>good</code> as our response:</p>
-<ul>
-<li><code>good</code>: A binary variable indicating whether the wine is good (<code>quality</code> <span class="math inline">\(\geq\)</span> 7) or not (<code>quality</code> <span class="math inline">\(&lt;\)</span> 7).</li>
 </ul>
 
 
@@ -797,56 +773,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preamble</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Consider the wine quality dataset from <span class="co">[</span><span class="ot">UCI Machine Learning Respository</span><span class="co">](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)</span><span class="ot">[^1]</span>. We will focus only on the data concerning white wines (and not red wines). Dichotomize the <span class="in">`quality`</span> variable as <span class="in">`good`</span>, which takes the value 1 if quality $\geq$ 7 axnd the value 0, otherwise. We will take <span class="in">`good`</span> as response and all the 11 physiochemical characteristics of the wines in the data as predictors.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Consider the wine quality dataset from <span class="co">[</span><span class="ot">UCI Machine Learning Respository</span><span class="co">](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)</span><span class="ot">[^1]</span>. We will focus only on the data concerning white wines (and not red wines). Dichotomize the <span class="in">`quality`</span> variable as <span class="in">`good`</span>, which takes the value 1 if <span class="in">`quality`</span> $\geq$ 7 and the value 0, otherwise. We will take <span class="in">`good`</span> as response and all the 11 physiochemical characteristics of the wines in the data as predictors.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">### Problem Statements</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using <span class="in">`caret`</span> package with seed set to 1234 before each computation.</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>(a) Fit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>(b) Repeat (a) using logistic regression.</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>(c) Repeat (a) using LDA.</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>(d) Repeat (a) using QDA.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methodologies</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>KNN</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>GLM/logit/glmnet</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>LDA</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>QDA</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Naive Bayes</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Decision Tree (CART Algorithm)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Random Forest (Classification)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Bagging (Bootstrap Aggregation)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Boosting (Gradient Boosting Machine (GBM))</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>eXtreme Gradient Boosting (XGBoost)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Extremely Randomized Trees (ExtraTrees)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SVM</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neural Networks (NNET)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Description</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fixed.acidity`</span>: The amount of fixed acid in the wine ($g/dm^3$)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`volatile.acidity`</span>: The amount of volatile acid in the wine ($g/dm^4$)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`citric.acid`</span>: The amount of citric acid in the wine ($g/dm^3$)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`residual.sugar`</span>: The amount of residual sugar in the wine ($g/dm^3$)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`chlorides`</span>: The amount of salt in the wine ($g/dm^3$)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`free.sulfur.dioxide`</span>: The amount of free sulfur dioxide in the wine ($mg/dm^3$)</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`total.sulfur.dioxide`</span>: The amount of total sulfur dioxide in the wine ($mg/dm^3$)</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`density`</span>: The density of the wine ($g/dm^3$)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`pH`</span>: The $pH$ value of the wine</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sulphates`</span>: The amount of sulphates in the wine ($g/dm^3$)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`alcohol`</span>: The alcohol content of the wine ($\% vol$)</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quality`</span>: The quality score of the wine (0-10)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus <span class="in">`quality`</span> column variable, and introduced a new variable <span class="in">`good`</span> as our response:</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`good`</span>: A binary variable indicating whether the wine is good (<span class="in">`quality`</span> $\geq$ 7) or not (<span class="in">`quality`</span> $&lt;$ 7).</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">### Problem Statements</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using <span class="in">`caret`</span> package with seed set to 1234 before each computation.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>(a) Fit a KNN with K chosen optimally using test error rate. Report error rate, sensitivity, specificity, and AUC for the optimal KNN based on the training data. Also, report its estimated test error rate.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>(b) Repeat (a) using logistic regression.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>(c) Repeat (a) using LDA.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>(d) Repeat (a) using QDA.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>(e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methodologies</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>K-nearest Neighbors Classifier (KNN)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Logistic Regression</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Linear Discriminant Analysis (LDA)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Quadratic Discriminant Analysis (QDA)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Naive Bayes</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Decision Tree (CART Algorithm)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Random Forest (Classification)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Bagging (Bootstrap Aggregation)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Boosting</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>eXtreme Gradient Boosting (XGBoost)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Support Vector Machine (SVM)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neural Networks (NNET)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
