@@ -67,7 +67,7 @@
     "href": "src/analysis.html#data-relationships",
     "title": "Exploratory Analysis",
     "section": "Data Relationships",
-    "text": "Data Relationships\n\n\nShow/Hide Code\nreshape2::melt(wine.data[, 1:12], \"quality\") %&gt;% \n  ggplot(aes(value, quality, color = variable)) +  \n  geom_point() + \n  geom_smooth(aes(value,quality, colour=variable), method=lm, se=FALSE)+\n  facet_wrap(.~variable, scales = \"free\")\n\n\n\n\n\n\n\n\n\nShow/Hide Code\n# Collinearity between Attributes\ncor(wine.data_cleaned) %&gt;% \n  corrplot::corrplot(method = 'number',  type = \"lower\", tl.col = \"steelblue\", number.cex = 0.5)"
+    "text": "Data Relationships\n\n\nShow/Hide Code\nreshape2::melt(wine.data_cleaned[, 1:12], \"good\") %&gt;% \n  ggplot(aes(value, good, color = variable)) +  \n  geom_point() + \n  geom_smooth(aes(value, good, colour=variable), method=lm, se=FALSE)+\n  facet_wrap(.~variable, scales = \"free\")\n\n\n\n\n\n\n\n\n\nShow/Hide Code\n# Collinearity between Attributes\ncor(wine.data_cleaned) %&gt;% \n  corrplot::corrplot(method = 'number',  type = \"lower\", tl.col = \"steelblue\", number.cex = 0.5)"
   },
   {
     "objectID": "src/analysis.html#data-split",

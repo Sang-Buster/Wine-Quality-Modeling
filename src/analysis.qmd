@@ -158,10 +158,10 @@ remove(num_rows)
 
 ## Data Relationships
 ```{r relation_plot, fig.width=10, fig.height=5, message=FALSE}
-reshape2::melt(wine.data[, 1:12], "quality") %>% 
-  ggplot(aes(value, quality, color = variable)) +  
+reshape2::melt(wine.data_cleaned[, 1:12], "good") %>% 
+  ggplot(aes(value, good, color = variable)) +  
   geom_point() + 
-  geom_smooth(aes(value,quality, colour=variable), method=lm, se=FALSE)+
+  geom_smooth(aes(value, good, colour=variable), method=lm, se=FALSE)+
   facet_wrap(.~variable, scales = "free")
 
 # Collinearity between Attributes
