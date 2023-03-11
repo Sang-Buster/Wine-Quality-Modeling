@@ -10,7 +10,7 @@
 
 <h2 align="center">Preamble</h2>
 
-Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality) [^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality ≥ 7 and the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
+Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality) [^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if `quality` ≥ 7 and the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
 
 <h2 align="center">Problem</h2>
 
@@ -36,19 +36,17 @@ Which of the following classifiers would you recommend? Justify your answer.
  ┃ ┣ 📄analysis.qmd
  ┃ ┣ 📄bagging.qmd
  ┃ ┣ 📄boosting.qmd
- ┃ ┣ 📄cart.qmd
- ┃ ┣ 📄classTree.qmd
  ┃ ┣ 📄decisionTree.qmd
  ┃ ┣ 📄knn.qmd
  ┃ ┣ 📄lda.qmd
  ┃ ┣ 📄logit.qmd
- ┃ ┣ 📄mr.qmd
  ┃ ┣ 📄naiveBayes.qmd
+ ┃ ┣ 📄nnet.qmd
  ┃ ┣ 📄qda.qmd
- ┃ ┣ 📄randomForest-class.qmd
- ┃ ┣ 📄randomForest-reg.qmd
- ┃ ┣ 📄regTree.qmd
- ┃ ┗ 📄svm.qmd
+ ┃ ┣ 📄randomForest.qmd
+ ┃ ┣ 📄summary.qmd
+ ┃ ┣ 📄svm.qmd
+ ┃ ┗ 📄xgboost.qmd 
  ┣ 📄.gitignore
  ┣ 📄index.html
  ┣ 📄LICENSE
