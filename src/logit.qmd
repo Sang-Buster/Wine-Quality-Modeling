@@ -104,10 +104,6 @@ confusionMatrix(logit.predictions, test$good)
 logit.predictions <- as.numeric(logit.predictions)
 pred_obj <- prediction(logit.predictions, test$good)
 
-# Compute the RMSE and MAE
-RMSE <- caret::RMSE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
-MAE <- caret::MAE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
-
 # Compute AUC value
 auc_val  <- performance(pred_obj, "auc")@y.values[[1]]
 auc_val
@@ -128,12 +124,6 @@ polygon(x = c(0, 1, 1), y = c(0, 0, 1),
         border = NA)
 text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 logit.kfoldCV_caret.ROC.plot <- recordPlot()
-
-pander::pander(data.frame("Accuracy" = logit_model$results$Accuracy, 
-                          "RMSE" = RMSE, 
-                          "MAE" = MAE,
-                          "Kappa" = logit_model$results$Kappa), 
-               caption = "caret::glm Performance (10-fold CV)")
 ```
 
 
@@ -153,10 +143,6 @@ Kappa <- confusionMatrix(logit.predictions, test$good)$overall[[2]]
 
 logit.predictions <- as.numeric(logit.predictions)
 pred_obj <- prediction(logit.predictions, test$good)
-
-# Compute the RMSE and MAE
-RMSE <- caret::RMSE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
-MAE <- caret::MAE(as.numeric(unlist(pred_obj@predictions)), as.numeric(test$good))
 
 # Compute AUC value
 auc_val <- performance(pred_obj, "auc")@y.values[[1]]
@@ -178,12 +164,6 @@ polygon(x = c(0, 1, 1), y = c(0, 0, 1),
         border = NA)
 text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 logit.kfoldCV_caret_tuned.ROC.plot <- recordPlot()
-
-pander::pander(data.frame("Accuracy" = Accuracy,
-                          "RMSE" = RMSE, 
-                          "MAE" = MAE,
-                          "Kappa" = Kappa),
-               caption = "caret::glm Performance (10-fold CV with stepAIC)")
 ```
 
 ## K-fold CV (`MASS`)
@@ -205,8 +185,6 @@ for (i in 1:k) {
 
 #To store the error rate of each fold
 error_rate <- numeric(k)
-rmse <- numeric(k)
-mae <- numeric(k)
 kappa <- numeric(k)
 confusion_matrices <- vector("list", k)
 
@@ -225,12 +203,6 @@ for (i in 1:k) {
   log.pred <- predict(logit_model, newdata = test, type = "response")
   predicted_classes <- as.numeric(ifelse(log.pred > 0.7, 1, 0))
   
-  # Compute RMSE
-  rmse[i] <- sqrt(mean((predicted_classes - test$good) ^ 2))
-  
-  # Compute MAE
-  mae[i] <- mean(abs(predicted_classes - test$good))
-  
   # Compute MAE
   error_rate[i] <- mean((predicted_classes> 0.7) != test$good)
   
@@ -243,14 +215,10 @@ for (i in 1:k) {
   kappa[i] <- confusion_matrices[[i]]$overall[[2]]
   
   # Print the error rates for each fold
-  cat(paste0("Fold ", i, ": ", "OER:", error_rate[i], " RMSE:", rmse[i], " MAE:", mae[i], "\n"))
+  cat(paste0("Fold ", i, ": ", "OER:", error_rate[i], "\n"))
 }
 
 best_confmat_index <- which.min(error_rate)
-best_confmat_index
-best_confmat_indexi <- which.min(rmse)
-best_confmat_index
-best_confmat_index <- which.min(mae)
 best_confmat_index
 confusion_matrices[best_confmat_index]
 
@@ -309,12 +277,6 @@ logit_model <- glm(good ~ ., data = train, family = binomial)
 log.pred <- predict(logit_model, newdata = test, type = "response")
 predicted_classes <- as.numeric(ifelse(log.pred > 0.7, 1, 0))
 
-# Compute RMSE
-rmse <- sqrt(mean((predicted_classes - test$good) ^ 2))
-
-# Compute MAE
-mae <- mean(abs(predicted_classes - test$good))
-
 # Compute error rate
 error_rate <- mean((predicted_classes > 0.7) != test$good)
 
@@ -349,8 +311,6 @@ text(0.6, 0.4, paste("AUC =", round(auc_val, 4)))
 logit.holdoutCV_MASS.ROC.plot <- recordPlot()
 
 pander::pander(data.frame("Accuracy" = 1 - error_rate, 
-                          "RMSE" = rmse, 
-                          "MAE" = mae,
                           "Kappa" = kappa))
 ```
 
