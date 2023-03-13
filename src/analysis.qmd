@@ -64,20 +64,8 @@ if (!is.null(current_dir)) {
 }
 ```
 
-## Data Import
-```{r data_import}
-wine.data <- read.csv("dataset\\winequality-white.csv", sep=";", header = T)
 
-head(wine.data)
-
-
-# Removing duplicate Rows, mutate our categorical response good
-wine.data_cleaned <-  wine.data %>% mutate(good = ifelse(quality>=7, 1, 0)) %>% distinct() %>% dplyr::select(c(1:11, 13))
-
-head(wine.data_cleaned)
-```
-
-### Data Description
+## Data Description
 
 This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:
 
@@ -97,6 +85,20 @@ This is a dataset of wine quality containing 4898 observations of 12 variables. 
 After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus `quality` column variable, and introduced a new variable `good` as our response:
 
 -   `good`: A binary variable indicating whether the wine is good (`quality` $\geq$ 7) or not (`quality` $<$ 7).
+
+
+## Data Import
+```{r data_import}
+wine.data <- read.csv("dataset\\winequality-white.csv", sep=";", header = T)
+
+head(wine.data)
+
+
+# Removing duplicate Rows, mutate our categorical response good
+wine.data_cleaned <-  wine.data %>% mutate(good = ifelse(quality>=7, 1, 0)) %>% distinct() %>% dplyr::select(-quality)
+
+head(wine.data_cleaned)
+```
 
 
 ## Data Analysis
@@ -171,7 +173,7 @@ cor(wine.data_cleaned) %>%
 
 ## Data Split
 ```{r data_split}
-set.seed(123)
+set.seed(1234)
 # Splitting the dataset into train and test (7/10th for train remaining for test)
 inTrain <- caret::createDataPartition(wine.data_cleaned$good, p = 7/10, list = F)
 train <- wine.data_cleaned[inTrain,]
@@ -183,6 +185,7 @@ train$good <- as.factor(train$good)
 test$good <- as.factor(test$good)
 
 # Save data for building models in the next step
+save(wine.data, file = "dataset\\wine.data.Rdata")
 save(wine.data_cleaned, file = "dataset\\wine.data_cleaned.Rdata")
 save(train, file = "dataset\\train.Rdata")
 save(test, file = "dataset\\test.Rdata")
