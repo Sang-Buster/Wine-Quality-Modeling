@@ -326,8 +326,8 @@ cowplot::plot_grid(logit.kfoldCV_caret.ROC.plot,
 
 | Resampling Method                                | Error Rate | Sensitivity | Specificity | AUC       |
 | ------------------------------------------------ | ---------- | ----------- | ----------- | --------- |
-| Logistic Regression (`caret`)                    | 0.1793     | 0.9324      | 0.3480      | 0.6401899 |
-| Logistic Regression (`caret` tuned with stepAIC) | 0.1801     | 0.9927      | 0.0881      | 0.5404108 |
+| Logistic Regression (`caret` 10-fold CV)         | 0.1902     | 0.9336      | 0.3180      | 0.6258030 |
+| Logistic Regression (`caret` tuned with stepAIC) | 0.1919     | 0.9895      | 0.0879      | 0.5386644 |
 | Logistic Regression (`MASS` 10-fold CV)          | 0.1616     | 1.0000      | 0.0857      | 0.5438871 |
 | Logistic Regression (`MASS` Hold-out CV)         | 0.1894     | 0.9884      | 0.1046      | 0.5465057 |
 
