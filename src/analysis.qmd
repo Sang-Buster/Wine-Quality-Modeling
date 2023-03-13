@@ -89,15 +89,15 @@ After removing the duplicate rows from our data set, we are left with 3961 obser
 
 ## Data Import
 ```{r data_import}
+# Import original dataset
 wine.data <- read.csv("dataset\\winequality-white.csv", sep=";", header = T)
 
-head(wine.data)
-
+str(wine.data)
 
 # Removing duplicate Rows, mutate our categorical response good
 wine.data_cleaned <-  wine.data %>% mutate(good = ifelse(quality>=7, 1, 0)) %>% distinct() %>% dplyr::select(-quality)
 
-head(wine.data_cleaned)
+str(wine.data_cleaned)
 ```
 
 
@@ -107,10 +107,6 @@ dim(wine.data)
 
 dim(wine.data_cleaned)
 
-str(wine.data)
-
-str(wine.data_cleaned)
-
 summary(wine.data)
 
 summary(wine.data_cleaned)
@@ -118,7 +114,7 @@ summary(wine.data_cleaned)
 # Check for NAs in dataset
 sum(is.na(wine.data))
 
-# Counts at each combination of response's factor levels
+# Counts for response's at each factor level
 table(wine.data$quality)
 ```
 
