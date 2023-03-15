@@ -1,5 +1,5 @@
 ---
-title: "Linear Discriminant Analysis"
+title: "Quadratic Discriminant Analysis"
 ---
 
 ```{r setup, include=FALSE}
@@ -228,7 +228,7 @@ cowplot::plot_grid(qda.kfoldCV_caret.ROC.plot,
 
 | Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
-| QDA (`caret`)     | 0.2399     | 0.7743      | 0.7013      | 0.7377967 |
+| QDA (`caret`)     | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
 | QDA (`MASS`)      | 0.1692     | 0.8934      | 0.5714      | 0.7324227 |
 
 

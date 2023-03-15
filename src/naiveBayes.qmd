@@ -132,7 +132,7 @@ cowplot::plot_grid(nb.kfoldCV.ROC.plot)
 
 | Resampling Method  | Error Rate | Sensitivity | Specificity | AUC       |
 | ------------------ | ---------- | ----------- | ----------- | --------- |
-| Naive Bayes        | 0.2391     | 0.7804      | 0.6784      | 0.7294256 |
+| Naive Bayes        | 0.2466     | 0.7829      | 0.6360      | 0.7094563 |
 
 ```{r, echo=FALSE}
 save(nb.kfoldCV.ROC.plot, file = "dataset\\plot\\nb.kfoldCV.ROC.plot.Rdata")

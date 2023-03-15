@@ -131,7 +131,7 @@ cowplot::plot_grid(nnet.kfoldCV.ROC.plot)
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
-| Neural Network       | 0.1801     | 0.9313      | 0.3480      | 0.6396696 |
+| Neural Network       | 0.1818     | 0.9378      | 0.3431      | 0.6404628 |
 
 ```{r, echo=FALSE}
 save(nnet.kfoldCV.ROC.plot, file = "dataset\\plot\\nnet.kfoldCV.ROC.plot.Rdata")

@@ -132,7 +132,7 @@ cowplot::plot_grid(bag.kfoldCV.ROC.plot)
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
-| Bagging              | 0.1658     | 0.9178      | 0.4802      | 0.6989851 |
+| Bagging              | 0.0497     | 0.9694      | 0.8745      | 0.9219593 |
 
 ```{r, echo=FALSE}
 save(bag.kfoldCV.ROC.plot, file = "dataset\\plot\\bag.kfoldCV.ROC.plot.Rdata")

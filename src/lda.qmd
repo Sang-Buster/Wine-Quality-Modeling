@@ -1,5 +1,5 @@
 ---
-title: "Quadratic Discriminant Analysis"
+title: "Linear Discriminant Analysis"
 ---
 
 ```{r setup, include=FALSE}

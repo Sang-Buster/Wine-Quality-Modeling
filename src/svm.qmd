@@ -132,7 +132,7 @@ cowplot::plot_grid(svm.kfoldCV.ROC.plot)
 
 | Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
-| SVM                  | 0.1675     | 0.9646      | 0.2731      | 0.618874  |
+| SVM                  | 0.1641     | 0.9726      | 0.2929      | 0.6327449 |
 
 ```{r, echo=FALSE}
 save(svm.kfoldCV.ROC.plot, file = "dataset\\plot\\svm.kfoldCV.ROC.plot.Rdata")
