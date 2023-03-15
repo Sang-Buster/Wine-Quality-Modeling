@@ -31,7 +31,7 @@ website:
       - href: index.qmd
         text: "Preamble"
       - href: src/analysis.qmd
-        text: "Exploratory Analysis"
+        text: "Data Analysis"
       - section: "Dta Modeling"
         contents:
           - href: src/knn.qmd
