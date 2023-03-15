@@ -504,15 +504,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(wine.data)) {</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(wine.data[, i])),</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Var1, <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">colnames</span>(wine.data)[i]) <span class="sc">+</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  gg_list[[i]] <span class="ot">&lt;-</span> gg</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># combine ggplot objects using ggarrange</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> gg_list, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  gg_list[[i]] <span class="ot">&lt;-</span> gg</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># combine ggplot objects using ggarrange</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> gg_list, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1152,59 +1154,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-153"><a href="#cb22-153" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(wine.data)) {</span>
 <span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a>  gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(wine.data[, i])),</span>
 <span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Var1, <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
-<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
 <span id="cb22-157"><a href="#cb22-157" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">colnames</span>(wine.data)[i]) <span class="sc">+</span></span>
-<span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a>  gg_list[[i]] <span class="ot">&lt;-</span> gg</span>
-<span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a><span class="co"># combine ggplot objects using ggarrange</span></span>
-<span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> gg_list, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span>
-<span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unnecessary variables</span></span>
-<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(grid_arr)</span>
-<span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(plt)</span>
-<span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(i)</span>
-<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_plots)</span>
-<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_rows)</span>
-<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Relationships</span></span>
-<span id="cb22-178"><a href="#cb22-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r relation_plot, fig.width=10, fig.height=5, message=FALSE}</span></span>
-<span id="cb22-179"><a href="#cb22-179" aria-hidden="true" tabindex="-1"></a>reshape2<span class="sc">::</span><span class="fu">melt</span>(wine.data_cleaned[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="st">"good"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, good, <span class="at">color =</span> variable)) <span class="sc">+</span>  </span>
-<span id="cb22-181"><a href="#cb22-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb22-182"><a href="#cb22-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(value, good, <span class="at">colour=</span>variable), <span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb22-183"><a href="#cb22-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
-<span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a><span class="co"># Collinearity between Attributes</span></span>
-<span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wine.data_cleaned) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">'number'</span>,  <span class="at">type =</span> <span class="st">"lower"</span>, <span class="at">tl.col =</span> <span class="st">"steelblue"</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-189"><a href="#cb22-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-190"><a href="#cb22-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Split</span></span>
-<span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r data_split}</span></span>
-<span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb22-193"><a href="#cb22-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into train and test (7/10th for train remaining for test)</span></span>
-<span id="cb22-194"><a href="#cb22-194" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(wine.data_cleaned<span class="sc">$</span>good, <span class="at">p =</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">list =</span> F)</span>
-<span id="cb22-195"><a href="#cb22-195" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[inTrain,]</span>
-<span id="cb22-196"><a href="#cb22-196" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>inTrain,]</span>
-<span id="cb22-197"><a href="#cb22-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the outcome variable to a factor with two levels</span></span>
-<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
-<span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
-<span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
-<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
-<span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data_cleaned, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
-<span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a>  gg_list[[i]] <span class="ot">&lt;-</span> gg</span>
+<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a><span class="co"># combine ggplot objects using ggarrange</span></span>
+<span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> gg_list, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">4</span>)</span>
+<span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unnecessary variables</span></span>
+<span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(grid_arr)</span>
+<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(plt)</span>
+<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(i)</span>
+<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_plots)</span>
+<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_rows)</span>
+<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-178"><a href="#cb22-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-179"><a href="#cb22-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Relationships</span></span>
+<span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r relation_plot, fig.width=10, fig.height=5, message=FALSE}</span></span>
+<span id="cb22-181"><a href="#cb22-181" aria-hidden="true" tabindex="-1"></a>reshape2<span class="sc">::</span><span class="fu">melt</span>(wine.data_cleaned[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="st">"good"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-182"><a href="#cb22-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, good, <span class="at">color =</span> variable)) <span class="sc">+</span>  </span>
+<span id="cb22-183"><a href="#cb22-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(value, good, <span class="at">colour=</span>variable), <span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
+<span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a><span class="co"># Collinearity between Attributes</span></span>
+<span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wine.data_cleaned) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-189"><a href="#cb22-189" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">'number'</span>,  <span class="at">type =</span> <span class="st">"lower"</span>, <span class="at">tl.col =</span> <span class="st">"steelblue"</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb22-190"><a href="#cb22-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Split</span></span>
+<span id="cb22-193"><a href="#cb22-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r data_split}</span></span>
+<span id="cb22-194"><a href="#cb22-194" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb22-195"><a href="#cb22-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into train and test (7/10th for train remaining for test)</span></span>
+<span id="cb22-196"><a href="#cb22-196" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(wine.data_cleaned<span class="sc">$</span>good, <span class="at">p =</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">list =</span> F)</span>
+<span id="cb22-197"><a href="#cb22-197" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[inTrain,]</span>
+<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>inTrain,]</span>
+<span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the outcome variable to a factor with two levels</span></span>
+<span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
+<span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
+<span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
+<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data_cleaned, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
+<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

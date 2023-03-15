@@ -153,9 +153,11 @@ gg_list <- list()
 for(i in 1:ncol(wine.data)) {
   gg <- ggplot(data = as.data.frame(table(wine.data[, i])),
                aes(x = Var1, y = Freq)) +
-    geom_point(shape = 20, size = 2, color = "steelblue") +
+    geom_point(size = 3, color = "steelblue") +
     ggtitle(colnames(wine.data)[i]) +
-    theme(axis.text.x = element_blank(), 
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          axis.text.x = element_blank(), 
           axis.title.x = element_blank())
   gg_list[[i]] <- gg
 }
