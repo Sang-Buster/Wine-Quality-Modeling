@@ -213,6 +213,16 @@ lda.kfoldCV_MASS.plot <- accu.kappa.plot(lda_df) +
   ggtitle("MASS::lda Model Performance (10-Fold CV)")
 ```
 
+```{r decision_boundary}
+png("myplot.png", width = 2000, height = 2000, res = 150)
+klaR::partimat(as.factor(good) ~ ., data = train, method = "lda", 
+         control = list(adip = 0.7, col.unmatched = "grey", 
+                        col.matched = c("#E69F00", "#56B4E9")), 
+         pch = 19, cex = 1.5, varNames = predictor_vars)
+dev.off()
+```
+
+
 
 ## Summary
 ```{r lda.ROC_curve, fig.width=20, fig.height=10}

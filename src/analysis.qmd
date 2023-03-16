@@ -145,27 +145,6 @@ for(i in 1:num_plots) {
 grid_arr <- do.call(gridExtra::grid.arrange, c(grid_arr, ncol = 3))
 ```
 
-```{r data_norm.distribution, fig.height=20}
-# create empty list to store ggplot objects
-gg_list <- list()
-
-# loop through columns and create qqplot with ggplot2
-for(i in 1:ncol(wine.data)) {
-  gg <- ggplot(data = as.data.frame(table(wine.data[, i])),
-               aes(x = Var1, y = Freq)) +
-    geom_point(size = 3, color = "steelblue") +
-    ggtitle(colnames(wine.data)[i]) +
-    theme_bw()+
-    theme(panel.grid = element_blank(),
-          axis.text.x = element_blank(), 
-          axis.title.x = element_blank())
-  gg_list[[i]] <- gg
-}
-
-# combine ggplot objects using ggarrange
-ggarrange(plotlist = gg_list, ncol = 3, nrow = 4)
-```
-
 
 ```{r, echo=FALSE}
 # Remove unnecessary variables
