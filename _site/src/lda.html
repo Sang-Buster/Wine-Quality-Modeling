@@ -584,7 +584,7 @@ Prediction   0   1
 </colgroup>
 <thead>
 <tr class="header">
-<th>Resampling Method</th>
+<th>Model</th>
 <th>Error Rate</th>
 <th>Sensitivity</th>
 <th>Specificity</th>
@@ -1241,7 +1241,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MASS::lda Model Performance (10-Fold CV)"</span>)</span>
 <span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r decision_boundary,  results='hide'}</span></span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r decision_boundary,  eval=FALSE}</span></span>
 <span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"dataset</span><span class="sc">\\</span><span class="st">plot</span><span class="sc">\\</span><span class="st">lda.png"</span>, <span class="at">width =</span> <span class="dv">2000</span>, <span class="at">height =</span> <span class="dv">2000</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
 <span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a>klaR<span class="sc">::</span><span class="fu">partimat</span>(<span class="fu">as.factor</span>(good) <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">method =</span> <span class="st">"lda"</span>, </span>
 <span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a>         <span class="at">control =</span> <span class="fu">list</span>(<span class="at">adip =</span> <span class="fl">0.7</span>, <span class="at">col.unmatched =</span> <span class="st">"grey"</span>, </span>
@@ -1259,7 +1259,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"hv"</span>, <span class="at">scale =</span> <span class="fl">0.8</span>)</span>
 <span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-234"><a href="#cb20-234" aria-hidden="true" tabindex="-1"></a>| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |</span>
+<span id="cb20-234"><a href="#cb20-234" aria-hidden="true" tabindex="-1"></a>| Model | Error Rate | Sensitivity | Specificity | AUC       |</span>
 <span id="cb20-235"><a href="#cb20-235" aria-hidden="true" tabindex="-1"></a>| ----------------- | ---------- | ----------- | ----------- | --------- |</span>
 <span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a>| LDA (<span class="in">`caret`</span>)     | 0.1919     | 0.9283      | 0.3305      | 0.6294448 |</span>
 <span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a>| LDA (<span class="in">`MASS`</span>)      | 0.1591     | 0.9969      | 0.1143      | 0.5488133 |</span>
