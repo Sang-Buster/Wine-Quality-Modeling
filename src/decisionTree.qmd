@@ -196,7 +196,7 @@ cowplot::plot_grid(dc.kfoldCV.ROC.plot, dc.kfoldCV_mod.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
 
-| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| Model    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | CART                 | 0.1827     | 0.9062      | 0.4644      | 0.6853261 |
 | CART (Tuned)         | 0.1810     | 0.9115      | 0.4519      | 0.6816843 |

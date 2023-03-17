@@ -130,7 +130,7 @@ pander::pander(rf_model$results)
 cowplot::plot_grid(rf.kfoldCV.ROC.plot)
 ```
 
-| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| Model    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | Random Forest        | 0.0471     | 0.9789      | 0.8494      | 0.9141488 |
 

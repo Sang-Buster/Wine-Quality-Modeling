@@ -218,7 +218,7 @@ qda.kfoldCV_MASS.plot <- accu.kappa.plot(qda_df) +
   ggtitle("MASS::qda Model Performance (10-Fold CV)")
 ```
 
-```{r decision_boundary, results='hide'}
+```{r decision_boundary, eval=FALSE}
 png("dataset\\plot\\qda.png", width = 2000, height = 2000, res = 150)
 klaR::partimat(as.factor(good) ~ ., data = train, method = "qda", 
          control = list(adip = 0.7, col.unmatched = "grey", 
@@ -235,7 +235,7 @@ cowplot::plot_grid(qda.kfoldCV_caret.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
 
-| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
+| Model | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
 | QDA (`caret`)     | 0.2559     | 0.7418      | 0.7531      | 0.7474858 |
 | QDA (`MASS`)      | 0.1692     | 0.8934      | 0.5714      | 0.7324227 |

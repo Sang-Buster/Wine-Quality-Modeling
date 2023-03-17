@@ -213,7 +213,7 @@ lda.kfoldCV_MASS.plot <- accu.kappa.plot(lda_df) +
   ggtitle("MASS::lda Model Performance (10-Fold CV)")
 ```
 
-```{r decision_boundary,  results='hide'}
+```{r decision_boundary,  eval=FALSE}
 png("dataset\\plot\\lda.png", width = 2000, height = 2000, res = 150)
 klaR::partimat(as.factor(good) ~ ., data = train, method = "lda", 
          control = list(adip = 0.7, col.unmatched = "grey", 
@@ -231,7 +231,7 @@ cowplot::plot_grid(lda.kfoldCV_caret.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
 
-| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
+| Model | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
 | LDA (`caret`)     | 0.1919     | 0.9283      | 0.3305      | 0.6294448 |
 | LDA (`MASS`)      | 0.1591     | 0.9969      | 0.1143      | 0.5488133 |

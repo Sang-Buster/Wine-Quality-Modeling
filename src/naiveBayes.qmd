@@ -130,7 +130,7 @@ pander::pander(nb_model$results)
 cowplot::plot_grid(nb.kfoldCV.ROC.plot)
 ```
 
-| Resampling Method  | Error Rate | Sensitivity | Specificity | AUC       |
+| Model  | Error Rate | Sensitivity | Specificity | AUC       |
 | ------------------ | ---------- | ----------- | ----------- | --------- |
 | Naive Bayes        | 0.2466     | 0.7829      | 0.6360      | 0.7094563 |
 

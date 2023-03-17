@@ -95,7 +95,7 @@ cowplot::plot_grid(knn.kfoldCV.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
 
-| Resampling Method                                | Error Rate | Sensitivity | Specificity | AUC       |
+| Model(Resampling Method)| Error Rate | Sensitivity | Specificity | AUC       |
 | ------------------------------------------------ | ---------- | ----------- | ----------- | --------- |
 | KNN 10-Fold CV, k=1:10                           | 0.1759     | 0.9568      | 0.2971      | 0.6269339 |
 | KNN 10-Fold CV, k=1:30                           | 0.1961     | 0.9758      | 0.1213      | 0.5485514 |
@@ -150,7 +150,7 @@ cowplot::plot_grid(xgboost.kfoldCV.ROC.plot,
                    ncol = 2, align = "hv", scale = 0.8)
 ```
 
-| Resampling Method | Error Rate | Sensitivity | Specificity | AUC       |
+| Model             | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------- | ---------- | ----------- | ----------- | --------- |
 | Naive Bayes       | 0.2466     | 0.7829      | 0.6360      | 0.7094563 |
 | CART              | 0.1827     | 0.9062      | 0.4644      | 0.6853261 |

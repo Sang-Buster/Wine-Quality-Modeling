@@ -130,7 +130,7 @@ pander::pander(svm_model$results)
 cowplot::plot_grid(svm.kfoldCV.ROC.plot)
 ```
 
-| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| Model    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | SVM                  | 0.1641     | 0.9726      | 0.2929      | 0.6327449 |
 

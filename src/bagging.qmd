@@ -130,7 +130,7 @@ pander::pander(bag_model$results)
 cowplot::plot_grid(bag.kfoldCV.ROC.plot)
 ```
 
-| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| Model    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | Bagging              | 0.0497     | 0.9694      | 0.8745      | 0.9219593 |
 

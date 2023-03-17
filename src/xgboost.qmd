@@ -139,7 +139,7 @@ pander::pander(xgboost_model$results)
 cowplot::plot_grid(xgboost.kfoldCV.ROC.plot)
 ```
 
-| Resampling Method    | Error Rate | Sensitivity | Specificity | AUC       |
+| Model    | Error Rate | Sensitivity | Specificity | AUC       |
 | -------------------- | ---------- | ----------- | ----------- | --------- |
 | XGBoost              | 0.1338     | 0.9589      | 0.4979      | 0.7284060 |
 
