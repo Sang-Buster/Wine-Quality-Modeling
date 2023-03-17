@@ -219,7 +219,6 @@ klaR::partimat(as.factor(good) ~ ., data = train, method = "lda",
          control = list(adip = 0.7, col.unmatched = "grey", 
                         col.matched = c("#E69F00", "#56B4E9")), 
          pch = 19, cex = 1.5, varNames = predictor_vars)
-dev.off()
 ```
 ![](dataset/plot/lda.png)
 
