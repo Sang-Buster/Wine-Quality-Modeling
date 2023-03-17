@@ -602,7 +602,7 @@ cowplot::plot_grid(knn.repeatedCV.ROC.plot, knn.repeatedCV_mod.ROC.plot,
 ```
 
 
-| Resampling Method       | Error Rate | Sensitivity | Specificity | AUC       |
+| Model (Resampling Method)       | Error Rate | Sensitivity | Specificity | AUC       |
 | ----------------------- | ---------- | ----------- | ----------- | --------- |
 | KNN 10-Fold CV, k=1:10  | 0.1759     | 0.9568      | 0.2971      | 0.6269339 |
 | KNN 10-Fold CV, k=1:30  | 0.1961     | 0.9758      | 0.1213      | 0.5485514 |
