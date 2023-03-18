@@ -462,29 +462,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="TRUE">
 <details>
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>wine.colnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(wine.data[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>])</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>wine.colnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(wine.data)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>num_plots     <span class="ot">&lt;-</span> <span class="fu">length</span>(wine.colnames)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>num_rows      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(num_plots<span class="sc">/</span><span class="dv">3</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store plots</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>grid_arr      <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each column name in the wine.colnames vector</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_plots) {</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a ggplot object for the current column using aes</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> wine.data, <span class="fu">aes_string</span>(<span class="at">x =</span> wine.colnames[i])) <span class="sc">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(wine.data[[wine.colnames[i]]]))<span class="sc">/</span><span class="dv">30</span>, </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"slategray3"</span>) <span class="sc">+</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> wine.colnames[i], <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the current plot to the grid_arr list</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  grid_arr[[i]] <span class="ot">&lt;-</span> plt</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>grid_arr <span class="ot">&lt;-</span> <span class="fu">do.call</span>(gridExtra<span class="sc">::</span>grid.arrange, <span class="fu">c</span>(grid_arr, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store plots</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>grid_arr      <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each column name in the wine.colnames vector</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_plots) {</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a ggplot object for the current column using aes</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> wine.data, <span class="fu">aes_string</span>(<span class="at">x =</span> wine.colnames[i])) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(wine.data[[wine.colnames[i]]]))<span class="sc">/</span><span class="dv">30</span>, </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"slategray3"</span>) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> wine.colnames[i], <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the current plot to the grid_arr list</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  grid_arr[[i]] <span class="ot">&lt;-</span> plt</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>grid_arr <span class="ot">&lt;-</span> <span class="fu">do.call</span>(gridExtra<span class="sc">::</span>grid.arrange, <span class="fu">c</span>(grid_arr, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1091,73 +1089,71 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Distribution</span></span>
 <span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r hist_plot, warning=FALSE}</span></span>
-<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>wine.colnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(wine.data[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>])</span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>wine.colnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(wine.data)</span>
 <span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>num_plots     <span class="ot">&lt;-</span> <span class="fu">length</span>(wine.colnames)</span>
 <span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a>num_rows      <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(num_plots<span class="sc">/</span><span class="dv">3</span>)</span>
 <span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store plots</span></span>
-<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a>grid_arr      <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each column name in the wine.colnames vector</span></span>
-<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_plots) {</span>
-<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a ggplot object for the current column using aes</span></span>
-<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>  plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> wine.data, <span class="fu">aes_string</span>(<span class="at">x =</span> wine.colnames[i])) <span class="sc">+</span></span>
-<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(wine.data[[wine.colnames[i]]]))<span class="sc">/</span><span class="dv">30</span>, </span>
-<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"slategray3"</span>) <span class="sc">+</span></span>
-<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> wine.colnames[i], <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
-<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the current plot to the grid_arr list</span></span>
-<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a>  grid_arr[[i]] <span class="ot">&lt;-</span> plt</span>
-<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a>grid_arr <span class="ot">&lt;-</span> <span class="fu">do.call</span>(gridExtra<span class="sc">::</span>grid.arrange, <span class="fu">c</span>(grid_arr, <span class="at">ncol =</span> <span class="dv">3</span>))</span>
-<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unnecessary variables</span></span>
-<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(grid_arr)</span>
-<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(plt)</span>
-<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(i)</span>
-<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_plots)</span>
-<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_rows)</span>
-<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Relationships</span></span>
-<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r relation_plot, fig.width=10, fig.height=5, message=FALSE}</span></span>
-<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a>reshape2<span class="sc">::</span><span class="fu">melt</span>(wine.data_cleaned[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="st">"good"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, good, <span class="at">color =</span> variable)) <span class="sc">+</span>  </span>
-<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(value, good, <span class="at">colour=</span>variable), <span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
-<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a><span class="co"># Collinearity between Attributes</span></span>
-<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wine.data_cleaned) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">'number'</span>,  <span class="at">type =</span> <span class="st">"lower"</span>, <span class="at">tl.col =</span> <span class="st">"steelblue"</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Split</span></span>
-<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r data_split}</span></span>
-<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into train and test (7/10th for train remaining for test)</span></span>
-<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(wine.data_cleaned<span class="sc">$</span>good, <span class="at">p =</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">list =</span> F)</span>
-<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[inTrain,]</span>
-<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>inTrain,]</span>
-<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the outcome variable to a factor with two levels</span></span>
-<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
-<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
-<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
-<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
-<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data_cleaned, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
-<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
-<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
-<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store plots</span></span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a>grid_arr      <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each column name in the wine.colnames vector</span></span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_plots) {</span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a ggplot object for the current column using aes</span></span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a>  plt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> wine.data, <span class="fu">aes_string</span>(<span class="at">x =</span> wine.colnames[i])) <span class="sc">+</span></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(wine.data[[wine.colnames[i]]]))<span class="sc">/</span><span class="dv">30</span>, </span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"slategray3"</span>) <span class="sc">+</span></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> wine.colnames[i], <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the current plot to the grid_arr list</span></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a>  grid_arr[[i]] <span class="ot">&lt;-</span> plt</span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a>grid_arr <span class="ot">&lt;-</span> <span class="fu">do.call</span>(gridExtra<span class="sc">::</span>grid.arrange, <span class="fu">c</span>(grid_arr, <span class="at">ncol =</span> <span class="dv">3</span>))</span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unnecessary variables</span></span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(grid_arr)</span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(plt)</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(i)</span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_plots)</span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(num_rows)</span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Relationships</span></span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r relation_plot, fig.width=10, fig.height=5, message=FALSE}</span></span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a>reshape2<span class="sc">::</span><span class="fu">melt</span>(wine.data_cleaned[, <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>], <span class="st">"good"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, good, <span class="at">color =</span> variable)) <span class="sc">+</span>  </span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(value, good, <span class="at">colour=</span>variable), <span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="co"># Collinearity between Attributes</span></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wine.data_cleaned) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">'number'</span>,  <span class="at">type =</span> <span class="st">"lower"</span>, <span class="at">tl.col =</span> <span class="st">"steelblue"</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Split</span></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r data_split}</span></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into train and test (7/10th for train remaining for test)</span></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a>inTrain <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(wine.data_cleaned<span class="sc">$</span>good, <span class="at">p =</span> <span class="dv">7</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">list =</span> F)</span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> wine.data_cleaned[inTrain,]</span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> wine.data_cleaned[<span class="sc">-</span>inTrain,]</span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the outcome variable to a factor with two levels</span></span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>good)</span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>good <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test<span class="sc">$</span>good)</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data for building models in the next step</span></span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data.Rdata"</span>)</span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(wine.data_cleaned, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">wine.data_cleaned.Rdata"</span>)</span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(train, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">train.Rdata"</span>)</span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(test, <span class="at">file =</span> <span class="st">"dataset</span><span class="sc">\\</span><span class="st">test.Rdata"</span>)</span>
+<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

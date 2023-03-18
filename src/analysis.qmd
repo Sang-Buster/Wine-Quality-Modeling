@@ -120,14 +120,12 @@ table(wine.data$quality)
 
 ## Data Distribution
 ```{r hist_plot, warning=FALSE}
-wine.colnames <- colnames(wine.data[, 1:12])
+wine.colnames <- colnames(wine.data)
 num_plots     <- length(wine.colnames)
 num_rows      <- ceiling(num_plots/3)
 
-
 # Create an empty list to store plots
 grid_arr      <- list()
-
 
 # Loop over each column name in the wine.colnames vector
 for(i in 1:num_plots) {
