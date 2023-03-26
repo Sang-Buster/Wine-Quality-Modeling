@@ -66,10 +66,9 @@ format:
   html:
     grid:
       sidebar-width: 300px
-      body-width: 900px
+      body-width: 1200px
       margin-width: 300px
       gutter-width: 1.5rem
-    page-layout: full
     theme:
       light: [materia, asset/css/theme.scss]
       dark: [slate, asset/css/theme-dark.scss]
