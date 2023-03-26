@@ -40,11 +40,10 @@ Consider the wine quality dataset from [UCI Machine Learning Respository](https:
  ┃ ┣ 📄svm.qmd
  ┃ ┗ 📄xgboost.qmd 
  ┣ 📄.gitignore
- ┣ 📄index.html
  ┣ 📄LICENSE
  ┣ 📄README.md
- ┣ 📄index.qmd
- ┗ 📄_quarto.yml
+ ┣ 📄_quarto.yml
+ ┗ 📄index.qmd
 ```
 
 <p align="right">
