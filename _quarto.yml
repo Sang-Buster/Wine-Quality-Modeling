@@ -24,7 +24,7 @@ website:
         href: https://github.com/Sang-Buster/Wine-Quality-Modeling/blob/main/src/
         text: "Source Code"
         
-    style: "docked"
+    style: "floating"
     search: true
     collapse-level: 2
     contents:
