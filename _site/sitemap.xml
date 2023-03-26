@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wine-quality-modeling.vercel.app/index.html</loc>
-    <lastmod>2023-03-26T05:37:00.047Z</lastmod>
+    <lastmod>2023-03-26T05:39:15.211Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/analysis.html</loc>
-    <lastmod>2023-03-26T05:37:02.786Z</lastmod>
+    <lastmod>2023-03-26T05:39:19.072Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/bagging.html</loc>
-    <lastmod>2023-03-26T05:37:05.075Z</lastmod>
+    <lastmod>2023-03-26T05:39:22.201Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/boosting.html</loc>
-    <lastmod>2023-03-26T05:37:07.793Z</lastmod>
+    <lastmod>2023-03-26T05:39:25.390Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/decisionTree.html</loc>
-    <lastmod>2023-03-26T05:37:10.890Z</lastmod>
+    <lastmod>2023-03-26T05:39:29.379Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/knn.html</loc>
-    <lastmod>2023-03-26T05:37:15.515Z</lastmod>
+    <lastmod>2023-03-26T05:39:34.469Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/lda.html</loc>
-    <lastmod>2023-03-26T05:37:18.521Z</lastmod>
+    <lastmod>2023-03-26T05:39:36.712Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/logit.html</loc>
-    <lastmod>2023-03-26T05:37:22.066Z</lastmod>
+    <lastmod>2023-03-26T05:39:40.579Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/naiveBayes.html</loc>
-    <lastmod>2023-03-26T05:37:24.617Z</lastmod>
+    <lastmod>2023-03-26T05:39:43.419Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/nnet.html</loc>
-    <lastmod>2023-03-26T05:37:27.404Z</lastmod>
+    <lastmod>2023-03-26T05:39:46.228Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/qda.html</loc>
-    <lastmod>2023-03-26T05:37:31.049Z</lastmod>
+    <lastmod>2023-03-26T05:39:49.846Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/randomForest.html</loc>
-    <lastmod>2023-03-26T05:37:33.839Z</lastmod>
+    <lastmod>2023-03-26T05:39:52.788Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/summary.html</loc>
-    <lastmod>2023-03-26T05:37:36.847Z</lastmod>
+    <lastmod>2023-03-26T05:39:56.247Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/svm.html</loc>
-    <lastmod>2023-03-26T05:37:39.020Z</lastmod>
+    <lastmod>2023-03-26T05:39:58.352Z</lastmod>
   </url>
   <url>
     <loc>https://wine-quality-modeling.vercel.app/src/xgboost.html</loc>
-    <lastmod>2023-03-26T05:37:42.245Z</lastmod>
+    <lastmod>2023-03-26T05:40:02.154Z</lastmod>
   </url>
 </urlset>
