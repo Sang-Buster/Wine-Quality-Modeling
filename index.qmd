@@ -1,16 +1,15 @@
 ---
 title: "Introduction to Statistical Learning"
 subtitle: "STAT 387"
-fig-align: center
 ---
 
 ## Preamble
 
-Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if quality ≥ 7 axnd the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
+Consider the wine quality dataset from [UCI Machine Learning Respository](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)[^1]. We will focus only on the data concerning white wines (and not red wines). Dichotomize the `quality` variable as `good`, which takes the value 1 if `quality` $\geq$ 7 and the value 0, otherwise. We will take `good` as response and all the 11 physiochemical characteristics of the wines in the data as predictors.
 
 [^1]: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
-### Problem Statements
+## Problem Statements
 
 Use 10-fold cross-validation for estimating the test error rates below and compute the estimates using `caret` package with seed set to 1234 before each computation.
 
@@ -20,48 +19,22 @@ Use 10-fold cross-validation for estimating the test error rates below and compu
 (d) Repeat (a) using QDA.
 (e) Compare the results in (a)-(d). Which classifier would you recommend? Justify your answer.
 
-### Methodologies
+## Methodologies
 
--   KNN
--   GLM/logit/glmnet
--   LDA
--   QDA
--   Regression/Multi-Regression
+Data Modeling
+
+-   K-nearest Neighbors Classifier (KNN)
+-   Logistic Regression
+-   Linear Discriminant Analysis (LDA)
+-   Quadratic Discriminant Analysis (QDA)
+
+Further Modeling
+
 -   Naive Bayes
--   Decision Tree
--   Classification Tree
--   Regression Tree
--   Classification and Regression Trees (CART)
--   Iterative Dichotomiser 3 (ID3)
--   C4.5
--   Random Forest
--   Classification
--   Regression
--   Bagged
--   Boosted
--   Gradient Boosted Trees (GBT)
--   Extremely Randomized Trees (ExtraTrees)
--   SVM
-
-### Data Description
-
-This is a dataset of wine quality containing 4898 observations of 12 variables. The variables are:
-
--   `fixed.acidity`: The amount of fixed acid in the wine ($g/dm^3$)
--   `volatile.acidity`: The amount of volatile acid in the wine ($g/dm^4$)
--   `citric.acid`: The amount of citric acid in the wine ($g/dm^3$)
--   `residual.sugar`: The amount of residual sugar in the wine ($g/dm^3$)
--   `chlorides`: The amount of salt in the wine ($g/dm^3$)
--   `free.sulfur.dioxide`: The amount of free sulfur dioxide in the wine ($mg/dm^3$)
--   `total.sulfur.dioxide`: The amount of total sulfur dioxide in the wine ($mg/dm^3$)
--   `density`: The density of the wine ($g/dm^3$)
--   `pH`: The $pH$ value of the wine
--   `sulphates`: The amount of sulphates in the wine ($g/dm^3$)
--   `alcohol`: The alcohol content of the wine ($\% vol$)
--   `quality`: The quality score of the wine ($0-10$)
-
-After removing the duplicate rows from our data set, we are left with 3961 observations of the above 11 variables minus `quality` column variable, and introduced a new variable `good` as our response:
-
--   `good`: A binary variable indicating whether the wine is good (`quality` $\geq 7$) or not (`quality` $<7$).
-
-### Reference
+-   Decision Tree (CART Algorithm)
+-   Random Forest (Classification)
+-   Bagging (Bootstrap Aggregation)
+-   Boosting
+-   eXtreme Gradient Boosting (XGBoost)
+-   Support Vector Machine (SVM)
+-   Neural Networks (NNET)
