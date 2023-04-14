@@ -48,7 +48,7 @@ Consider the wine quality dataset from [UCI Machine Learning Respository](https:
 
 <p align="right">
 <a href="https://github.com/Sang-Buster/Wine-Quality-Modeling" target="_blank">
-<img src="https://img.shields.io/github/last-commit/theRealLeif/STAT387?label=Last%20commit"/>
+<img src="https://img.shields.io/github/last-commit/Sang-Buster/Wine-Quality-Modeling?label=Last%20commit"/>
 </a>
 </p>
 
