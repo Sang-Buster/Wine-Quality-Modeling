@@ -62,6 +62,11 @@ website:
             text: "Neural Network"
       - href: src/summary.qmd
         text: "Summary"
+
+filters:
+  - lightbox
+lightbox: auto
+  
 format:
   html:
     grid:
