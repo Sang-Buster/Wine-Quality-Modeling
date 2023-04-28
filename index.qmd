@@ -1,6 +1,5 @@
 ---
 title: "Introduction to Statistical Learning"
-subtitle: "STAT 387"
 ---
 
 ## Preamble
