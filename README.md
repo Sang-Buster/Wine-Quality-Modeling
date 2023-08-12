@@ -1,5 +1,5 @@
 <h1 align="center">Supervised Leaning Modelings</h1>
-<h6 align="center">Wine Quality Data | UCI Machine Learning</h6>
+<h6 align="center">Wine Quality Data | Machine Learning Implementation in R</h6>
 <p align="center"><b>#K-nearest neighbor algorithm (KNN)  &emsp; #Logistic regression &emsp; <br> #Linear Discriminant Analysis (LDA) &emsp; #Quadratic Discriminant Analysis(QDA) <br> #Naive Bayes  &emsp; #Decision Tree (CART) &emsp; #Random Forest (Classification) <br> #Bagging  &emsp; #Boosting &emsp; #Support Vector Machine (SVM) &emsp; #Neural Network <br></b></p>
 
 <p align="center">
